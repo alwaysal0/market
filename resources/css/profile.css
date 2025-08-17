@@ -1,0 +1,207 @@
+#profile-main-cont {
+    display: flex;
+    height: 100vh;
+}
+
+#profile-left-cont {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    border-right: 1px solid black;
+    button {
+        color: grey;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+#profile-right-cont {
+    padding-left: 50px;
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    gap: 5px;
+
+    input[type='text'] {
+        font-size: 16px;
+        min-width: 15%;
+        padding: 5px 10px 5px 10px;
+        border: 1.5px solid rgb(157, 157, 157);
+        border-radius: 5px;
+        transition: ease-in-out .2s;
+    }
+    input[type='text']:focus,
+    input[type='text']:hover {
+        border-color: black;
+        outline: none;
+    }
+
+    button {
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        background-color: #e5e7eb;
+        color: #374151;
+        padding: 5px 12px;
+        height: 100%;
+        transition: background-color 0.2s ease-in-out;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #d1d5db;
+    }
+
+    button:active {
+        background-color: #9ca3af;
+    }
+
+    label {
+        color: rgb(68, 68, 68);
+    }
+}
+
+#profile-right-cont-title {
+    font-size: 24px;
+    color: #303030;
+}
+
+.active-btn {
+    color: black !important;
+}
+
+.disabled-btn,
+.disabled-btn:hover,
+.disabled-btn:active,
+.disabled-btn:focus {
+    cursor: default !important;
+    filter: opacity(.5);
+    background-color: #e5e7eb !important; /* уберёт изменения при hover */
+    box-shadow: none !important;          /* уберёт active/focus */
+}
+
+#profile-upload-good-cont-overlay {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.079);
+    width: 100%;
+    height: 100%;
+}
+
+#profile-upload-good-cont-title {
+    text-align: center;
+    font-size: 24px;
+    color: #303030;
+}
+
+#profile-upload-good-cont {
+    position: absolute;
+    width: 80%;
+    height: 60%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.194);
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+    }
+
+    button {
+        width: 40%;
+        font-size: 16px;
+        padding: 5px 10px 5px 10px;
+        border: 1.5px solid grey;
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        color: #303030;
+        transition: ease-in-out .2s;
+
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: rgb(230, 230, 230);
+
+    }
+    button:active {
+        background-color: rgb(220, 220, 220);
+    }
+}
+
+#profile-upload-good-cont-close {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    z-index: 1009;
+    svg {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+.profile-upload-good-cont-input {
+    position: relative;
+    margin-bottom: 20px;
+    input,
+    texarea {
+        transition: ease-in-out .2s;
+    }
+}
+
+.profile-upload-good-cont-input input {
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.profile-upload-good-cont-input label {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    color: rgb(102, 102, 102);
+    pointer-events: none;
+    transition: all 0.2s ease;
+    background: white;
+    padding: 0 4px;
+}
+
+.profile-upload-good-cont-input input:focus + label,
+.profile-upload-good-cont-input input:not(:placeholder-shown) + label {
+    top: -4px;
+    font-size: 12px;
+    color: #333;
+}
+
+.profile-upload-good-cont-input textarea:focus + label,
+.profile-upload-good-cont-input textarea:not(:placeholder-shown) + label {
+    top: -4px;
+    font-size: 12px;
+    color: #333;
+}
+
+.profile-upload-good-cont-input input:hover,
+.profile-upload-good-cont-input input:focus,
+.profile-upload-good-cont-input textarea:hover,
+.profile-upload-good-cont-input textarea:focus {
+    border-color: black;
+    outline: none;
+}
+
+.profile-uoload-good-cont-form-description {
+    width: 400px;
+  min-height: 50px;
+  max-height: 200px;     /* 👈 максимальная высота */
+  overflow-y: auto;      /* если текст больше max-height → появится скролл */
+  resize: none;          /* запрет ручного растягивания, всё делает JS */
+  padding: 8px;
+  font-size: 14px;
+}
