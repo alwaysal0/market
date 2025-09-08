@@ -38,7 +38,11 @@ class RenderController extends Controller
             return redirect('/login');
         }
 
-        return view('profile');
+        $user = Auth::user();
+        return view('profile')->with([
+            'current_page' => 'edit-profile',
+            'user' => $user,
+        ]);
     }
 
     public function showSendCode() {
@@ -56,5 +60,4 @@ class RenderController extends Controller
 
         return view('auth.change-password')->with('change_password_access', true);
     }
-
 }
