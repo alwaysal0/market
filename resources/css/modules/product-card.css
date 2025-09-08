@@ -1,0 +1,26 @@
+.profile-right-cont-product-card {
+    box-shadow: 0 2px 0 5px rgba(0, 0, 0, 0.05);
+    width: 200px;
+    height: 275px;
+    padding: 10px;
+    border-radius: 10px;
+    img {
+        width: 200px;
+        height: 150px;
+        border-radius: 10px;
+    }
+    
+    color: #303030;
+    span {
+        color: #5a5a5a;
+    }
+    p {
+        text-overflow: ellipsis;
+    }
+}
+.profile-right-cont-product-card p.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;        /* показывать только 3 строки */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
