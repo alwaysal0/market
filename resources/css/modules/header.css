@@ -9,6 +9,19 @@ header {
     p {
         margin: 0;
     }
+    a {
+        font-weight: 500;
+        font-size: 18px;
+        color: #2563eb;
+        text-decoration: none;
+        padding: 6px 8px;
+        border-radius: 6px;
+        transition: color 180ms ease, background-color 180ms ease;
+    }
+    a:hover {
+        color: #1d4ed8;
+        background-color: rgba(37,99,235,0.08);
+    }
 }
 
 #header-title-cont {

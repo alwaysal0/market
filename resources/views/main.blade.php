@@ -5,6 +5,4 @@
 @section('content')
 @vite('resources/css/main.css')
 
-@include('modules/header')
-
 @endsection
