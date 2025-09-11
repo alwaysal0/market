@@ -5,6 +5,7 @@
         <p>Market</p>
     </div>
     <div id="header-tools-cont">
+        <a href="/main">Main</a>
         <a href="/support">Goods</a>
         <a href="/support">Support</a>
 
