@@ -14,8 +14,7 @@ class FilterProducts {
         $products = match($request->select_filter) {
             'asc' => $query_product->orderBy('created_at', 'asc')->get(),
             'desc' => $query_product->orderBy('created_at', 'desc')->get(),
-            'technique' => $query_product->whereIn(
-            'id', $query_filter->where('filter_name', 'technique')->pluck('product_id'))
+            'technique' => $query_product->whereIn('id', $query_filter->where('filter_name', 'technique')->pluck('product_id'))
             ->get(),
             'rofl' => $query_product->whereIn(
             'id', $query_filter->where('filter_name', 'rofl')->pluck('product_id'))
