@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Product;
 
 class RenderController extends Controller
 {
@@ -30,7 +31,13 @@ class RenderController extends Controller
             return redirect('/login');
         }
         $user = Auth::user();
-        return view('main')->with('user', $user);
+        
+        $products = Product::orderBy('created_at', 'desc')->limit(10)->get();
+        return view('main')->with([
+                'user' => $user,
+                'products' => $products,
+            ]
+        );
     }
 
     public function showProfile() {

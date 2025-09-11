@@ -1,0 +1,21 @@
+#last-products-title {
+    font-size: 24px;
+    color: #303030;
+    text-align: center;
+}
+
+#last-products-cont {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 17.5%);
+    row-gap: 20px;
+    justify-content: center;
+}
+
+#last-products-view-more {
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #2563eb;
+    text-decoration: none;
+}
