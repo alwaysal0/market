@@ -5,4 +5,5 @@
 @section('content')
 @vite('resources/css/main.css')
 
+@include('modules.main.last-products')
 @endsection
