@@ -89,8 +89,13 @@
 }
 
 #profile-right-cont-add-product-button {
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #e5e7eb;
+    color: #374151;
+    padding: 5px 12px;
+    transition: background-color 0.2s ease-in-out;
     cursor: pointer;
-    max-width: max-content;
-    padding: 10px;
-    background: none;
+    width: max-content;
 }

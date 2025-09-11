@@ -28,10 +28,6 @@ class ProfileController extends Controller
         $current_user = Auth::user();
         if ($current_page === 'your-products') {
             $products = Product::where('user_id', $current_user->id)->get();
-            if ($products->isEmpty()) {
-            } else {
-                $count = $products->count();
-            }
             return view('profile')->with([
                 'current_page'=> $current_page,
                 'user' => $current_user,
