@@ -23,4 +23,11 @@ class FilterProducts {
         };
         return $products;
     }
+
+    public function mainFilterProducts ($filterName) {
+        $products_id = Filter::where('filter_name', $filterName)->pluck('product_id');
+        $products = Product::whereIn('id', $products_id)->get();
+
+        return $products;
+    }   
 }
