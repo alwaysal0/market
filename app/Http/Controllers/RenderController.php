@@ -7,9 +7,18 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Filter;
+
+use App\Providers\FilterProducts;
 
 class RenderController extends Controller
+
 {
+    private $filterProducts;
+    public function __construct(FilterProducts $filterProducts) {
+        $this->filterProducts = $filterProducts;
+    }
+    
     public function showRegister() {
         if (Auth::user()) {
             return redirect('/main');
@@ -27,9 +36,6 @@ class RenderController extends Controller
     }
     
     public function showMain() {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
         $user = Auth::user();
         
         $products = Product::orderBy('created_at', 'desc')->limit(10)->get();
@@ -41,10 +47,6 @@ class RenderController extends Controller
     }
 
     public function showProfile() {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
-
         $user = Auth::user();
         return view('profile')->with([
             'current_page' => 'edit-profile',
@@ -53,18 +55,30 @@ class RenderController extends Controller
     }
 
     public function showSendCode() {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
-
         return view('auth.change-password')->with('change_password_access', false);
     }
 
     public function showChangePass() {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
-
         return view('auth.change-password')->with('change_password_access', true);
+    }
+
+    public function showProducts() {
+        $filters = Filter::distinct()->pluck('filter_name');
+        $products = Product::all();
+
+        return view('products')->with([
+            'products' => $products,
+            'filters' => $filters,
+        ]);
+    }
+
+    public function showProductsFilter($currentFilter) {
+        $filters = Filter::distinct()->pluck('filter_name');
+        $products = $this->filterProducts->mainFilterProducts($currentFilter);
+
+        return view('products')->with([
+            'products' => $products,
+            'filters' => $filters,
+        ]);
     }
 }

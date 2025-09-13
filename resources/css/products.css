@@ -1,0 +1,36 @@
+#products-title {
+    font-size: 24px;
+    color: #303030;
+    text-align: center;
+}
+
+#products-main-cont-wrap {
+    display: flex;
+    width: 100%;
+}
+
+#products-filter-cont {
+    ul {
+        li {
+            padding: 7.5px;
+        }
+    }
+    a {
+        text-decoration: none;
+        color: #5e5e5e;
+        font-weight: 550;
+        transition: ease-in-out .2s;
+    }
+    a:hover {
+        color: #303030;
+    }
+}
+
+#products-main-cont {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 17.5%);
+    row-gap: 20px;
+    justify-content: center;
+
+    width: 100%;
+}
