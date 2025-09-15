@@ -1,0 +1,73 @@
+#confirmation-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: max-content;
+    gap: 16px;
+    margin: 0 auto;
+
+    input {
+        font-size: 16px;
+        width: 100%;
+        padding: 5px 10px 5px 10px;
+        border: 1.5px solid rgb(157, 157, 157);
+        border-radius: 5px;
+        transition: ease-in-out .2s;
+    }
+    input:focus,
+    input:hover {
+        border-color: black;
+        outline: none;
+    }
+    button {
+        width: 40%;
+        font-size: 16px;
+        padding: 5px 10px 5px 10px;
+        border: 1.5px solid grey;
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        color: #303030;
+        transition: ease-in-out .2s;
+
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: rgb(230, 230, 230);
+
+    }
+    button:active {
+        background-color: rgb(220, 220, 220);
+    }
+}
+
+.confirmation-form-input-cont {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.confirmation-form-input-cont input {
+    width: 100%;
+    padding: 20px 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.confirmation-form-input-cont label {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    color: rgb(102, 102, 102);
+    pointer-events: none;
+    transition: all 0.2s ease;
+    background: white;
+    padding: 0 4px;
+}
+
+.confirmation-form-input-cont input:focus + label,
+.confirmation-form-input-cont input:not(:placeholder-shown) + label {
+    top: -4px;
+    font-size: 12px;
+    color: #333;
+}

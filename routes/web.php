@@ -33,5 +33,14 @@ Route::post('/profile/your-products/filter', [ProfileController::class, 'filterP
 Route::get('/products', [RenderController::class , 'showProducts']);
 Route::get('/products/filter/{currentFilter}', [RenderController::class, 'showProductsFilter']);
 
+Route::post('/user-confirmation', [EmailController::class, 'sendUserConfirmation'])->middleware('auth');
+Route::get('/user-confirmation', [RenderController::class, 'showUserConfirmation'])->name('userConfirmation')->middleware('auth');
 
+Route::get('/test', function() {
+    echo "You are here!";
+})->middleware(['auth', 'confirmed']);
 
+// Public Routes
+// Route::group(['middleware' => []], function(){
+//     Route::
+// });

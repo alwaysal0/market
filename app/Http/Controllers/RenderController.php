@@ -20,7 +20,7 @@ class RenderController extends Controller
     }
     
     public function showRegister() {
-        if (Auth::user()) {
+        if (Auth::check()) {
             return redirect('/main');
         } else {
             return view('auth.register');
@@ -33,6 +33,13 @@ class RenderController extends Controller
         } else {
             return view('auth.login');
         }
+    }
+
+    public function showUserConfirmation() {
+        $user = Auth::user();
+        return view('auth.user-confirmation')->with([
+            'user' => $user,
+        ]);
     }
     
     public function showMain() {

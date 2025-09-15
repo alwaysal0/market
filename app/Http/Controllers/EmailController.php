@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\EmailVerification;
+use App\Models\UserConfirmation;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
@@ -90,5 +91,28 @@ class EmailController extends Controller
         ]);
         return redirect('/profile/edit-profile')
             ->with('success', 'You have successfully changed your password.');
+    }
+    
+    public function sendUserConfirmation(Request $request) {
+        $user = Auth::user();
+        if (!$user) {
+            abort(403, 'Unauthorized');
+        }
+        $code = rand(10000000, 99999999);
+        $link = url("/user-confirmation/{$code}");
+
+        User::updateOrCreate([
+            'email' => $user->email,
+            'confirmation_link' => $link,
+            'expired_at' => Carbon::now()->addMinutes(10),
+        ]);
+
+        Mail::raw("To confirm your email follow the link: {$link}", function($message) use ($user) {
+            $message->to($user->email)->subject('[NO-REPLY] Test market | Confirmation User');
+        });
+
+        return view('auth.sended-confirmation-user')->with([
+            'success' => 'The link has been sent.',
+        ]);
     }
 }

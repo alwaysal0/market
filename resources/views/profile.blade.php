@@ -38,6 +38,10 @@
                 @csrf
                 <button type="submit" class="profile-right-cont-change-data-buttons">Change Password</button>
             </form>
+            <form method='POST' action="/user-confirmation">
+                @csrf
+                <p>To confirm current email <button type="submit">Confirm</button></p>
+            </form>
         @elseif ($current_page === 'your-products')
             <p id="profile-right-cont-title">Your products</p>
             <button id="profile-right-cont-add-product-button">Add Product</button>
