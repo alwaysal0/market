@@ -51,6 +51,14 @@
         color: rgb(68, 68, 68);
     }
 }
+
+.profile-right-cont-confirmed-status {
+    margin: 0;
+    span {
+        font-weight: 600;
+    }
+}
+
 .profile-right-cont-change-data-buttons {
     font-size: 16px;
     border: none;
@@ -99,3 +107,4 @@
     cursor: pointer;
     width: max-content;
 }
+

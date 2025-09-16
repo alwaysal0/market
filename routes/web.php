@@ -12,34 +12,33 @@ use App\Http\Controllers\FilterController;
 use League\CommonMark\Output\RenderedContent;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
-Route::get('/', [RenderController::class, 'showRegister'])->name('register');
-Route::get('/register', [RenderController::class, 'showRegister'])->name('register');
-Route::post('/register-auth', [AuthController::class, 'register']);
-
-Route::get('/login', [RenderController::class, 'showLogin'])->name('login');
-Route::post('/login-auth', [AuthController::class, 'login']);
-
-
-Route::get('/main', [RenderController::class, 'showMain'])->name('MainPage');
-
-Route::get('/profile', [RenderController::class, 'showProfile'])->middleware('auth');
-Route::get('/profile/{currentPage}', [ProfileController::class, 'showProfile'])->middleware('auth');
-Route::post('/profile/add-good/{currentAction}', [GoodController::class, 'upload'])->middleware('auth');
-
-Route::post('/profile/edit-profile/change-password/{action}', [EmailController::class, 'checkAction'])->middleware('auth');
-Route::post('/profile/edit-profile/{action}', [ProfileController::class, 'editProfile'])->middleware('auth');
-
-Route::post('/profile/your-products/filter', [ProfileController::class, 'filterProducts'])->middleware('auth');
-
-Route::get('/products', [RenderController::class , 'showProducts']);
-Route::get('/products/filter/{currentFilter}', [RenderController::class, 'showProductsFilter']);
-
-Route::post('/user-confirmation', [EmailController::class, 'sendUserConfirmation'])->middleware('auth');
-Route::get('/user-confirmation/{token}', [RenderController::class, 'showUserConfirmation'])->name('userConfirmation')->middleware('auth');
-Route::post('/user-confirmation/{token}', [AuthController::class, 'confirmUser'])->name('userConfirmation')->middleware('auth');
-
+// Auth Routes
+Route::group(['middleware' => ['web']], function() {
+    Route::get('/register', [RenderController::class, 'showRegister'])->name('register');
+    Route::post('/register-auth', [AuthController::class, 'register']);
+    Route::get('/login', [RenderController::class, 'showLogin'])->name('login');
+    Route::post('/login-auth', [AuthController::class, 'login']);
+});
 
 // Public Routes
-// Route::group(['middleware' => []], function(){
-//     Route::
-// });
+Route::group(['middleware' => ['web']], function(){
+    Route::get('/', [RenderController::class, 'showRegister'])->name('register');
+    Route::get('/main', [RenderController::class, 'showMain'])->name('MainPage');
+    Route::get('/products', [RenderController::class , 'showProducts']);
+    Route::get('/products/filter/{currentFilter}', [RenderController::class, 'showProductsFilter']);
+});
+
+// Authorized Routes
+Route::group(['middleware' => ['web', 'auth']],function() {
+    Route::get('/profile', [RenderController::class, 'showProfile']);
+    Route::get('/profile/{currentPage}', [ProfileController::class, 'showProfile']);
+
+    Route::post('/profile/add-good/{currentAction}', [GoodController::class, 'upload']);
+    Route::post('/profile/edit-profile/change-password/{action}', [EmailController::class, 'checkAction']);
+    Route::post('/profile/edit-profile/{action}', [ProfileController::class, 'editProfile']);
+    Route::post('/profile/your-products/filter', [ProfileController::class, 'filterProducts']);
+
+    Route::post('/user-confirmation', [EmailController::class, 'sendUserConfirmation']);
+    Route::get('/user-confirmation/{token}', [RenderController::class, 'showUserConfirmation'])->name('userConfirmation');
+    Route::post('/user-confirmation/{token}', [AuthController::class, 'confirmUser'])->name('userConfirmation');
+});
