@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\EmailVerification;
-use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Nette\Utils\Random;
+use Carbon\Carbon;
+
+use App\Mail\UserConfirmationMail;
+use App\Mail\UserChangePasswordMail;
+
+use App\Models\EmailVerification;
+use App\Models\UserConfirmation;
+use App\Models\User;
 
 class EmailController extends Controller
 {
@@ -39,9 +46,7 @@ class EmailController extends Controller
             'expired_at' => Carbon::now()->addMinutes(10),
         ]);
 
-        Mail::raw("Your code: {$code}", function($message) use ($user) {
-            $message->to($user->email)->subject('[NO-REPLY] Test market | Changing Password');
-        });
+        Mail::to($user->email)->send( new UserChangePasswordMail($code));
 
         return view('auth.change-password')->with([
             'success' => 'Code sent.',
@@ -90,5 +95,26 @@ class EmailController extends Controller
         ]);
         return redirect('/profile/edit-profile')
             ->with('success', 'You have successfully changed your password.');
+    }
+    
+    public function sendUserConfirmation(Request $request) {
+        $user = Auth::user();
+        if (!$user) {
+            abort(403, 'Unauthorized');
+        }
+        $token = Str::random(64);
+        $link = url("/user-confirmation/{$token}");
+
+        UserConfirmation::updateOrCreate([
+            'email' => $user->email,
+            'confirmation_link' => $link,
+            'expired_at' => Carbon::now()->addMinutes(10),
+        ]);
+
+        Mail::to($user->email)->send( new UserConfirmationMail($link));
+
+        return view('auth.sended-confirmation-user')->with([
+            'success' => 'The link has been sent.',
+        ]);
     }
 }

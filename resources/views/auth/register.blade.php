@@ -4,7 +4,7 @@
 @section('title', 'Register')
 
 @section('content')
-@vite('resources/css/register.css')
+@vite('resources/css/auth/register.css')
 
     <p id="register-title">Registration</p>
     <form method="POST" action="/register-auth" id="register-form">

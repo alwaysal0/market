@@ -9,6 +9,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\GoodController;
 use App\Http\Controllers\FilterController;
 
+use League\CommonMark\Output\RenderedContent;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
 Route::get('/', [RenderController::class, 'showRegister'])->name('register');
@@ -33,5 +34,12 @@ Route::post('/profile/your-products/filter', [ProfileController::class, 'filterP
 Route::get('/products', [RenderController::class , 'showProducts']);
 Route::get('/products/filter/{currentFilter}', [RenderController::class, 'showProductsFilter']);
 
+Route::post('/user-confirmation', [EmailController::class, 'sendUserConfirmation'])->middleware('auth');
+Route::get('/user-confirmation/{token}', [RenderController::class, 'showUserConfirmation'])->name('userConfirmation')->middleware('auth');
+Route::post('/user-confirmation/{token}', [AuthController::class, 'confirmUser'])->name('userConfirmation')->middleware('auth');
 
 
+// Public Routes
+// Route::group(['middleware' => []], function(){
+//     Route::
+// });

@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+
 use App\Models\User;
+use App\Models\UserConfirmation;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -40,5 +43,32 @@ class AuthController extends Controller
                 'wrong-data' => 'The password or email is incorrect.'
             ]);
         }
+    }
+
+    public function confirmUser(request $request, $token) {
+        $currentUrl = $request->fullUrl();
+        $user = Auth::user();
+        $user_confirmation = UserConfirmation::where('confirmation_link', $currentUrl)->first();
+
+        if ($user->confirmed) {
+            return redirect('/')->with('info', 'Your account is already confirmed.');
+        }
+
+        if (!$user_confirmation || $user->email !== $user_confirmation->email) {
+            return redirect('/')->with('error', 'The link is invalid.');
+        }
+
+        if (Carbon::now()->greaterThan($user_confirmation->expired_at)) {
+            return view('auth.expired-page')->with('error', 'The link has expired.');
+        }
+
+        $current_user = User::find($user->id);
+        $current_user->update([
+            'confirmed' => true
+        ]);
+
+        $user_confirmation->delete();
+        
+        return redirect('/')->with('success', 'Your email has been confirmed!');
     }
 }

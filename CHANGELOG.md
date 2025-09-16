@@ -21,3 +21,9 @@
 - Created 'products' page;
 - Created new Service Filter Function 'filterMainProducts' which is filtering products for 'products' page;
 - Created '/resources/view/products.blade.php' and 'resources/css/products.css';
+
+## 16.09.2025
+## v0.0.4
+- Added support and middleware filter for `confirmed` status of accounts;
+- Created mail classes and Markdown templates for emails;
+- Improved user experience with emails when changing passwords or confirming user accounts;

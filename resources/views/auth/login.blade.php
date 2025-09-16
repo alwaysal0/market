@@ -3,7 +3,7 @@
 @section('title', 'Register')
 
 @section('content')
-@vite('resources/css/login.css')
+@vite('resources/css/auth/login.css')
     <p id="login-title">Login</p>
     <form method="POST" action="/login-auth" id="login-form">
         @csrf

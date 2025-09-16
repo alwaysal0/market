@@ -50,6 +50,9 @@ class ProfileController extends Controller
                 ]);
                 break;
             case 'email':
+                User::find($current_user->id)->update([
+                    'confirmed' => false,
+                ]);
                 User::where('id', $current_user->id)->update([
                     'email' => $request->email,
                 ]);

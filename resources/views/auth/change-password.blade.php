@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'TestMarket - Change Password')
-@vite('resources/css/change-password.css')
+@vite('resources/css/auth/change-password.css')
 @section('content')
 @if($change_password_access === true)
     <p id="change-password-title">Change Password</p>

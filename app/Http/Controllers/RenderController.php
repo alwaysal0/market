@@ -20,7 +20,7 @@ class RenderController extends Controller
     }
     
     public function showRegister() {
-        if (Auth::user()) {
+        if (Auth::check()) {
             return redirect('/main');
         } else {
             return view('auth.register');
@@ -33,6 +33,14 @@ class RenderController extends Controller
         } else {
             return view('auth.login');
         }
+    }
+
+    public function showUserConfirmation($token) {
+        $user = Auth::user();
+        return view('auth.user-confirmation')->with([
+            'user' => $user,
+            'token' => $token,
+        ]);
     }
     
     public function showMain() {
@@ -80,5 +88,14 @@ class RenderController extends Controller
             'products' => $products,
             'filters' => $filters,
         ]);
+    }
+
+    public function test() {
+        // $user = Auth::user();
+        // return view('auth.user-confirmation')->with([
+        //     'user' => $user,
+        //     'id' => 2222,
+        // ]);
+        return view('auth.expired-page');
     }
 }
