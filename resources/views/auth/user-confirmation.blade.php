@@ -2,11 +2,12 @@
 
 @section('title', 'Market - User Confirmation')
 @section('content')
-@vite('resources/css/user-confirmation.css')
+@vite('resources/css/auth/user-confirmation.css')
 
-<div id="confirmation-form-wrap">
-    <p id="confirmation-form-title">Confirmation Email</p>
-    <p id="confirmation-form-description">To confirm the current email:{{ $user->email }}. You should press the button below.</p>
-    <a href="/user-confirmation/{{ $id }}">Confirm</a>
-</div>
+<form method="POST" action="/user-confirmation/{{ $token }}" id="confirmation-main-cont">
+    @csrf
+    <p id="confirmation-main-cont-title">Confirmation Email</p>
+    <p id="confirmation-main-cont-description">To confirm the current email: <span>{{ $user->email }}</span>. You should press the button below.</p>
+    <button type="submit" id="confirmation-main-cont-hotlink">Continue</a>
+</form>
 @endsection

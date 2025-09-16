@@ -35,10 +35,11 @@ class RenderController extends Controller
         }
     }
 
-    public function showUserConfirmation() {
+    public function showUserConfirmation($token) {
         $user = Auth::user();
         return view('auth.user-confirmation')->with([
             'user' => $user,
+            'token' => $token,
         ]);
     }
     
@@ -87,5 +88,14 @@ class RenderController extends Controller
             'products' => $products,
             'filters' => $filters,
         ]);
+    }
+
+    public function test() {
+        // $user = Auth::user();
+        // return view('auth.user-confirmation')->with([
+        //     'user' => $user,
+        //     'id' => 2222,
+        // ]);
+        return view('auth.expired-page');
     }
 }
