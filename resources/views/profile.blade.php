@@ -22,6 +22,15 @@
     <div id="profile-right-cont">
         @if($current_page === 'edit-profile')
             <p id="profile-right-cont-title">Edit your profile</p>
+            @if ($user->confirmed)
+            <p class="profile-right-cont-confirmed-status">Your account is <span style="color: #155724;">confirmed</span>.</p>
+            @else
+            <p class="profile-right-cont-confirmed-status">Your account is <span style="color: #721c24;">not confirmed</span>.</p>
+            <form method='POST' action="/user-confirmation">
+                @csrf
+                <p>To confirm it, follow the button <button class="profile-right-cont-change-data-buttons" type="submit">Confirm</button></p>
+            </form>
+            @endif
             <label>Change your username:</label>
             <form method='POST' action="/profile/edit-profile/username">
                 @csrf
@@ -37,10 +46,6 @@
             <form method='POST' action="/profile/edit-profile/change-password/send-email">
                 @csrf
                 <button type="submit" class="profile-right-cont-change-data-buttons">Change Password</button>
-            </form>
-            <form method='POST' action="/user-confirmation">
-                @csrf
-                <p>To confirm current email <button type="submit">Confirm</button></p>
             </form>
         @elseif ($current_page === 'your-products')
             <p id="profile-right-cont-title">Your products</p>
