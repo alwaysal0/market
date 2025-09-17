@@ -115,6 +115,7 @@ class EmailController extends Controller
 
         return view('auth.sended-confirmation-user')->with([
             'success' => 'The link has been sent.',
+            'user' => $user,
         ]);
     }
 }

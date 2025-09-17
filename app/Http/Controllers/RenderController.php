@@ -74,6 +74,14 @@ class RenderController extends Controller
         $filters = Filter::distinct()->pluck('filter_name');
         $products = Product::all();
 
+        if(Auth::check()) {
+            return view('products')->with([
+                'products' => $products,
+                'filters' => $filters,
+                'user' => Auth::user(),
+            ]);
+        }
+
         return view('products')->with([
             'products' => $products,
             'filters' => $filters,
@@ -83,6 +91,14 @@ class RenderController extends Controller
     public function showProductsFilter($currentFilter) {
         $filters = Filter::distinct()->pluck('filter_name');
         $products = $this->filterProducts->mainFilterProducts($currentFilter);
+
+        if(Auth::check()) {
+            return view('products')->with([
+                'products' => $products,
+                'filters' => $filters,
+                'user' => Auth::user(),
+            ]);
+        }
 
         return view('products')->with([
             'products' => $products,
