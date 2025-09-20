@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Market - Expired Token')
 @section('content')
-@vite('resources/css/auth/expired-page.css')
+@vite('resources/css/user/expired-page.css')
 
 <div id="expired-page-cont">
     <p id="expired-page-title">Expired Token</p>

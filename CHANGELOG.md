@@ -27,3 +27,10 @@
 - Added support and middleware filter for `confirmed` status of accounts;
 - Created mail classes and Markdown templates for emails;
 - Improved user experience with emails when changing passwords or confirming user accounts;
+
+## 20.09.2025
+## v0.0.5
+### Created:
+- `UserController` update user data;
+- `EditProile` new service which is updating data;
+- `EmailService` new service which is sending emails;

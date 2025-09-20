@@ -17,84 +17,41 @@ use App\Models\EmailVerification;
 use App\Models\UserConfirmation;
 use App\Models\User;
 
+use App\Providers\EmailService;
+
 class EmailController extends Controller
 {
     //
-    public function checkAction($action, Request $request) {
-        switch($action) {
-            case 'send-email':
-                return $this->sendCode();
-            case 'verification-email':
-                return $this->checkCode($request);
-            case 'access-true':
-                return $this->changePass($request);
-            default:
-                abort(404, 'Unknowned page');
-        }
+    private $EmailService;
+    public function __construct(EmailService $EmailService) {
+        $this->EmailService = $EmailService;
     }
-    public function sendCode() {
+    public function sendPasswordCode() {
         $user = Auth::user();
         if (!$user) {
             abort(403, 'Unauthorized');
         }
 
-        $code = rand(100000, 999999);
-
-        EmailVerification::updateOrCreate([
-            'email' => $user->email,
-            'code' => $code,
-            'expired_at' => Carbon::now()->addMinutes(10),
-        ]);
-
-        Mail::to($user->email)->send( new UserChangePasswordMail($code));
-
-        return view('auth.change-password')->with([
+        $this->EmailService->sendPasswordUpdate($user);
+        
+        return view('user.change-password')->with([
             'success' => 'Code sent.',
             'change_password_access' => false,
     ]);
     }
 
-    public function checkCode($request) {
-        $request->validate([
-            'code' => 'required|digits:6'
-        ]);
-
+    public function sendUsernameLink() {
         $user = Auth::user();
         if (!$user) {
             abort(403, 'Unauthorized');
-        };
+        }
 
-        $verification = EmailVerification::where('email', $user->email)
-            ->where('code', $request->code)
-            ->where('expired_at', '>', Carbon::now())
-            ->first();
+        $this->EmailService->sendPasswordUpdate($user);
         
-        if ($verification) {
-            $verification->delete();
-            return view('auth.change-password')->with([
-                'success' => 'Code verified. You can change your password now.',
-                'change_password_access' => true,
-            ]);
-        }
-
-        return back()->withErrors(['code' => 'Invalid or expired code.']);
-    }
-
-    public function changePass($request) {
-        $request->validate([
-            'password' => 'required|min:6|confirmed',
-        ]);
-
-        $current_user = Auth::user();
-        if (!$current_user) {
-            return abort(403, 'Unauthorized');
-        }
-        $password = Hash::make($request->password);
-        User::find($current_user->id)->update([
-            'password' => $password,
-        ]);
-        return redirect('/profile/edit-profile')
-            ->with('success', 'You have successfully changed your password.');
+        return view('user.change-password')->with([
+            'success' => 'Code sent.',
+            'change_password_access' => false,
+    ]);
     }
     
     public function sendUserConfirmation(Request $request) {
@@ -102,18 +59,9 @@ class EmailController extends Controller
         if (!$user) {
             abort(403, 'Unauthorized');
         }
-        $token = Str::random(64);
-        $link = url("/user-confirmation/{$token}");
+        $this->EmailService->sendUserConfirmation($user);
 
-        UserConfirmation::updateOrCreate([
-            'email' => $user->email,
-            'confirmation_link' => $link,
-            'expired_at' => Carbon::now()->addMinutes(10),
-        ]);
-
-        Mail::to($user->email)->send( new UserConfirmationMail($link));
-
-        return view('auth.sended-confirmation-user')->with([
+        return view('user.sended-confirmation-user')->with([
             'success' => 'The link has been sent.',
             'user' => $user,
         ]);

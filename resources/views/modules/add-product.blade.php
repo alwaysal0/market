@@ -7,7 +7,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5A5A5A"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
         </div>
         <p id="profile-add-good-cont-title">Add product</p>
-        <form method="POST" action="/profile/add-good/add-good-auth" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('profile.your-products.add-product') }}" enctype="multipart/form-data">
             @csrf
             <label>Choose the photo:</label>
             <input type="file" name="image">

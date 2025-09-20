@@ -15,8 +15,10 @@ class RenderController extends Controller
 
 {
     private $filterProducts;
+    private $user;
     public function __construct(FilterProducts $filterProducts) {
         $this->filterProducts = $filterProducts;
+        $this->user = Auth::user();
     }
     
     public function showRegister() {
@@ -36,38 +38,35 @@ class RenderController extends Controller
     }
 
     public function showUserConfirmation($token) {
-        $user = Auth::user();
-        return view('auth.user-confirmation')->with([
-            'user' => $user,
+        return view('user.user-confirmation')->with([
+            'user' => $this->user,
             'token' => $token,
         ]);
     }
     
     public function showMain() {
-        $user = Auth::user();
-        
         $products = Product::orderBy('created_at', 'desc')->limit(10)->get();
         return view('main')->with([
-                'user' => $user,
+                'user' => $this->user,
                 'products' => $products,
             ]
         );
     }
 
     public function showProfile() {
-        $user = Auth::user();
         return view('profile')->with([
             'current_page' => 'edit-profile',
-            'user' => $user,
+            'user' => $this->user,
         ]);
     }
 
-    public function showSendCode() {
-        return view('auth.change-password')->with('change_password_access', false);
-    }
-
-    public function showChangePass() {
-        return view('auth.change-password')->with('change_password_access', true);
+    public function showYourProducts() {
+        $products = Product::where('user_id', $this->user->id)->get();
+            return view('profile')->with([
+                'current_page'=> 'your-products',
+                'user' => $this->user,
+                'products' => $products,
+        ]);
     }
 
     public function showProducts() {

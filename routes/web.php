@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RenderController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmailController;
@@ -30,13 +31,26 @@ Route::group(['middleware' => ['web']], function(){
 
 // Authorized Routes
 Route::group(['middleware' => ['web', 'auth']],function() {
-    Route::get('/profile', [RenderController::class, 'showProfile']);
-    Route::get('/profile/{currentPage}', [ProfileController::class, 'showProfile']);
+    Route::prefix('profile')->group(function() {
+        Route::get('/edit-profile', [RenderController::class, 'showProfile'])->name('profile.edit-profile');
+        Route::post('/logout', [UserController::class, 'logout'])->name('profile.logout');
 
-    Route::post('/profile/add-good/{currentAction}', [GoodController::class, 'upload']);
-    Route::post('/profile/edit-profile/change-password/{action}', [EmailController::class, 'checkAction']);
-    Route::post('/profile/edit-profile/{action}', [ProfileController::class, 'editProfile']);
-    Route::post('/profile/your-products/filter', [ProfileController::class, 'filterProducts']);
+        // Edit Profile Routes
+        Route::prefix('edit-profile')->group(function() {
+            Route::prefix('password')->group(function() {
+                Route::post('email', [EmailController::class, 'sendPasswordCode'])->name('password.email');
+                Route::post('code', [UserController::class, 'checkPasswordCode'])->name('password.code');
+                Route::post('update', [UserController::class, 'updatePassword'])->name('password.update');
+            });
+            Route::post('username', [UserController::class, 'updateUsername'])->name('username.update');
+        });
+
+        Route::prefix('your-products')->group(function() {
+            Route::get('/', [RenderController::class, 'showYourProducts'])->name('profile.your-products');
+            Route::post('filter', [UserController::class, 'filterYourProducts'])->name('profile.your-products.filter');
+            Route::post('add-product', [GoodController::class, 'upload'])->name('profile.your-products.add-product');
+        });
+    });
 
     Route::post('/user-confirmation', [EmailController::class, 'sendUserConfirmation']);
     Route::get('/user-confirmation/{token}', [RenderController::class, 'showUserConfirmation'])->name('userConfirmation');
