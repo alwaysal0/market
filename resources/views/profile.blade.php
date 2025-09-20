@@ -7,13 +7,13 @@
 
 <div id="profile-main-cont">
     <div id="profile-left-cont">
-        <form method="GET" action="/profile/edit-profile">
+        <form method="GET" action="{{ route('profile.edit-profile') }}">
             <button class="{{ $current_page === 'edit-profile' ? 'active-btn' : '' }}">Edit Profie</button>
         </form>
-        <form method="GET" action="/profile/your-products">
+        <form method="GET" action="{{ route('profile.your-products') }}">
             <button class="{{ $current_page === 'your-products' ? 'active-btn' : '' }}">Your Products</button>
         </form>
-        <form method="GET" action="/profile/logout">
+        <form method="POST" action="{{ route('profile.logout') }}">
             @csrf
             <button type="submit">Logout</button>
         </form>
@@ -32,7 +32,7 @@
             </form>
             @endif
             <label>Change your username:</label>
-            <form method='POST' action="/profile/edit-profile/username">
+            <form method='POST' action="{{ route('username.update') }}">
                 @csrf
                 <input type="text" name="username" id="profile-right-cont-username" value="{{ $user['username'] }}">
                 <button disabled type="submit" class="profile-right-cont-change-data-buttons disabled-btn" id="profile-right-cont-username-btn">Edit</button>
@@ -43,7 +43,7 @@
                 <input type="text" name="email" id="profile-right-cont-email" value="{{ $user['email'] }}">
                 <button disabled type="submit" class="profile-right-cont-change-data-buttons disabled-btn" id="profile-right-cont-email-btn">Edit</button>
             </form>
-            <form method='POST' action="/profile/edit-profile/change-password/send-email">
+            <form method='POST' action="{{ route('password.email') }}">
                 @csrf
                 <button type="submit" class="profile-right-cont-change-data-buttons">Change Password</button>
             </form>
@@ -52,7 +52,7 @@
             <button id="profile-right-cont-add-product-button">Add Product</button>
             @if ($current_page === 'your-products')
                 @if ($products->isNotEmpty())
-                <form method="POST" action="/profile/your-products/filter" id="profile-right-cont-filters">
+                <form method="POST" action="{{ route('profile.your-products.filter') }}" id="profile-right-cont-filters">
                     @csrf
                     <label for="profile-right-cont-select-filter">Filter:</label>
                     <select name="select_filter" id="profile-right-cont-select-filter">

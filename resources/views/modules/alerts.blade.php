@@ -9,6 +9,10 @@
 <div class="alert" id="alert-info">
     <p>{{ session('info') }}</p>
 </div>
+@elseif(session('error'))
+    <div class="alert" id="alert-error">
+        <p>{{ session('error') }}</p>
+    </div>
 @endif
 @if ($errors->any())
     <div class="alert" id="alert-error">

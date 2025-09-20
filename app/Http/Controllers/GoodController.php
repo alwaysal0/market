@@ -51,6 +51,6 @@ class GoodController extends Controller
             }
         }
 
-        return redirect('/profile')->with('success', 'Your product was successfully listed.');
+        return redirect()->route('profile.edit-profile')->with('success', 'Your product was successfully listed.');
     }
 }

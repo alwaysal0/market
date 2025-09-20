@@ -2,7 +2,7 @@
 
 @section('title', 'Market - User Confirmation')
 @section('content')
-@vite('resources/css/auth/user-confirmation.css')
+@vite('resources/css/user/user-confirmation.css')
 
 <form method="POST" action="/user-confirmation/{{ $token }}" id="confirmation-main-cont">
     @csrf
