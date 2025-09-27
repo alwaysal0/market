@@ -27,6 +27,7 @@ Route::group(['middleware' => ['web']], function(){
     Route::get('/main', [RenderController::class, 'showMain'])->name('MainPage');
     Route::get('/products', [RenderController::class , 'showProducts']);
     Route::get('/products/filter/{currentFilter}', [RenderController::class, 'showProductsFilter']);
+    Route::get('/support', [RenderController::class, 'showSupportPage'])->name('support');
 });
 
 // Authorized Routes
@@ -38,10 +39,11 @@ Route::group(['middleware' => ['web', 'auth']],function() {
         // Edit Profile Routes
         Route::prefix('edit-profile')->group(function() {
             Route::prefix('password')->group(function() {
-                Route::post('email', [EmailController::class, 'sendPasswordCode'])->name('password.email');
+                Route::post('email', [UserController::class, 'sendPasswordCode'])->name('password.email');
                 Route::post('code', [UserController::class, 'checkPasswordCode'])->name('password.code');
                 Route::post('update', [UserController::class, 'updatePassword'])->name('password.update');
             });
+            Route::post('email', [UserController::class, 'updateEmail'])->name('email.update');
             Route::post('username', [UserController::class, 'updateUsername'])->name('username.update');
         });
 
@@ -50,9 +52,10 @@ Route::group(['middleware' => ['web', 'auth']],function() {
             Route::post('filter', [UserController::class, 'filterYourProducts'])->name('profile.your-products.filter');
             Route::post('add-product', [GoodController::class, 'upload'])->name('profile.your-products.add-product');
         });
+        Route::post('/support', [UserController::class, 'sendFeedback'])->name('support.send');
     });
 
-    Route::post('/user-confirmation', [EmailController::class, 'sendUserConfirmation']);
+    Route::post('/user-confirmation', [UserController::class, 'sendUserConfirmation']);
     Route::get('/user-confirmation/{token}', [RenderController::class, 'showUserConfirmation'])->name('userConfirmation');
-    Route::post('/user-confirmation/{token}', [AuthController::class, 'confirmUser'])->name('userConfirmation');
+    Route::post('/user-confirmation/{token}', [UserController::class, 'confirmUser'])->name('userConfirmation');
 });

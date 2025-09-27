@@ -11,18 +11,21 @@ use App\Models\User;
 use App\Models\UserConfirmation;
 use App\Models\EmailVerification;
 
-use App\Providers\EditProfile;
-use App\Providers\FilterProducts;
+use App\Services\EditProfile;
+use App\Services\FilterProducts;
+use App\Services\EmailService;
 
 class UserController extends Controller
 {   
     private $editProfile;
     private $filterProducts;
     private $user;
-    public function __construct(EditProfile $editProfile, FilterProducts $filterProducts) {
+    private $EmailService;
+    public function __construct(EditProfile $editProfile, FilterProducts $filterProducts, EmailService $EmailService) {
         $this->editProfile = $editProfile;
         $this->filterProducts = $filterProducts;
         $this->user = Auth::user();
+        $this->EmailService = $EmailService;
     }
 
     public function confirmUser(request $request, $token) {
@@ -107,6 +110,16 @@ class UserController extends Controller
 
     }
 
+    public function updateEmail(request $request) {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $this->editProfile->changeEmail($request);
+        return redirect()->route('profile.edit-profile')
+            ->with('success', 'You have successfully changed your email.');
+    }
+
     public function filterYourProducts(request $request) {
         $products = $this->filterProducts->filter($request);
 
@@ -115,6 +128,41 @@ class UserController extends Controller
             'user' => $this->user,
             'products' => $products,
         ]);
+    }
+
+    public function sendUserConfirmation(Request $request) {
+        if (!$this->user) {
+            abort(403, 'Unauthorized');
+        }
+        $this->EmailService->sendUserConfirmation($this->user);
+
+        return view('user.sended-confirmation-user')->with([
+            'success' => 'The link has been sent.',
+            'user' => $this->user,
+        ]);
+    }
+
+    public function sendPasswordCode() {
+        if (!$this->user) {
+            abort(403, 'Unauthorized');
+        }
+
+        $this->EmailService->sendPasswordUpdate($this->user);
+        
+        return view('user.change-password')->with([
+            'success' => 'Code sent.',
+            'change_password_access' => false,
+        ]);
+    }
+
+    public function sendFeedback(Request $request) {
+        $request->validate([
+            'name' => 'required|min: 6',
+            'email' => 'required|email',
+            'message' => 'required|min: 10'
+        ]);
+        $this->EmailService->sendFeedback($request);
+        return redirect('/login')->with('success', 'You have successfully sent your feedback.');
     }
 
     public function logout() {

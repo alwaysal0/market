@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Filter;
 
-use App\Providers\FilterProducts;
+use App\Services\FilterProducts;
 
 class RenderController extends Controller
 
@@ -103,6 +103,10 @@ class RenderController extends Controller
             'products' => $products,
             'filters' => $filters,
         ]);
+    }
+
+    public function showSupportPage() {
+        return view('support');
     }
 
     public function test() {

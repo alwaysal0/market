@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Cloudinary\Cloudinary;
-use Carbon\Laravel\ServiceProvider;
 
 use App\Models\Product;
 use App\Models\Filter;
@@ -30,7 +29,7 @@ class GoodController extends Controller
         
         $current_user = Auth::user();
         
-        Product::create([
+        $current_product = Product::create([
             'user_id' => $current_user->id,
             'name' => $request->name,
             'description' => $request->description,
@@ -39,18 +38,29 @@ class GoodController extends Controller
             'image_public_id' => $image_public_id,
         ]);
 
-        $current_post = Product::where('name', $request->name)->first();
         if ($request->filled('filters')) {
             $filters = explode(',', $request->filters);
             foreach($filters as $filter) {
                 Filter::create([
                     'user_id' => $current_user->id,
-                    'product_id' => $current_post->id,
+                    'product_id' => $current_product->id,
                     'filter_name' => $filter
                 ]);
             }
         }
 
+        activity('product')
+            ->causedBy($current_user)
+            ->performedOn($current_product)
+            ->withProperties([
+                'username' => $current_user->username,
+                'email' => $current_user->email,
+                'product_name' => $current_product->name,
+                'product_description' => $current_product->description,
+                'product_price' => $current_product->price,
+                'product_img_url' => $current_product->image_url,
+            ])
+        ->log('The user has successfully listed new product.');
         return redirect()->route('profile.edit-profile')->with('success', 'Your product was successfully listed.');
     }
 }

@@ -38,7 +38,7 @@
                 <button disabled type="submit" class="profile-right-cont-change-data-buttons disabled-btn" id="profile-right-cont-username-btn">Edit</button>
             </form>
             <label>Change your email:</label>
-            <form method='POST' action="/profile/edit-profile/email">
+            <form method='POST' action="{{ route('email.update') }}">
                 @csrf
                 <input type="text" name="email" id="profile-right-cont-email" value="{{ $user['email'] }}">
                 <button disabled type="submit" class="profile-right-cont-change-data-buttons disabled-btn" id="profile-right-cont-email-btn">Edit</button>

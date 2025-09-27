@@ -34,3 +34,14 @@
 - `UserController` update user data;
 - `EditProile` new service which is updating data;
 - `EmailService` new service which is sending emails;
+
+## 27.09.2025
+## V0.0.6
+### Created:
+- Logging Activity by `Spatie`;
+### Fixed:
+- `EditProfile` service now creates new log in `activity_logs` table in DB;
+- `EmailService` service now creates new log in `activity_logs` table in DB;
+- `AuthController` service now creates new log in `activity_logs` table in DB;
+- `UserController` service now creates new log in `activity_logs` table in DB;
+- `GoodController` service now creates new log in `activity_logs` table in DB;
