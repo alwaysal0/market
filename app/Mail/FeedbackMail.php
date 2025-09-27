@@ -8,27 +8,29 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use SplSubject;
 
-class UserChangeEmail extends Mailable
+class FeedbackMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public string $link;
-
-    public function __construct(string $link)
+    private $data;
+    public function __construct($data)
     {
-        $this->link = $link;
+        //
+        $this->data = $data;
     }
+
     /**
      * Get the message envelope.
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Change Email Form',
+            subject: 'Новое сообщение от пользователя',
         );
     }
 
@@ -38,10 +40,10 @@ class UserChangeEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.user-change-email',
+            markdown: 'emails.feedback',
             with: [
-                'link' => $this->link,
-            ],
+                'data' => $this->data,
+            ]
         );
     }
 
