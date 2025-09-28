@@ -79,7 +79,7 @@ class UserController extends Controller
                 'change_password_access' => true,
             ]);
         }
-        
+
         return back()->withErrors(['code' => 'Invalid or expired code.']);
     }
 
@@ -170,6 +170,9 @@ class UserController extends Controller
     }
 
     public function logout() {
+        activity('auth')
+            ->causedBy($this->user)
+        ->log('The user has been successfully logged out.');
         Auth::logout();
         return redirect('/login')->with('success', 'You have successfully logged out of your account.');
     }

@@ -7,12 +7,8 @@
 
 <div id="profile-main-cont">
     <div id="profile-left-cont">
-        <form method="GET" action="{{ route('profile.edit-profile') }}">
-            <button class="{{ $current_page === 'edit-profile' ? 'active-btn' : '' }}">Edit Profie</button>
-        </form>
-        <form method="GET" action="{{ route('profile.your-products') }}">
-            <button class="{{ $current_page === 'your-products' ? 'active-btn' : '' }}">Your Products</button>
-        </form>
+        <a href="{{ route('profile.edit-profile') }}" class="{{ $current_page === 'edit-profile' ? 'active-btn' : '' }}">Edit Profile</a>
+        <a href="{{ route('profile.your-products') }}" class="{{ $current_page === 'your-products' ? 'active-btn' : '' }}">Your Products</a>
         <form method="POST" action="{{ route('profile.logout') }}">
             @csrf
             <button type="submit">Logout</button>
