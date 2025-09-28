@@ -7,13 +7,28 @@
     padding-top: 50px;
     display: flex;
     flex-direction: column;
-    width: 20%;
+    align-items: flex-start;
+    width: 10%;
     border-right: 1px solid black;
-    button {
+    margin-left: 5px;
+    a, button {
+        font-size: 16px;
         color: grey;
         background: none;
         border: none;
         cursor: pointer;
+        padding: 5px;
+        border-radius: 7px;
+        text-decoration: none;
+        transition: ease-in-out .1s;
+    }
+    a:hover {
+        background: #f0f0f0;
+        color: #303030;
+    }
+    button:hover {
+        background: #f0f0f0;
+        color: #303030;
     }
 }
 
@@ -21,7 +36,7 @@
     position: relative;
     padding-left: 50px;
     display: flex;
-    width: 80%;
+    width: 90%;
     flex-direction: column;
     gap: 5px;
 
@@ -78,6 +93,8 @@
 
 .active-btn {
     color: black !important;
+    background: #f0f0f0;
+    color: #303030;
 }
 
 .disabled-btn,
