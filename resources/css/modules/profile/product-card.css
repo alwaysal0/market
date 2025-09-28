@@ -1,5 +1,3 @@
-
-
 .profile-right-cont-product-card {
     background: #fff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -50,4 +48,41 @@
     white-space: normal;
     font-size: 13px;
     line-height: 1.3em;
+}
+
+.profile-right-cont-product-card-price-buy {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: flex-end;
+    p {
+        font-size: 17px !important;
+    }
+    span {
+        color: #dc2626 !important;
+    }
+    button {
+        font-weight: 600;
+        font-size: 16px;
+        color: #fff;
+        background-color: #dc2626; /* глубокий красный */
+        border: none;
+        padding: 10px 14px;
+        border-radius: 8px;
+        transition: background-color 200ms ease, transform 150ms ease;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #b91c1c; /* более тёмный оттенок */
+    }
+
+    button:active {
+        background-color: #991b1b;  
+    }
+
+}
+
+.disabled-product-card {
+        background-color: #d59393 !important;
 }
