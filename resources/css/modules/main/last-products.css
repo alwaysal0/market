@@ -1,7 +1,24 @@
 #last-products-title {
     font-size: 24px;
-    color: #303030;
+    font-weight: 700;
     text-align: center;
+    color: #303030;
+    margin: 30px auto;
+    position: relative;
+    display: block;
+    padding-bottom: 8px;
+}
+
+#last-products-title::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 5%;
+    height: 3px;
+    background: linear-gradient(90deg, #303030, #5e5e5e);
+    border-radius: 2px;
 }
 
 #last-products-cont {

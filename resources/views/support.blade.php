@@ -3,11 +3,11 @@
 @section('content')
 @vite('resources/css/support.css')
     
-    <p class="support-title">Support</p>
+    <p class="support-title" id="support-main-title">Support</p>
     <ul id="support-list">
         <li><span>About us:</span> Test Message</li>
         <li><span>Support email:</span> <a href="mailto:supportemailr@gmail.com">supportemail@gmail.com</a></li>
-        <li><span>Hot line:</span> +380666666666</li>
+        <li><span>Hotline:</span> +380666666666</li>
     </ul>
     <p class="support-title">Feedback Form</p>
     <form id="support-feedback-form" method="POST" action="{{ route('support.send') }}">
