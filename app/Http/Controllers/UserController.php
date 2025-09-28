@@ -50,6 +50,10 @@ class UserController extends Controller
         ]);
 
         $user_confirmation->delete();
+
+        activity('auth')
+            ->causedBy($this->user)
+        ->log('The user has confirmed his account successfully.');
         
         return redirect('/')->with('success', 'Your email has been confirmed!');
     }
@@ -75,7 +79,7 @@ class UserController extends Controller
                 'change_password_access' => true,
             ]);
         }
-
+        
         return back()->withErrors(['code' => 'Invalid or expired code.']);
     }
 
