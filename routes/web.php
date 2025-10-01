@@ -28,6 +28,7 @@ Route::group(['middleware' => ['web']], function(){
     Route::get('/products', [RenderController::class , 'showProducts']);
     Route::get('/products/filter/{currentFilter}', [RenderController::class, 'showProductsFilter']);
     Route::get('/support', [RenderController::class, 'showSupportPage'])->name('support');
+    Route::get('/product/{id}', [RenderController::class, 'showProduct'])->name('product');
 });
 
 // Authorized Routes
@@ -53,9 +54,14 @@ Route::group(['middleware' => ['web', 'auth']],function() {
             Route::post('add-product', [GoodController::class, 'upload'])->name('profile.your-products.add-product');
         });
         Route::post('/support', [UserController::class, 'sendFeedback'])->name('support.send');
+        Route::post('/write-review/{id}', function() {
+            dd('yes');
+        })->name('review');
     });
 
     Route::post('/user-confirmation', [UserController::class, 'sendUserConfirmation']);
     Route::get('/user-confirmation/{token}', [RenderController::class, 'showUserConfirmation'])->name('userConfirmation');
     Route::post('/user-confirmation/{token}', [UserController::class, 'confirmUser'])->name('userConfirmation');
 });
+
+require __DIR__ . '/profile.php';

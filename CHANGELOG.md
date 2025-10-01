@@ -36,7 +36,7 @@
 - `EmailService` new service which is sending emails;
 
 ## 27.09.2025
-## V0.0.6
+## v0.0.6
 ### Created:
 - Logging Activity by `Spatie`;
 ### Fixed:
@@ -45,3 +45,11 @@
 - `AuthController` service now creates new log in `activity_logs` table in DB;
 - `UserController` service now creates new log in `activity_logs` table in DB;
 - `GoodController` service now creates new log in `activity_logs` table in DB;
+
+## 01.10.2025
+## v0.0.7
+### Created:
+- `Product Page`;
+- New migration `create_reviews_table` for user's reviews;
+- Created new model `Review`;
+- Created new module `reviews`;

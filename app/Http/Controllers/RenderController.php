@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Filter;
+use App\Models\Review;
 
 use App\Services\FilterProducts;
 
@@ -102,6 +103,25 @@ class RenderController extends Controller
         return view('products')->with([
             'products' => $products,
             'filters' => $filters,
+        ]);
+    }
+
+    public function showProduct($id) {
+        $filters = Filter::where('product_id', $id)->get();
+        $reviews = Review::where('product_id', $id)->get();
+        if ($this->user) {
+            return view('product')->with([
+                'product' => Product::find($id),
+                'filters' => $filters,
+                'user' => $this->user,
+                'reviews' => $reviews,
+            ]);
+        }
+
+        return view('product')->with([
+            'product' => Product::find($id),
+            'filters' => $filters,
+            'reviews' => $reviews,
         ]);
     }
 
