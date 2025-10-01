@@ -1,0 +1,151 @@
+#product-back {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    color: #2563eb;
+    width: max-content;
+    margin: 15px;
+}
+
+#product-title {
+    font-size: 26px;
+    margin: 10px 20px;
+}
+
+#product-cont {
+    display: flex;
+    height: 80vh;
+    gap: 20px;
+    
+    img {
+        width: 650px;
+        height: 600px;
+        border-radius: 15px;
+        box-shadow: 0 2px 5px 0 rgb(154, 154, 154);
+        margin-left: 20px;
+    }
+}
+
+#product-cont-form {
+    width: 40vw;
+    button {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+        font-weight: bold;
+        background: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: ease-in-out .1s;
+    }
+    button:hover {
+        background: #0056b3;
+    }
+    button:active {
+        background-color: #004084;
+    }
+}
+
+.product-info {
+    span {
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
+
+#product-filters-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+#product-filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.product-tags {
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    font-weight: 550;
+    margin: 0;
+}
+
+.technique {
+    background-color: #FF9999 !important;
+}
+
+.rofl {
+    background-color: #99CCFF !important;
+}
+
+.clothes {
+    background-color: #FF99CC !important;
+}
+
+#product-price {
+    font-size: 18px;
+    margin-bottom: 10px;
+    span {
+        font-size: 18px;
+        font-weight: 600;
+        color: red;
+    }
+}
+
+#product-input-cont-wrap {
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.product-input-cont {
+    position: relative;
+}
+
+
+#select-country,
+.product-input-cont input {
+    width: 100%;
+    padding: 10px 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box; /* важно, чтобы padding учитывался в ширине */
+    margin: 0; /* или одинаковый для всех */
+    background-color: white;
+}
+
+
+.product-input-cont label {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    color: rgb(102, 102, 102);
+    pointer-events: none;
+    transition: all 0.2s ease;
+    background: white;
+    padding: 0 4px;
+}
+
+.product-input-cont input:focus + label,
+.product-input-cont input:not(:placeholder-shown) + label {
+    top: -4px;
+    font-size: 12px;
+    color: #333;
+}
+
+#product-remark {
+    color: #5e5e5e;
+    font-size: 14px;
+    text-align: center;
+}

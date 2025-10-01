@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\UserConfirmation;
 use App\Models\EmailVerification;
+use App\Models\Review;
 
 use App\Services\EditProfile;
 use App\Services\FilterProducts;
@@ -166,7 +167,22 @@ class UserController extends Controller
             'message' => 'required|min: 10'
         ]);
         $this->EmailService->sendFeedback($request);
-        return redirect('/login')->with('success', 'You have successfully sent your feedback.');
+        return redirect('/login')->with('success', "You have successfully sent your feedback.");
+    }
+
+    public function sendReview(Request $request, $id) {
+        $request->validate([
+            'message' => 'required|min: 10',
+        ]);
+
+        Review::create([
+            'user_id' => Auth::user()->id,
+            'product_id' => $id,
+            'message' => $request->message,
+            'rating' => $request->rating,
+        ]);
+
+        return back()->with('success', "You have successfully posted your review.");
     }
 
     public function logout() {
