@@ -55,29 +55,28 @@
 }
 
 .stars {
-  direction: rtl;
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
+    direction: rtl;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
 }
 
 .stars input {
-  display: none;
+    display: none;
 }
 
 .stars label {
-  font-size: 4rem;
-  color: #ddd;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  margin: 0;
-
+    font-size: 4rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin: 0;
 }
 
 .stars input:checked ~ label,
 .stars label:hover,
 .stars label:hover ~ label {
-  color: #ffc107;
+    color: #ffc107;
 }
 
 .write-review-input-cont {
@@ -121,4 +120,44 @@
 .write-review-input-cont textarea:focus {
     border-color: black;
     outline: none;
+}
+
+#review-cards-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.review-cards {
+    width: 80vw;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    padding: 5px;
+    position: relative;
+    font-size: 16px;
+    color: #303030;
+    span {
+        font-weight: 600;
+    }
+}
+
+.reviw-cards-message {
+    white-space: preline;
+}
+
+.review-cards-date {
+    color: #6f6f6f;
+    position: absolute;
+    right: 2%;
+    top: 0;
+}
+
+.review-cards-rating {
+    margin-bottom: 0;
+}
+.review-cards-rating-stars {
+    font-size: 1.5rem;
 }

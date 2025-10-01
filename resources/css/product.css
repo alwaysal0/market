@@ -98,18 +98,32 @@
     }
 }
 
+#product-input-cont-wrap {
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 .product-input-cont {
     position: relative;
 }
 
+
+#select-country,
 .product-input-cont input {
-    max-width: 100%;
+    width: 100%;
     padding: 10px 8px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
     outline: none;
+    box-sizing: border-box; /* важно, чтобы padding учитывался в ширине */
+    margin: 0; /* или одинаковый для всех */
+    background-color: white;
 }
+
 
 .product-input-cont label {
     position: absolute;
@@ -130,13 +144,8 @@
     color: #333;
 }
 
-#select-country {
-    width: 100%;
-    padding: 10px 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    background-color: white;
-    border-radius: 4px;
-    outline: none;
-    margin: 15px 0;
+#product-remark {
+    color: #5e5e5e;
+    font-size: 14px;
+    text-align: center;
 }

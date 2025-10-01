@@ -54,9 +54,7 @@ Route::group(['middleware' => ['web', 'auth']],function() {
             Route::post('add-product', [GoodController::class, 'upload'])->name('profile.your-products.add-product');
         });
         Route::post('/support', [UserController::class, 'sendFeedback'])->name('support.send');
-        Route::post('/write-review/{id}', function() {
-            dd('yes');
-        })->name('review');
+        Route::post('/write-review/{id}', [UserController::class, 'sendReview'])->name('review');
     });
 
     Route::post('/user-confirmation', [UserController::class, 'sendUserConfirmation']);
