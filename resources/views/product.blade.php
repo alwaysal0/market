@@ -46,6 +46,6 @@
         <p id="product-remark">When you click this button, the product will appear and be available in your shopping cart.</p>
     </form>
 </div>
-@include('modules.reviews')
-<br>
+@include('modules.product.same-products')
+@include('modules.product.reviews')
 @endsection

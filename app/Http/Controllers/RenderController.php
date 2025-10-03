@@ -11,14 +11,17 @@ use App\Models\Filter;
 use App\Models\Review;
 
 use App\Services\FilterProducts;
+use App\Services\ProductService;
 
 class RenderController extends Controller
 
 {
     private $filterProducts;
+    private $productService;
     private $user;
-    public function __construct(FilterProducts $filterProducts) {
+    public function __construct(FilterProducts $filterProducts, ProductService $productService) {
         $this->filterProducts = $filterProducts;
+        $this->productService = $productService;
         $this->user = Auth::user();
     }
     
@@ -108,20 +111,20 @@ class RenderController extends Controller
 
     public function showProduct($id) {
         $filters = Filter::where('product_id', $id)->get();
-        $reviews = Review::where('product_id', $id)->get();
-        if ($this->user) {
-            return view('product')->with([
-                'product' => Product::find($id),
-                'filters' => $filters,
-                'user' => $this->user,
-                'reviews' => $reviews,
-            ]);
+        $same_products = collect();
+
+        if($filters) {
+            $same_products = $this->productService->sameProducts($id);
         }
+
+        $reviews = Review::where('product_id', $id)->get();
 
         return view('product')->with([
             'product' => Product::find($id),
+            'same_products' => $same_products,
             'filters' => $filters,
             'reviews' => $reviews,
+            'user' => $this->user ?? null,
         ]);
     }
 
@@ -129,12 +132,4 @@ class RenderController extends Controller
         return view('support');
     }
 
-    public function test() {
-        // $user = Auth::user();
-        // return view('auth.user-confirmation')->with([
-        //     'user' => $user,
-        //     'id' => 2222,
-        // ]);
-        return view('auth.expired-page');
-    }
 }

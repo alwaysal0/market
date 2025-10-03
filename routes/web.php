@@ -25,7 +25,7 @@ Route::group(['middleware' => ['web']], function() {
 Route::group(['middleware' => ['web']], function(){
     Route::get('/', [RenderController::class, 'showRegister'])->name('register');
     Route::get('/main', [RenderController::class, 'showMain'])->name('MainPage');
-    Route::get('/products', [RenderController::class , 'showProducts']);
+    Route::get('/products', [RenderController::class , 'showProducts'])->name('products');
     Route::get('/products/filter/{currentFilter}', [RenderController::class, 'showProductsFilter']);
     Route::get('/support', [RenderController::class, 'showSupportPage'])->name('support');
     Route::get('/product/{id}', [RenderController::class, 'showProduct'])->name('product');
