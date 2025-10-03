@@ -58,3 +58,12 @@
 ### Created:
 - New module 'Reviews';
 - New module 'Same Products';
+
+## v0.1.0
+### Fixed:
+- Fixed `profile.js`: added URL verification to start the script;
+- Renamed some objects in `product-card` and `profile`;
+
+### Created:
+- Implemented `delete` button functionality in `product card`;
+- Hide `same_products` in `product` if none exist.

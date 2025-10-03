@@ -63,4 +63,9 @@ class GoodController extends Controller
         ->log('The user has successfully listed new product.');
         return redirect()->route('profile.edit-profile')->with('success', 'Your product was successfully listed.');
     }
+
+    public function delete($id) {
+        Product::find($id)->delete();
+        return back()->with('success', 'The product was successfully deleted.');
+    }
 }

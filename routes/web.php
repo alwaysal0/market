@@ -4,11 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RenderController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\MainController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\EmailController;
 use App\Http\Controllers\GoodController;
-use App\Http\Controllers\FilterController;
 
 use League\CommonMark\Output\RenderedContent;
 use Symfony\Component\HttpKernel\Profiler\Profile;
@@ -52,6 +48,7 @@ Route::group(['middleware' => ['web', 'auth']],function() {
             Route::get('/', [RenderController::class, 'showYourProducts'])->name('profile.your-products');
             Route::post('filter', [UserController::class, 'filterYourProducts'])->name('profile.your-products.filter');
             Route::post('add-product', [GoodController::class, 'upload'])->name('profile.your-products.add-product');
+            Route::delete('delete/{id}', [GoodController::class, 'delete'])->name('delete.product');
         });
         Route::post('/support', [UserController::class, 'sendFeedback'])->name('support.send');
         Route::post('/write-review/{id}', [UserController::class, 'sendReview'])->name('review');

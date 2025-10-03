@@ -4,6 +4,7 @@
 @section('content')
 @vite('resources/css/profile.css')
 @vite('resources/js/profile.js')
+@vite('resources/css/modules/profile/product-card.css')
 
 <div id="profile-main-cont">
     <div id="profile-left-cont">

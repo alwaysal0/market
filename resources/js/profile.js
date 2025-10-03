@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    if (!window.location.pathname.includes('edit-profile')) {
+        return;
+    }
     const inputUsername = document.getElementById('profile-right-cont-username');
     const inputUsernameBtn = document.getElementById('profile-right-cont-username-btn');
     const inputEmail = document.getElementById('profile-right-cont-email');
