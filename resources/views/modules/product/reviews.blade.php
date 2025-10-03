@@ -1,4 +1,4 @@
-@vite('resources/css/modules/reviews.css')
+@vite('resources/css/modules/product/reviews.css')
 
 <div id="write-review-wrapper">
     @guest

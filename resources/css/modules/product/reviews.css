@@ -9,8 +9,8 @@
     width: 100%;
     height: 100%;
     background-color: rgba(128, 128, 128, 0.092);
-    backdrop-filter: blur(2px);           /* размытие содержимого под оверлеем */
-    -webkit-backdrop-filter: blur(2px);   /* для Safari */
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
     z-index: 9999;
 
     display: flex;
@@ -26,7 +26,7 @@
 }
 
 #write-review-title {
-    font-size: 26px;
+    font-size: 24px;
     margin: 0;
 }
 
@@ -123,6 +123,7 @@
 }
 
 #review-cards-wrapper {
+    margin: 20px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;

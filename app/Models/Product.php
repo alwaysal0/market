@@ -11,4 +11,12 @@ class Product extends Authenticatable
 {
     protected $table = 'products';
     protected $guarded = false;
+
+    public function filters() {
+        return $this->hasMany(Filter::class);
+    }
+
+    public function reviews() {
+        return $this->hasMany(Review::class);
+    }
 }

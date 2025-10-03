@@ -11,4 +11,8 @@ class Filter extends Authenticatable
 {
     protected $table = 'filters';
     protected $guarded = false;
+
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
 }

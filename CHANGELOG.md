@@ -53,3 +53,8 @@
 - New migration `create_reviews_table` for user's reviews;
 - Created new model `Review`;
 - Created new module `reviews`;
+
+## v0.0.8
+### Created:
+- New module 'Reviews';
+- New module 'Same Products';
