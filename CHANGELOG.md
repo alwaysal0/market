@@ -54,11 +54,13 @@
 - Created new model `Review`;
 - Created new module `reviews`;
 
+## 03.10.25
 ## v0.0.8
 ### Created:
 - New module 'Reviews';
 - New module 'Same Products';
 
+## 03.10.25
 ## v0.1.0
 ### Fixed:
 - Fixed `profile.js`: added URL verification to start the script;
@@ -67,3 +69,12 @@
 ### Created:
 - Implemented `delete` button functionality in `product card`;
 - Hide `same_products` in `product` if none exist.
+
+## 04.10.25
+## v0.2.0
+### Created:
+- New DB migration `create_admins_table`;
+- New model `Admin`;
+
+### Fixed:
+- Now all models extend the `Model` class, except the `User.php`.

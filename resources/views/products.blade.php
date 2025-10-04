@@ -3,6 +3,7 @@
 @section('title', 'Market - Products')
 @section('content')
 @vite('resources/css/products.css')
+@vite('resources/css/modules/profile/product-card.css')
 
 <p id="products-title">Products</p>
 <div id="products-main-cont-wrap">
