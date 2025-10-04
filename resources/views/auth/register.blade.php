@@ -10,19 +10,19 @@
     <form method="POST" action="/register-auth" id="register-form">
         @csrf
         <div class="register-form-input-cont">
-            <input type="text" name="username" placeholder=" " required>
+            <input type="text" name="username" placeholder=" " value="{{ old('username') }}" required>
             <label for="usrname">Username</label>
         </div>
         <div class="register-form-input-cont">
-            <input type="email" name="email" placeholder=" " required>
+            <input type="email" name="email" placeholder=" " value="{{ old('email') }}" required>
             <label for="email">Email</label>
         </div>
         <div class="register-form-input-cont">
-            <input type="password" name="password" placeholder=" " required>
+            <input type="password" name="password" placeholder=" " value="{{ old('password') }}" required>
             <label for="password">Password</label>
         </div>
         <div class="register-form-input-cont">
-            <input type="password" name="password_confirmation" placeholder=" " required>
+            <input type="password" name="password_confirmation" placeholder=" " value="{{ old('password_confirmation') }}" required>
             <label for="password_confirmation">Repeat the Password</label>
         </div>
         <button type="submit">Submit</button>

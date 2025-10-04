@@ -9,6 +9,9 @@ use App\Http\Controllers\GoodController;
 use League\CommonMark\Output\RenderedContent;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
+// Admin Routes
+Route::prefix('admin')->middleware(['web', 'auth', 'admin'])->group(base_path('routes/admin.php'));
+
 // Auth Routes
 Route::group(['middleware' => ['web']], function() {
     Route::get('/register', [RenderController::class, 'showRegister'])->name('register');
@@ -58,5 +61,3 @@ Route::group(['middleware' => ['web', 'auth']],function() {
     Route::get('/user-confirmation/{token}', [RenderController::class, 'showUserConfirmation'])->name('userConfirmation');
     Route::post('/user-confirmation/{token}', [UserController::class, 'confirmUser'])->name('userConfirmation');
 });
-
-require __DIR__ . '/profile.php';

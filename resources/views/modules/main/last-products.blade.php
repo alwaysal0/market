@@ -1,4 +1,5 @@
 @vite('resources/css/modules/main/last-products.css')
+@vite('resources/css/modules/profile/product-card.css')
 
 <p id="last-products-title">Last 10 Products</p>
 <div id="last-products-cont">

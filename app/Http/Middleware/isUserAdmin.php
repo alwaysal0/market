@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use App\Models\Admin;
 
 class isUserAdmin
 {
@@ -19,11 +20,10 @@ class isUserAdmin
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
-        $current_user = User::find($user->id);
-        if (!$current_user->confirmed) {
+        if (!$user->isAdmin()) {
             return redirect()
-                    ->route('userConfirmation')
-                    ->with('info', 'You should be a confirmed user to access previous page!');
+                    ->route('MainPage')
+                    ->with('error', "You don't have enough rights to access this page.");
         } else {
             return $next($request);
         }

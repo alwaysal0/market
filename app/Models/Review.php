@@ -2,14 +2,10 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class Review extends Authenticatable
+class Review extends Model
 {
-    use HasFactory;
     protected $table = 'reviews';
     protected $guarded = false;
 
