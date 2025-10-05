@@ -78,3 +78,8 @@
 
 ### Fixed:
 - Now all models extend the `Model` class, except the `User.php`.
+
+## 05.10.25
+## v0.3.0
+### Created:
+- New 'Admin Panel'
