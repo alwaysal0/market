@@ -8,7 +8,7 @@
     <form method="POST" action="/login-auth" id="login-form">
         @csrf
         <div class="login-form-input-cont">
-            <input type="text" name="username" placeholder=" " required>
+            <input type="text" name="username" placeholder=" " value="{{ old('username') }}" required>
             <label for="username">Username</label>
         </div>
         <div class="login-form-input-cont">

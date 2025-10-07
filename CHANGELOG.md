@@ -77,9 +77,18 @@
 - New model `Admin`;
 
 ### Fixed:
-- Now all models extend the `Model` class, except the `User.php`.
+- Now all models extend the `Model` class, except the `User.php`;
 
 ## 05.10.25
 ## v0.3.0
 ### Created:
-- New 'Admin Panel'
+- New 'Admin Panel';
+
+## 07.10.25
+## v0.3.1
+### Created:
+- New "Admin Setvice" which is providing opportunity to update user data;
+
+### Fixed:
+- Restyling "admin-panel";
+- Changed redirections from `back` method to `route` in `AdminController.php`;
