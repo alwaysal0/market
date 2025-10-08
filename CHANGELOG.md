@@ -87,8 +87,17 @@
 ## 07.10.25
 ## v0.3.1
 ### Created:
-- New "Admin Setvice" which is providing opportunity to update user data;
+- New "Admin Service" which is providing opportunity to update user data;
 
 ### Fixed:
 - Restyling "admin-panel";
 - Changed redirections from `back` method to `route` in `AdminController.php`;
+
+## 08.10.25
+## v0.3.2
+### Created:
+- New method in `Product Service`;
+- Development the possibility to edit products of the selected user;
+
+### Fixed:
+- Restyling "admin-panel";

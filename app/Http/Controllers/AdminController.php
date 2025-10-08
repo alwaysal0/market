@@ -13,15 +13,18 @@ use App\Models\Filter;
 use App\Models\Log;
 
 use App\Services\AdminService;
+use App\Services\ProductService;
 
 use function PHPUnit\Framework\isEmpty;
 
 class AdminController extends Controller
 {
     private $adminService;
+    private $productService;
 
-    public function __construct(AdminService $adminService) {
+    public function __construct(AdminService $adminService, ProductService $productService) {
         $this->adminService = $adminService;
+        $this->productService = $productService;
     }
 
     public function showAdminPanel() {
@@ -33,6 +36,10 @@ class AdminController extends Controller
 
         if (session()->has('user'))
             $user = session('user');
+
+        $user = Auth::user();
+        $products = $user->products;
+        $logs = Log::where('causer_id', $user->id)->get();
 
         return view('admin.admin-panel')->with([
             'success' => 'Welcome to Admin Panel.',
@@ -87,4 +94,12 @@ class AdminController extends Controller
         return back()->with('success', 'You have successfully updated users data.');
     }
     
+    public function showProduct($id) {
+        return view('product')->with($this->productService->getProductViewData($id, true));
+    }
+
+    public function deleteProduct() {
+        dd("deleteProduct");
+    }
+
 }

@@ -11,10 +11,16 @@
 <p id="product-title">Product {{ $product->id }} | {{ $product->name }}</p>
 <div id="product-cont">
     <img src="{{ $product->image_url }}" alt="product_image">
-    <form method="POST" action="#" id="product-cont-form">
+    <form method="POST" action="{{ $admin ? route('admin.editProduct') : '#' }}" id="product-cont-form">
         <p class="product-info"><span>ID:</span> {{ $product->id }}</p>
-        <p class="product-info"><span>Name:</span> {{ $product->name }}</p>
-        <p class="product-info"><span>Description:</span> {{ $product->description }}</p>
+        @if ($admin)
+            <input type="text" name="name" required>
+            <input type="text" name="description">
+            <!-- ДОДЕЛАТЬ -->
+        @else
+            <p class="product-info"><span>Name:</span> {{ $product->name }}</p>
+            <p class="product-info"><span>Description:</span> {{ $product->description }}</p>
+        @endif
         <div id="product-filters">
             <p id="product-filters-title">Filters:</p>
             @foreach ($filters as $filter)
@@ -42,7 +48,7 @@
                 <label>Full Address</label>
             </div>
         </div>
-        <button type="submit">Add to Cart</button>
+        <button type="submit">{{ $admin ? "Update" : "Add to card" }}</button>
         <p id="product-remark">When you click this button, the product will appear and be available in your shopping cart.</p>
     </form>
 </div>
