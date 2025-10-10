@@ -12,6 +12,10 @@ class User extends Authenticatable
     protected $table = 'users';
     protected $guarded = false;
 
+    public function products() {
+        return $this->hasMany(Product::class, 'user_id', 'id');
+    }
+
     public function admin() {
         return $this->hasOne(Admin::class, 'user_id', 'id');
     }
@@ -19,4 +23,4 @@ class User extends Authenticatable
     public function isAdmin() {
         return $this->admin()->exists();
     }
-}
+}   

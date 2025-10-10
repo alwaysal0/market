@@ -110,22 +110,7 @@ class RenderController extends Controller
     }
 
     public function showProduct($id) {
-        $filters = Filter::where('product_id', $id)->get();
-        $same_products = collect();
-
-        if($filters) {
-            $same_products = $this->productService->sameProducts($id);
-        }
-
-        $reviews = Review::where('product_id', $id)->get();
-
-        return view('product')->with([
-            'product' => Product::find($id),
-            'same_products' => $same_products,
-            'filters' => $filters,
-            'reviews' => $reviews,
-            'user' => $this->user ?? null,
-        ]);
+        return view('product')->with($this->productService->getProductViewData($id));
     }
 
     public function showSupportPage() {

@@ -77,4 +77,34 @@
 - New model `Admin`;
 
 ### Fixed:
-- Now all models extend the `Model` class, except the `User.php`.
+- Now all models extend the `Model` class, except the `User.php`;
+
+## 05.10.25
+## v0.3.0
+### Created:
+- New 'Admin Panel';
+
+## 07.10.25
+## v0.3.1
+### Created:
+- New "Admin Service" which is providing opportunity to update user data;
+
+### Fixed:
+- Restyling "admin-panel";
+- Changed redirections from `back` method to `route` in `AdminController.php`;
+
+## 08.10.25
+## v0.3.2
+### Created:
+- New method in `Product Service`;
+- Development the possibility to edit products of the selected user;
+
+### Fixed:
+- Restyling "admin-panel";
+
+## 08.10.25
+## v0.4.0
+### Created:
+- Finished 'Admin-Panel';
+- New methods in 'Admin Service' to edit and delete products;
+- New `EditProductRequest` validator;
