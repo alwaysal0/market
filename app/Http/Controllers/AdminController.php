@@ -15,6 +15,8 @@ use App\Models\Log;
 use App\Services\AdminService;
 use App\Services\ProductService;
 
+use App\Http\Requests\EditProductRequest;
+
 use function PHPUnit\Framework\isEmpty;
 
 class AdminController extends Controller
@@ -93,13 +95,21 @@ class AdminController extends Controller
 
         return back()->with('success', 'You have successfully updated users data.');
     }
-    
+
     public function showProduct($id) {
         return view('product')->with($this->productService->getProductViewData($id, true));
     }
 
-    public function deleteProduct() {
-        dd("deleteProduct");
+    public function editProduct(EditProductRequest $request, $id) {
+        $request->validated();
+        $this->adminService->updateProduct($request, $id);
+
+        return redirect()->back()->with('success', 'You have successfully updated product data.');
     }
 
+    public function deleteProduct($id) {
+        $this->adminService->deleteProduct($id);
+
+        return redirect()->back()->with('success', 'You have successfully deleted product data.');
+    }
 }

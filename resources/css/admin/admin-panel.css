@@ -101,6 +101,7 @@
         width: 15vw;
         height: 15vh;
         border-radius: 10px;
+
     }
 }
 
@@ -124,10 +125,14 @@
     }
 }
 
-.mini-product-card__more {
-    color: #2563eb;
+.admin-product__more {
     text-align: right;
+    text-decoration: none;
+
+    color: #007bff;
+    padding: 10px 0;
 }
+
 .admin-product__options {
     display: flex;
     flex-direction: column;

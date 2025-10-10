@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
+use App\Models\Product;
 
 class AdminService {
     private $user;
@@ -17,7 +18,7 @@ class AdminService {
         $user = User::find($id);
         $old_email = $user->email;
         $new_email = $request->email;
-        
+
         $user->update([
             'email' => $new_email,
             'confirmed' => false,
@@ -58,10 +59,34 @@ class AdminService {
         $user->update([
             'password' => Hash::make($request->password),
         ]);
-        
+
         activity('admin')
             ->causedBy($this->user)
             ->performedOn($user)
         ->log("Admin has changed user's password.");
+    }
+
+    public function updateProduct($request, $id) {
+        $product= Product::find($id);
+        $product->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+        ]);
+
+        activity('admin')
+            ->causedBy($this->user)
+            ->performedOn($product)
+        ->log("Admin has changed product's data.");
+    }
+
+    public function deleteProduct($id) {
+        $product = Product::find($id);
+        $product->delete();
+
+        activity('admin')
+            ->causedBy($this->user)
+            ->perfomedOn($product)
+        ->log("Admin has deleted product.");
     }
 }

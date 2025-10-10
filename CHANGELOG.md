@@ -101,3 +101,10 @@
 
 ### Fixed:
 - Restyling "admin-panel";
+
+## 08.10.25
+## v0.4.0
+### Created:
+- Finished 'Admin-Panel';
+- New methods in 'Admin Service' to edit and delete products;
+- New `EditProductRequest` validator;
