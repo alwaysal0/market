@@ -108,3 +108,8 @@
 - Finished 'Admin-Panel';
 - New methods in 'Admin Service' to edit and delete products;
 - New `EditProductRequest` validator;
+
+## 12.10.25
+## v0.4.1
+### Fixed:
+- Fixed `FeedBackForm`;

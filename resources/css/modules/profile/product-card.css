@@ -45,6 +45,7 @@
 .product-card__description {
     display: -webkit-box;
     -webkit-line-clamp: 2;   /* только 2 строки */
+    -webkit-line-clamp: 2;   /* только 2 строки */
     -webkit-box-orient: vertical;
     font-size: 13px;
     line-height: 1.3em;
@@ -78,7 +79,7 @@
     }
 
     button:active {
-        background-color: #991b1b;  
+        background-color: #991b1b;
     }
 
 }
@@ -108,4 +109,8 @@
 
 .product-card__delete button:active {
     background-color: #991b1b !important;
+}
+
+.product-card__edit {
+
 }

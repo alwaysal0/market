@@ -65,8 +65,9 @@ class EmailService {
     public function sendFeedback($request) {
         Mail::to('shershowkirill@gmail.com')->send(new FeedbackMail($request));
 
+        $user = User::find($request->user_id);
         activity('email')
-            ->causedBy($request->name)
+            ->causedBy($user)
             ->withProperties([
                 'username' => $request->name,
                 'email' => $request->email,

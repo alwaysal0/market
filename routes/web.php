@@ -51,7 +51,8 @@ Route::group(['middleware' => ['web', 'auth']],function() {
             Route::get('/', [RenderController::class, 'showYourProducts'])->name('profile.your-products');
             Route::post('filter', [UserController::class, 'filterYourProducts'])->name('profile.your-products.filter');
             Route::post('add-product', [GoodController::class, 'upload'])->name('profile.your-products.add-product');
-            Route::delete('delete/{id}', [GoodController::class, 'delete'])->name('delete.product');
+            Route::get('show-product/{id}', [RenderController::class, 'showEditProduct'])->name('profile.your-products.show');
+            Route::delete('delete/{id}', [GoodController::class, 'delete'])->name('profile.your-products.delete');
         });
         Route::post('/support', [UserController::class, 'sendFeedback'])->name('support.send');
         Route::post('/write-review/{id}', [UserController::class, 'sendReview'])->name('review');
