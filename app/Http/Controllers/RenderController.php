@@ -24,7 +24,7 @@ class RenderController extends Controller
         $this->productService = $productService;
         $this->user = Auth::user();
     }
-    
+
     public function showRegister() {
         if (Auth::check()) {
             return redirect('/main');
@@ -47,7 +47,7 @@ class RenderController extends Controller
             'token' => $token,
         ]);
     }
-    
+
     public function showMain() {
         $products = Product::orderBy('created_at', 'desc')->limit(10)->get();
         return view('main')->with([
@@ -113,8 +113,14 @@ class RenderController extends Controller
         return view('product')->with($this->productService->getProductViewData($id));
     }
 
+    public function showEditProduct($id) {
+        return view('product')->with($this->productService->getProductViewData($id));
+    }
+
     public function showSupportPage() {
-        return view('support');
+        return view('support')->with([
+            'user' => $this->user,
+        ]);
     }
 
 }
