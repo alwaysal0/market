@@ -32,7 +32,7 @@
     }
 }
 
-#support-feedback-form {
+#support-report-form {
     max-width: 600px;   /* ограничиваем ширину формы */
     margin: 0 auto;     /* центрируем */
     padding: 20px;
@@ -60,13 +60,13 @@
     }
 }
 
-.support-feedback-form-input {
+.support-report-form-input {
     position: relative;
     margin-bottom: 20px;
 }
 
-.support-feedback-form-input input,
-.support-feedback-form-input textarea {
+.support-report-form-input input,
+.support-report-form-input textarea {
     display: inline-block;
     width: 100%;           /* на всю ширину контейнера */
     padding: 12px;
@@ -76,7 +76,7 @@
     box-sizing: border-box;
 }
 
-.support-feedback-form-input label {
+.support-report-form-input label {
     position: absolute;
     top: 50%;
     left: 8px;
@@ -88,30 +88,30 @@
     padding: 0 4px;
 }
 
-.support-feedback-form-input textarea {
+.support-report-form-input textarea {
     min-height: 120px;     /* чтобы сообщение было удобно писать */
     max-height: 250px;
     resize: vertical;      /* можно растягивать только по вертикали */
 }
 
-.support-feedback-form-input input:focus + label,
-.support-feedback-form-input input:not(:placeholder-shown) + label {
+.support-report-form-input input:focus + label,
+.support-report-form-input input:not(:placeholder-shown) + label {
     top: -4px;
     font-size: 12px;
     color: #333;
 }
 
-.support-feedback-form-input textarea:focus + label,
-.support-feedback-form-input textarea:not(:placeholder-shown) + label {
+.support-report-form-input textarea:focus + label,
+.support-report-form-input textarea:not(:placeholder-shown) + label {
     top: -4px;
     font-size: 12px;
     color: #333;
 }
 
-.support-feedback-form-input input:hover,
-.support-feedback-form-input input:focus,
-.support-feedback-form-input textarea:hover,
-.support-feedback-form-input textarea:focus {
+.support-report-form-input input:hover,
+.support-report-form-input input:focus,
+.support-report-form-input textarea:hover,
+.support-report-form-input textarea:focus {
     border-color: black;
     outline: none;
 }

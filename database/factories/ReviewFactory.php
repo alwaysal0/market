@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Review;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class UserFactory extends Factory
+class ReviewFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,9 +15,10 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'username' => $this->faker->userName(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'password' => $this->faker->password(),
+            'product_id' => 12,
+            'user_id' => 6,
+            'message' => $this->faker->paragraph(),
+            'rating' => $this->faker->numberBetween(1, 5),
         ];
     }
 }

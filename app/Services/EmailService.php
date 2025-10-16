@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 
-use App\Models\Product;
-use App\Models\Filter;
 use App\Models\User;
 use App\Models\UserConfirmation;
 use App\Models\EmailVerification;
@@ -60,19 +58,5 @@ class EmailService {
                 'link' => $link,
             ])
             ->log('Sent link for user confirmation.');
-    }
-
-    public function sendFeedback($request) {
-        Mail::to('shershowkirill@gmail.com')->send(new FeedbackMail($request));
-
-        $user = User::find($request->user_id);
-        activity('email')
-            ->causedBy($user)
-            ->withProperties([
-                'username' => $request->name,
-                'email' => $request->email,
-                'message' => $request->message,
-            ])
-            ->log('Sent the feedback.');
     }
 }
