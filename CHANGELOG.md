@@ -113,3 +113,9 @@
 ## v0.4.1
 ### Fixed:
 - Fixed `FeedBackForm`;
+
+## 16.10.25
+## v0.4.2
+### Fixed:
+- Refactoring `UserController` and `UserService`. The code has become cleaner and more readable, and unnecessary database queries have been removed.
+- 

@@ -2,22 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-
-use App\Models\User;
-use App\Models\Product;
-use App\Models\Admin;
-use App\Models\Filter;
+use App\Http\Requests\actionsUser\EditProductRequest;
 use App\Models\Log;
-
+use App\Models\User;
 use App\Services\AdminService;
 use App\Services\ProductService;
-
-use App\Http\Requests\EditProductRequest;
-
-use function PHPUnit\Framework\isEmpty;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {

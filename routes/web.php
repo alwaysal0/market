@@ -54,7 +54,7 @@ Route::group(['middleware' => ['web', 'auth']],function() {
             Route::get('show-product/{id}', [RenderController::class, 'showEditProduct'])->name('profile.your-products.show');
             Route::delete('delete/{id}', [GoodController::class, 'delete'])->name('profile.your-products.delete');
         });
-        Route::post('/support', [UserController::class, 'sendFeedback'])->name('support.send');
+        Route::post('/support', [UserController::class, 'sendReport'])->name('support.send');
         Route::post('/write-review/{id}', [UserController::class, 'sendReview'])->name('review');
     });
 

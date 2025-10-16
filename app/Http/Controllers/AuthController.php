@@ -13,7 +13,7 @@ class AuthController extends Controller
 
     public function register(request $request) {
         $request->validate([
-            'username' => 'required|string|max:255',
+            'username' => 'required|string|min|4|max:30',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|min:6|regex:/^(?=.*[0-9])(?=.*[\W_]).+$/|confirmed',
         ]);
@@ -37,7 +37,7 @@ class AuthController extends Controller
         return redirect('/login')->with('success', 'Registartion successful!');
 
     }
-    
+
     public function login(request $request) {
         $data = $request->only(['username', 'password']);
         $user = User::where('username', $request->username)->first();

@@ -1,78 +1,68 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\actionsUser\SendReportRequest;
+use App\Http\Requests\actionsUser\SendReviewRequest;
+use App\Http\Requests\updateUser\CheckPasswordCodeRequest;
+use App\Http\Requests\updateUser\UpdateEmailRequest;
+use App\Http\Requests\updateUser\UpdatePasswordRequest;
+use App\Http\Requests\updateUser\UpdateUsernameRequest;
+
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
-use App\Models\User;
-use App\Models\UserConfirmation;
 use App\Models\EmailVerification;
-use App\Models\Review;
+use App\Models\UserConfirmation;
 
-use App\Services\EditProfile;
-use App\Services\FilterProducts;
 use App\Services\EmailService;
+use App\Services\FilterProducts;
+use App\Services\UserService;
 
 class UserController extends Controller
-{   
-    private $editProfile;
-    private $filterProducts;
-    private $user;
-    private $EmailService;
-    public function __construct(EditProfile $editProfile, FilterProducts $filterProducts, EmailService $EmailService) {
-        $this->editProfile = $editProfile;
-        $this->filterProducts = $filterProducts;
-        $this->user = Auth::user();
-        $this->EmailService = $EmailService;
+{
+    public function __construct(
+        private UserService $userService,
+        private FilterProducts $filterProducts,
+        private EmailService $emailService
+    ){
     }
 
-    public function confirmUser(request $request, $token) {
+    public function confirmUser(Request $request, $token) {
         $currentUrl = $request->fullUrl();
         $user_confirmation = UserConfirmation::where('confirmation_link', $currentUrl)->first();
+        $user = $request->user();
 
-        if ($this->user->confirmed) {
+        if ($user->confirmed) {
             return redirect('/')->with('info', 'Your account is already confirmed.');
         }
 
-        if (!$user_confirmation || $this->user->email !== $user_confirmation->email) {
+        if (!$user_confirmation || $user->email !== $user_confirmation->email) {
             return redirect('/')->with('error', 'The link is invalid.');
         }
 
-        if (Carbon::now()->greaterThan($user_confirmation->expired_at)) {
-            return view('auth.expired-page')->with('error', 'The link has expired.');
-        }
-
-        $current_user = User::find($this->user->id);
-        $current_user->update([
+        $user->update([
             'confirmed' => true
         ]);
 
         $user_confirmation->delete();
 
         activity('auth')
-            ->causedBy($this->user)
+            ->causedBy($user)
         ->log('The user has confirmed his account successfully.');
-        
+
         return redirect('/')->with('success', 'Your email has been confirmed!');
     }
 
-    public function checkPasswordCode(request $request) {
-        $request->validate([
-            'code' => 'required|digits:6'
-        ]);
+    public function checkPasswordCode(CheckPasswordCodeRequest $request) {
+        $user = $request->user();
+        $request->validated();
 
-        if (!$this->user) {
-            abort(403, 'Unauthorized');
-        };
-
-        $verification = EmailVerification::where('email', $this->user->email)
+        $verification = EmailVerification::where('email', $user->email)
             ->where('code', $request->code)
             ->where('expired_at', '>', Carbon::now())
             ->first();
-        
+
         if ($verification) {
             $verification->delete();
             return view('user.change-password')->with([
@@ -84,27 +74,21 @@ class UserController extends Controller
         return back()->withErrors(['code' => 'Invalid or expired code.']);
     }
 
-    public function updatePassword(request $request) {
-        $request->validate([
-            'password' => 'required|min:6|confirmed',
-        ]);
+    public function updatePassword(UpdatePasswordRequest $request) {
+        $user = $request->user();
+        $validated_data = $request->validated();
 
-        if (!$this->user) {
-            return abort(403, 'Unauthorized');
-        }
-
-        $this->editProfile->changePassword($request);
+        $this->userService->changePassword($validated_data, $user);
 
         return redirect()->route('profile.edit-profile')
             ->with('success', 'You have successfully changed your password.');
     }
 
-    public function updateUsername(request $request) {
-        $request->validate([
-            'username' => 'required|min:4'
-        ]);
+    public function updateUsername(UpdateUsernameRequest $request) {
+        $user = $request->user();
+        $validated_data = $request->validated();
 
-        $update = $this->editProfile->changeUsername($request);
+        $update = $this->userService->changeUsername($validated_data, $user);
         if ($update === true) {
             return redirect()->route('profile.edit-profile')
                 ->with('success', 'You have successfully changed your username.');
@@ -115,81 +99,78 @@ class UserController extends Controller
 
     }
 
-    public function updateEmail(request $request) {
-        $request->validate([
-            'email' => 'required|email',
-        ]);
+    public function updateEmail(UpdateEmailRequest $request) {
+        $user = $request->user();
+        $validated_data = $request->validated();
 
-        $this->editProfile->changeEmail($request);
+        $this->userService->changeEmail($validated_data, $user);
+
         return redirect()->route('profile.edit-profile')
             ->with('success', 'You have successfully changed your email.');
     }
 
-    public function filterYourProducts(request $request) {
+    public function filterYourProducts(Request $request) {
+        $user = $request->user();
+
         $products = $this->filterProducts->filter($request);
 
         return view('profile')->with([
             'current_page' => 'your-products',
-            'user' => $this->user,
+            'user' => $user,
             'products' => $products,
         ]);
     }
 
     public function sendUserConfirmation(Request $request) {
-        if (!$this->user) {
-            abort(403, 'Unauthorized');
-        }
-        $this->EmailService->sendUserConfirmation($this->user);
+        $user = $request->user();
+
+        $this->emailService->sendUserConfirmation($user);
 
         return view('user.sended-confirmation-user')->with([
             'success' => 'The link has been sent.',
-            'user' => $this->user,
+            'user' => $user,
         ]);
     }
 
-    public function sendPasswordCode() {
-        if (!$this->user) {
-            abort(403, 'Unauthorized');
-        }
+    public function sendPasswordCode(Request $request) {
+        $user = $request->user();
 
-        $this->EmailService->sendPasswordUpdate($this->user);
-        
+        $this->emailService->sendPasswordUpdate($user);
+
         return view('user.change-password')->with([
             'success' => 'Code sent.',
             'change_password_access' => false,
+            'user' => $user,
         ]);
     }
 
-    public function sendFeedback(Request $request) {
-        $request->validate([
-            'name' => 'required|min: 6',
-            'email' => 'required|email',
-            'message' => 'required|min: 10'
-        ]);
-        $this->EmailService->sendFeedback($request);
-        return redirect('/login')->with('success', "You have successfully sent your feedback.");
+    public function sendReport(SendReportRequest $request) {
+        $user = $request->user();
+        $validatedData = $request->validated();
+
+        $this->userService->sendReport($validatedData, $user);
+
+        return redirect()->route('support')->with('success', "You have successfully sent your feedback.");
     }
 
-    public function sendReview(Request $request, $id) {
-        $request->validate([
-            'message' => 'required|min: 10',
-        ]);
+    public function sendReview(SendReviewRequest $request, int $id) {
+        $user = $request->user();
+        $validatedData = $request->validated();
 
-        Review::create([
-            'user_id' => Auth::user()->id,
-            'product_id' => $id,
-            'message' => $request->message,
-            'rating' => $request->rating,
-        ]);
+        $this->userService->sendReview($validatedData, $user, $id);
 
         return back()->with('success', "You have successfully posted your review.");
     }
 
-    public function logout() {
+    public function logout(Request $request) {
+        $user = $request->user();
+
         activity('auth')
-            ->causedBy($this->user)
+            ->causedBy($user)
         ->log('The user has been successfully logged out.');
+
         Auth::logout();
+
         return redirect('/login')->with('success', 'You have successfully logged out of your account.');
     }
 }
