@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Filter;
-use App\Models\Review;
 
 use App\Services\FilterProducts;
 use App\Services\ProductService;

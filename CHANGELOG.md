@@ -118,4 +118,14 @@
 ## v0.4.2
 ### Fixed:
 - Refactoring `UserController` and `UserService`. The code has become cleaner and more readable, and unnecessary database queries have been removed.
-- 
+- Created new Request Validators:
+  - `SendReportRequest.php`;
+  - `SendReviewRequest.php`;
+  - `CheckPasswordCodeRequest.php`;
+  - `UpdatePasswordRequest.php`;
+  - `UpdateUsernameRequest.php`;
+  
+## 17.10.25
+## v0.4.3
+### Fixed:
+- Refactored `AdminService.php` and `AdminController.php`. The code has become cleaner and more readable, and unnecessary database queries have been removed.

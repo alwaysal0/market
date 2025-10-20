@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RenderController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\GoodController;
+use App\Http\Controllers\ProductController;
 
 use League\CommonMark\Output\RenderedContent;
 use Symfony\Component\HttpKernel\Profiler\Profile;
@@ -50,9 +50,9 @@ Route::group(['middleware' => ['web', 'auth']],function() {
         Route::prefix('your-products')->group(function() {
             Route::get('/', [RenderController::class, 'showYourProducts'])->name('profile.your-products');
             Route::post('filter', [UserController::class, 'filterYourProducts'])->name('profile.your-products.filter');
-            Route::post('add-product', [GoodController::class, 'upload'])->name('profile.your-products.add-product');
+            Route::post('add-product', [ProductController::class, 'upload'])->name('profile.your-products.add-product');
             Route::get('show-product/{id}', [RenderController::class, 'showEditProduct'])->name('profile.your-products.show');
-            Route::delete('delete/{id}', [GoodController::class, 'delete'])->name('profile.your-products.delete');
+            Route::delete('delete/product/{id}', [ProductController::class, 'delete'])->name('profile.your-products.delete');
         });
         Route::post('/support', [UserController::class, 'sendReport'])->name('support.send');
         Route::post('/write-review/{id}', [UserController::class, 'sendReview'])->name('review');
