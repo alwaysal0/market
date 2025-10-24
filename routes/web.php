@@ -27,7 +27,7 @@ Route::group(['middleware' => ['web']], function(){
     Route::get('/products', [RenderController::class , 'showProducts'])->name('products');
     Route::get('/products/filter/{currentFilter}', [RenderController::class, 'showProductsFilter']);
     Route::get('/support', [RenderController::class, 'showSupportPage'])->name('support');
-    Route::get('/product/{id}', [RenderController::class, 'showProduct'])->name('product');
+    Route::get('/product/{product}', [RenderController::class, 'showProduct'])->name('product');
 });
 
 // Authorized Routes

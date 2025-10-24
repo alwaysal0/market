@@ -8,7 +8,7 @@ use App\Models\Product;
 
 class AdminService {
 
-    public function changeEmail (array $validated_data, User $user, User $user_to_change) : void
+    public function changeEmail (array $validated_data, User $admin, User $user_to_change) : void
     {
         $old_email = $user_to_change->email;
         $new_email = $validated_data['email'];
@@ -19,7 +19,7 @@ class AdminService {
         ]);
 
         activity('admin')
-            ->causedBy($user)
+            ->causedBy($admin)
             ->performedOn($user_to_change)
             ->withProperties([
                 'old_email' => $old_email,
@@ -28,17 +28,17 @@ class AdminService {
         ->log("Admin has changed user's email.");
     }
 
-    public function changeUsername (array $validated_data, User $user, User $user_to_change) : void
+    public function changeUsername (array $validated_data, User $admin, User $user_to_change) : void
     {
         $old_username = $user_to_change->username;
         $new_username = $validated_data['username'];
 
-        $user->update([
+        $user_to_change->update([
             'username' => $new_username,
         ]);
 
         activity('admin')
-            ->causedBy($user)
+            ->causedBy($admin)
             ->performedOn($user_to_change)
             ->withProperties([
                 'old_username' => $old_username,
@@ -47,20 +47,21 @@ class AdminService {
         ->log("Admin has changed user's username.");
     }
 
-    public function changePassword (array $validated_data, User $user, User $user_to_change) : void
+    public function changePassword (array $validated_data, User $admin, User $user_to_change) : void
     {
         $user_to_change->update([
             'password' => Hash::make($validated_data['password']),
         ]);
 
         activity('admin')
-            ->causedBy($user)
+            ->causedBy($admin)
             ->performedOn($user_to_change)
         ->log("Admin has changed user's password.");
     }
 
-    public function updateProduct(array $validated_data, User $user, Product $product) : void
+    public function updateProduct(array $validated_data, User $admin, Product $product) : void
     {
+
         $product->update([
             'name' => $validated_data['name'],
             'price' => $validated_data['price'],
@@ -68,8 +69,13 @@ class AdminService {
         ]);
 
         activity('admin')
-            ->causedBy($user)
+            ->causedBy($admin)
             ->performedOn($product)
+            ->withProperties([
+                'actual_name' => $product->name,
+                'actual_description' => $product->description,
+                'actual_price' => $product->price,
+            ])
         ->log("Admin has changed product's data.");
     }
 

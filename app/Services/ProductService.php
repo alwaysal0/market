@@ -59,7 +59,7 @@ class ProductService {
         ->log('The user has successfully listed new product.');
     }
 
-    public function sameProducts($id) {
+    public function sameProducts(int $id) {
         $product = Product::find($id);
         $filterNames = $product->filters->pluck('filter_name');
 
@@ -73,18 +73,18 @@ class ProductService {
         return $same_products;
     }
 
-    public function getProductViewData(int $id, bool $isAdmin = false) : array {
-        $filters = Filter::where('product_id', $id)->get();
+    public function getProductViewData(Product $product, bool $isAdmin = false) : array {
+        $filters = Filter::where('product_id', $product->id)->get();
         $same_products = collect();
 
         if($filters) {
-            $same_products = $this->sameProducts($id);
+            $same_products = $this->sameProducts($product->id);
         }
 
-        $reviews = Review::where('product_id', $id)->get();
+        $reviews = Review::where('product_id', $product->id)->get();
 
         return [
-            'product' => Product::find($id),
+            'product' => $product,
             'same_products' => $same_products,
             'filters' => $filters,
             'reviews' => $reviews,

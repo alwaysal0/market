@@ -108,12 +108,12 @@ class RenderController extends Controller
         ]);
     }
 
-    public function showProduct($id) {
-        return view('product')->with($this->productService->getProductViewData($id));
+    public function showProduct(Product $product) {
+        return view('product')->with($this->productService->getProductViewData($product));
     }
 
-    public function showEditProduct($id) {
-        return view('product')->with($this->productService->getProductViewData($id));
+    public function showEditProduct(Product $product) {
+        return view('product')->with($this->productService->getProductViewData($product));
     }
 
     public function showSupportPage() {

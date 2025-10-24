@@ -25,7 +25,7 @@ class AdminUpdateUserRequest extends FormRequest
     {
         return [
             'email' => 'required|email|max:255',
-            'username' => 'required|string|min:4|max:30',
+            'username' => 'required|string|min:4|max:30|regex:/^[\x00-\x7F]+$/',
             'password' => ['nullable', 'regex:/^($|(?=.*[0-9])(?=.*[\W_])(?=.*[a-zA-Z])(?!.*[^\x20-\x7E]).+)$/'],
         ];
     }

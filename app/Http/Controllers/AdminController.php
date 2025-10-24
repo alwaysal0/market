@@ -25,7 +25,8 @@ class AdminController extends Controller
             'success' => 'Welcome to Admin Panel.',
             'products' => session('products') ?? collect(),
             'logs' => session('logs') ?? collect(),
-            'user' => session('user') ?? null,
+            'user' => $request->user(),
+            'search_user' => session('search_user') ?? null,
         ]);
     }
 
@@ -43,44 +44,44 @@ class AdminController extends Controller
         return redirect()->route('admin-panel')->with([
             'products' => $products,
             'logs' => $logs,
-            'user' => $user,
+            'user' => $request->user(),
+            'search_user' => $user,
         ])->withInput();
     }
 
-    public function updateUser(AdminUpdateUserRequest $request, $id) {
+    public function updateUser(AdminUpdateUserRequest $request, User $user) {
+        $search_user = $user;
         $validated_data = $request->validated();
+        $admin = $request->user();
 
-        $user = $request->user();
-        $user_to_change = User::find($id);
+        if ($search_user->username !== $validated_data['username'])
+            $this->adminService->changeUsername($validated_data, $admin, $search_user);
 
-        if ($user_to_change->username !== $validated_data['username'])
-            $this->adminService->changeUsername($validated_data, $user, $user_to_change);
-
-        if($user_to_change->email !== $validated_data['email'])
-            $this->adminService->changeEmail($validated_data, $user, $user_to_change);
+        if($search_user->email !== $validated_data['email'])
+            $this->adminService->changeEmail($validated_data, $admin, $search_user);
 
         if (isset($validated_data['password']))
-            $this->adminService->changePassword($validated_data, $user, $user_to_change);
+            $this->adminService->changePassword($validated_data, $admin, $search_user);
 
-        $user_to_change->refresh();
-        $products = $user->products;
-        $logs = $user->logs;
+        $search_user->refresh();
+        $products = $search_user->products;
+        $logs = $search_user->logs;
 
         return back()->with([
             'success' => 'You have successfully updated users data.',
             'products' => $products,
             'logs' => $logs,
-            'user' => $user_to_change,
-            ]);
+            'user' => $admin,
+            'search_user' => $search_user,
+        ]);
     }
 
-    public function showProduct(int $id) {
-        return view('product')->with($this->productService->getProductViewData($id, true));
+    public function showProduct(Product $product) {
+        return view('product')->with($this->productService->getProductViewData($product, true));
     }
 
-    public function editProduct(EditProductRequest $request, int $id) {
+    public function editProduct(EditProductRequest $request, Product $product) {
         $validated_data = $request->validated();
-        $product = Product::find($id);
 
         $user = $request->user();
         $this->adminService->updateProduct($validated_data, $user, $product);
@@ -88,9 +89,8 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'You have successfully updated product data.');
     }
 
-    public function deleteProduct(Request $request, int $id) {
+    public function deleteProduct(Request $request, Product $product) {
         $user = $request->user();
-        $product = Product::find($id);
 
         $this->adminService->deleteProduct($user, $product);
 
