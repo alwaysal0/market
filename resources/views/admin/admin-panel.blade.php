@@ -13,16 +13,16 @@
         </div>
         <button type="submit">Search</button>
     </form>
-    @if(isset($user))
-        <form id="admin-user__data" method="POST" action="{{ route("admin.updateUser", ['id' => $user->id]) }}">
+    @if(isset($search_user))
+        <form id="admin-user__data" method="POST" action="{{ route("admin.updateUser", ['user' => $search_user]) }}">
             @csrf
             @method('PUT')
             <div class="admin-user-search__input">
-                <input type="text" name="username" class="admin-search__input" placeholder="" value="{{ $user->username }}" required>
+                <input type="text" name="username" class="admin-search__input" placeholder="" value="{{ $search_user->username }}" required>
                 <label for="admin-search-input">Username</label>
             </div>
             <div class="admin-user-search__input">
-                <input type="email" name="email" class="admin-search__input" placeholder="" value="{{ $user->email }}" required>
+                <input type="email" name="email" class="admin-search__input" placeholder="" value="{{ $search_user->email }}" required>
                 <label for="admin-search-input">Email</label>
             </div>
             <div class="admin-user-search__input">
@@ -43,16 +43,16 @@
                 <p class="admin-product__data"><span>Name:</span> {{ $product->name }}</p>
                 <p class="admin-product__data"><span>Price:</span> {{ $product->price }}$</p>
                 <p class="admin-product__data"><span>Description:</span> {{ $product->description }}$</p>
-                <a class="admin-product__more" href="{{ route('product', ['id' => $product->id]) }}">View more</a>
+                <a class="admin-product__more" href="{{ route('product', ['product' => $product]) }}">View more</a>
                 <div class="admin-product__options">
-                    <form method="POST" class="admin-product__delete" action="{{ route('admin.deleteProduct', ['id' => $product->id]) }}">
+                    <form method="POST" class="admin-product__delete" action="{{ route('admin.deleteProduct', ['product' => $product]) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                         </button>
                     </form>
-                    <a href="{{ route("admin.showProduct", ['id' => $product->id]) }}" class="admin-product__edit-button">
+                    <a href="{{ route("admin.showProduct", ['product' => $product]) }}" class="admin-product__edit-button">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
                     </a>
                 </div>

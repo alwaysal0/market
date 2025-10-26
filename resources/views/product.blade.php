@@ -11,7 +11,7 @@
 <p id="product-title">Product {{ $product->id }} | {{ $product->name }}</p>
 <div id="product-cont">
     <img src="{{ $product->image_url }}" alt="{{ $product->name }}}">
-    <form method="POST" action="{{ $admin ? route('admin.editProduct', ['id' => $product->id]) : '#' }}" id="product-cont-form">
+    <form method="POST" action="{{ $admin ? route('admin.editProduct', ['product' => $product]) : '#' }}" id="product-cont-form">
         @csrf
         <p class="product-info"><span>ID:</span> {{ $product->id }}</p>
         @if ($admin)

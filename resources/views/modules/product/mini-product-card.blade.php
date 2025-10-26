@@ -1,4 +1,4 @@
-<a class="mini-product-card" href="{{ route('product', ['id' => $product->id]) }}">
+<a class="mini-product-card" href="{{ route('product', ['product' => $product]) }}">
     <img src="{{ $product->image_url }}" alt="product-image">
     <p class="mini-product-card__data"><span>Name:</span> {{ $product->name }}</p>
     <p class="mini-product-card__data"><span>Price:</span> {{ $product->price }}$</p>

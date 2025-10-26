@@ -2,104 +2,97 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\actionsAdmin\AdminSearchUserRequest;
+use App\Http\Requests\actionsAdmin\AdminUpdateUserRequest;
 use App\Http\Requests\actionsUser\EditProductRequest;
-use App\Models\Log;
+use App\Models\Product;
 use App\Models\User;
 use App\Services\AdminService;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 
 class AdminController extends Controller
 {
-    private $adminService;
-    private $productService;
-
-    public function __construct(AdminService $adminService, ProductService $productService) {
-        $this->adminService = $adminService;
-        $this->productService = $productService;
+    public function __construct(
+        private AdminService $adminService,
+        private ProductService $productService
+    ){
     }
 
-    public function showAdminPanel() {
-        if (session()->has('products'))
-            $products = session('products');
-
-        if (session()->has('logs'))
-            $logs = session('logs');
-
-        if (session()->has('user'))
-            $user = session('user');
-
-        $user = Auth::user();
-        $products = $user->products;
-        $logs = Log::where('causer_id', $user->id)->get();
-
+    public function showAdminPanel(Request $request) {
         return view('admin.admin-panel')->with([
             'success' => 'Welcome to Admin Panel.',
-            'products' => $products ?? collect(),
-            'logs' => $logs ?? collect(),
-            'user' => $user ?? null,
+            'products' => session('products') ?? collect(),
+            'logs' => session('logs') ?? collect(),
+            'user' => $request->user(),
+            'search_user' => session('search_user') ?? null,
         ]);
     }
 
-    public function searchUser(Request $request) {
-        $request->validate([
-            'username' => 'required|string|max:100',
-        ]);
+    public function searchUser(AdminSearchUserRequest $request) {
+        $validated_data = $request->validated();
 
-        $user = User::where('username', $request->username)->first();
+        $user = User::where('username', $validated_data['username'])->first();
         if (!$user) {
             return back()->with('error', "The user doesn't exist.")->withInput();
         }
 
         $products = $user->products;
-        $products_coll = collect();
-        if ($products->isNotEmpty()) {
-            $products_coll = $products;
-        }
-
-        $logs = Log::where('causer_id', $user->id)->get();
+        $logs = $user->logs;
 
         return redirect()->route('admin-panel')->with([
-            'products' => $products_coll,
+            'products' => $products,
             'logs' => $logs,
-            'user' => $user,
+            'user' => $request->user(),
+            'search_user' => $user,
         ])->withInput();
     }
 
-    public function updateUser(Request $request, $id) {
-        $request->validate([
-            'username' => 'required|string|max:100',
-            'email' => 'required|email|max:100',
-            'password' => 'nullable|min:6|regex:/^(?=.*[0-9])(?=.*[\W_]).+$/',
+    public function updateUser(AdminUpdateUserRequest $request, User $user) {
+        $search_user = $user;
+        $validated_data = $request->validated();
+        $admin = $request->user();
+
+        if ($search_user->username !== $validated_data['username'])
+            $this->adminService->changeUsername($validated_data, $admin, $search_user);
+
+        if($search_user->email !== $validated_data['email'])
+            $this->adminService->changeEmail($validated_data, $admin, $search_user);
+
+        if (isset($validated_data['password']))
+            $this->adminService->changePassword($validated_data, $admin, $search_user);
+
+        $search_user->refresh();
+        $products = $search_user->products;
+        $logs = $search_user->logs;
+
+        return back()->with([
+            'success' => 'You have successfully updated users data.',
+            'products' => $products,
+            'logs' => $logs,
+            'user' => $admin,
+            'search_user' => $search_user,
         ]);
-
-        $user = User::find($id);
-        if ($user->username !== $request->username)
-            $this->adminService->changeUsername($request, $id);
-
-        if($user->email !== $request->email)
-            $this->adminService->changeEmail($request, $id);
-
-        if (isset($request->password))
-            $this->adminService->changePassword($request, $id);
-
-        return back()->with('success', 'You have successfully updated users data.');
     }
 
-    public function showProduct($id) {
-        return view('product')->with($this->productService->getProductViewData($id, true));
+    public function showProduct(Product $product) {
+        return view('product')->with($this->productService->getProductViewData($product, true));
     }
 
-    public function editProduct(EditProductRequest $request, $id) {
-        $request->validated();
-        $this->adminService->updateProduct($request, $id);
+    public function editProduct(EditProductRequest $request, Product $product) {
+        $validated_data = $request->validated();
+
+        $user = $request->user();
+        $this->adminService->updateProduct($validated_data, $user, $product);
 
         return redirect()->back()->with('success', 'You have successfully updated product data.');
     }
 
-    public function deleteProduct($id) {
-        $this->adminService->deleteProduct($id);
+    public function deleteProduct(Request $request, Product $product) {
+        $user = $request->user();
+
+        $this->adminService->deleteProduct($user, $product);
 
         return redirect()->back()->with('success', 'You have successfully deleted product data.');
     }

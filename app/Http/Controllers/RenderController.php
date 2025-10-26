@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Filter;
-use App\Models\Review;
 
 use App\Services\FilterProducts;
 use App\Services\ProductService;
@@ -109,12 +108,12 @@ class RenderController extends Controller
         ]);
     }
 
-    public function showProduct($id) {
-        return view('product')->with($this->productService->getProductViewData($id));
+    public function showProduct(Product $product) {
+        return view('product')->with($this->productService->getProductViewData($product));
     }
 
-    public function showEditProduct($id) {
-        return view('product')->with($this->productService->getProductViewData($id));
+    public function showEditProduct(Product $product) {
+        return view('product')->with($this->productService->getProductViewData($product));
     }
 
     public function showSupportPage() {

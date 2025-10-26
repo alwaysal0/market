@@ -16,6 +16,10 @@ class User extends Authenticatable
         return $this->hasMany(Product::class, 'user_id', 'id');
     }
 
+    public function logs() {
+        return $this->hasMany(Log::class, 'causer_id', 'id')->latest();
+    }
+
     public function admin() {
         return $this->hasOne(Admin::class, 'user_id', 'id');
     }
@@ -23,4 +27,4 @@ class User extends Authenticatable
     public function isAdmin() {
         return $this->admin()->exists();
     }
-}   
+}
