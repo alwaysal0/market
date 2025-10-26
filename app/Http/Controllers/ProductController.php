@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Services\ProductService;
-
-use App\Http\Requests\UploadProductRequest;
-use Illuminate\Http\Request;
-
+use App\Http\Requests\updateUser\UploadProductRequest;
 use App\Models\Product;
+use App\Services\ProductService;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
