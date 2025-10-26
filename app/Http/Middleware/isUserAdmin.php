@@ -21,6 +21,11 @@ class isUserAdmin
     {
         $user = Auth::user();
         if (!$user->isAdmin()) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'message' => "You don't have enough rights to access this page."
+                ], 403);
+            }
             return redirect()
                     ->route('MainPage')
                     ->with('error', "You don't have enough rights to access this page.");

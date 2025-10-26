@@ -12,9 +12,6 @@ use Tests\TestCase;
 class AdminTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
     public function test_adminPanelShowAsAdmin() {
         $user = User::create([
             'username' => "TestAdmin",
@@ -30,6 +27,7 @@ class AdminTest extends TestCase
 
         $response->assertStatus(200);
     }
+
     public function test_adminPanelShowAsUser() {
         $user = User::create([
             'username' => "TestAdmin",
@@ -38,11 +36,12 @@ class AdminTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->withHeaders(['Accept' => 'aplication/json'])
+            ->withHeaders(['Accept' => 'application/json'])
             ->get(route('admin-panel'));
 
-        $response->assertStatus(402);
+        $response->assertStatus(403);
     }
+
     public function test_changeUserDataEngl(): void
     {
         $user = User::create([

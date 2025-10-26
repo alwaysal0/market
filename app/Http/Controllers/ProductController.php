@@ -17,7 +17,11 @@ class ProductController extends Controller
     public function upload(UploadProductRequest $request) {
         $validated_data = $request->validated();
         $user = $request->user();
-        $this->productService->upload($validated_data, $user);
+        try {
+            $this->productService->upload($validated_data, $user);
+        } catch (\Exception $exception) {
+            return redirect()->route('profile.edit-profile')->with('error', $exception->getMessage());
+        }
 
         return redirect()->route('profile.edit-profile')->with('success', 'Your product was successfully listed.');
     }

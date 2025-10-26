@@ -1,6 +1,9 @@
 <?php
 namespace App\Services;
 
+use Cloudinary\Api\Exception\ApiError;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Cloudinary\Cloudinary;
 
@@ -10,20 +13,29 @@ use App\Models\Review;
 use App\Models\User;
 
 class ProductService {
-
-    private $user;
-
-    public function __construct() {
-        $this->user = Auth::user();
-    }
-
     public function upload(array $validated_data, User $user) : void {
         $filepath = $validated_data['image']->getRealPath();
-
         $cloudinary = new Cloudinary();
-        $cloudinaryImage = $cloudinary->uploadApi()->upload($filepath);
-        $image_url = $cloudinaryImage['secure_url'];
-        $image_public_id = $cloudinaryImage['public_id'];
+
+        try {
+            $cloudinaryImage = $cloudinary->uploadApi()->upload($filepath);
+            $image_url = $cloudinaryImage['secure_url'];
+            $image_public_id = $cloudinaryImage['public_id'];
+        } catch (ApiError $apiError) {
+            Log::error('Cloudinary API Error: ' . $apiError->getMessage(), [
+                'user_id' => $user->id,
+                'file' => $filepath
+            ]);
+
+            throw new \Exception('Failed to upload image due to an API error.');
+        } catch (\Exception $exception) {
+            Log::error('General Cloudinary Upload Error:' . $exception->getMessage(), [
+                'user_id' => $user->id,
+                'file' => $filepath
+            ]);
+
+            throw new \Exception('Image upload failed. Please try again later.');
+        }
 
         $current_product = Product::create([
             'user_id' => $user->id,
@@ -59,7 +71,7 @@ class ProductService {
         ->log('The user has successfully listed new product.');
     }
 
-    public function sameProducts(int $id) {
+    public function sameProducts(int $id) : Collection {
         $product = Product::find($id);
         $filterNames = $product->filters->pluck('filter_name');
 
@@ -68,14 +80,13 @@ class ProductService {
         ->distinct()
         ->pluck('product_id');
 
-        $same_products = Product::whereIn('id', $same_products_id)->limit(5)->get();
-
-        return $same_products;
+        return Product::whereIn('id', $same_products_id)->limit(5)->get();
     }
 
     public function getProductViewData(Product $product, bool $isAdmin = false) : array {
         $filters = Filter::where('product_id', $product->id)->get();
         $same_products = collect();
+        $user = Auth::user();
 
         if($filters) {
             $same_products = $this->sameProducts($product->id);
@@ -88,7 +99,7 @@ class ProductService {
             'same_products' => $same_products,
             'filters' => $filters,
             'reviews' => $reviews,
-            'user' => $this->user ?? null,
+            'user' => $user ?? null,
             'admin' => $isAdmin,
         ];
     }

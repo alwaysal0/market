@@ -142,3 +142,10 @@
   - `UploadProductRequest.php`;
   - `EditProductRequest.php`;
 - New **Unit-Test** for `Admin`, which tests accessing the admin panel and editing user profiles with various inputs.
+
+## 26.10.25
+## v0.4.5
+### Fixed:
+- `ProductController.php` and `ProductService.php`. Added catching and logging of errors.
+- Fixed `register` and `login` request validation. Added separate `RegisterUserRequest.php` and `LoginUserRequest.php` validators.
+- Created a separate Feature Test for user authentication.
