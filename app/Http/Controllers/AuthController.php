@@ -6,23 +6,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Requests\authUser\RegisterUserRequest;
+use App\Http\Requests\authUser\LoginUserRequest;
+
 use App\Models\User;
 
 class AuthController extends Controller
 {
+    public function register(RegisterUserRequest $request) {
+        $validated_data = $request->validated();
 
-    public function register(request $request) {
-        $request->validate([
-            'username' => 'required|string|min|4|max:30',
-            'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|min:6|regex:/^(?=.*[0-9])(?=.*[\W_]).+$/|confirmed',
-        ]);
-
-        $password = Hash::make($request->input('password'));
+        $password = Hash::make($validated_data['password']);
 
         $new_user = User::create([
-            'username' => $request->input('username'),
-            'email' => $request->input('email'),
+            'username' => $validated_data['username'],
+            'email' => $validated_data['email'],
             'password' => $password,
         ]);
 
@@ -35,14 +33,14 @@ class AuthController extends Controller
         ->log('New user has been registered');
 
         return redirect('/login')->with('success', 'Registartion successful!');
-
     }
 
-    public function login(request $request) {
-        $data = $request->only(['username', 'password']);
-        $user = User::where('username', $request->username)->first();
+    public function login(LoginUserRequest $request) {
+        $validated_data = $request->validated();
 
-        if (!Auth::attempt($data)) {
+        $user = User::where('username', $validated_data['username'])->first();
+
+        if (!Auth::attempt($validated_data)) {
             if ($user) {
                 activity('auth-error')
                     ->causedBy($user)

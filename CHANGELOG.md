@@ -147,3 +147,5 @@
 ## v0.4.5
 ### Fixed:
 - `ProductController.php` and `ProductService.php`. Added catching and logging of errors.
+- Fixed `register` and `login` request validation. Added separate `RegisterUserRequest.php` and `LoginUserRequest.php` validators.
+- Created a separate Feature Test for user authentication.

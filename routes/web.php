@@ -15,9 +15,9 @@ Route::prefix('admin')->middleware(['web', 'auth', 'admin'])->group(base_path('r
 // Auth Routes
 Route::group(['middleware' => ['web']], function() {
     Route::get('/register', [RenderController::class, 'showRegister'])->name('register');
-    Route::post('/register-auth', [AuthController::class, 'register']);
+    Route::post('/register-auth', [AuthController::class, 'register'])->name('register.auth');
     Route::get('/login', [RenderController::class, 'showLogin'])->name('login');
-    Route::post('/login-auth', [AuthController::class, 'login']);
+    Route::post('/login-auth', [AuthController::class, 'login'])->name('login.auth');
 });
 
 // Public Routes
