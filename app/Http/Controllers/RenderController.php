@@ -9,6 +9,9 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Filter;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Carbon;
+
 use App\Services\FilterProducts;
 use App\Services\ProductService;
 
@@ -72,22 +75,13 @@ class RenderController extends Controller
         ]);
     }
 
-    public function showProducts() {
-        $filters = Filter::distinct()->pluck('filter_name');
-        $products = Product::all();
+    public function showProducts(Request $request) {
+        $page = $request->get('page', 1);
+        $user = $request->user();
+        $view_data = $this->productService->getProductsViewData($page, $user);
 
-        if(Auth::check()) {
-            return view('products')->with([
-                'products' => $products,
-                'filters' => $filters,
-                'user' => Auth::user(),
-            ]);
-        }
 
-        return view('products')->with([
-            'products' => $products,
-            'filters' => $filters,
-        ]);
+        return view('products', $view_data);
     }
 
     public function showProductsFilter($currentFilter) {

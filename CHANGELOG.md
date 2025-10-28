@@ -149,3 +149,13 @@
 - `ProductController.php` and `ProductService.php`. Added catching and logging of errors.
 - Fixed `register` and `login` request validation. Added separate `RegisterUserRequest.php` and `LoginUserRequest.php` validators.
 - Created a separate Feature Test for user authentication.
+
+## 28.10.25
+## v0.4.6
+### Created:
+- A new **[Redis NoSQL](https://redis.io/nosql/what-is-nosql/)** database was created for data caching.
+- **Pagination** was added to the `ProductsPage`.
+### Changed:
+- Product data is now being cached.
+- The `ProductController.php` was updated — caching logic was added.
+- The `RenderController.php` was updated — the logic of the showProducts function was simplified.

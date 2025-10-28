@@ -83,3 +83,10 @@
 
     width: 100%;
 }
+
+#products-pagination-wrapper {
+    width: 1000px;
+    height: 100px;
+    display: flex;
+    background: red;
+}
