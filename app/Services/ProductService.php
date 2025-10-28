@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Cloudinary\Cloudinary;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Carbon;
 
 use App\Models\Filter;
 use App\Models\Product;
@@ -102,5 +104,29 @@ class ProductService {
             'user' => $user ?? null,
             'admin' => $isAdmin,
         ];
+    }
+
+    public function getProductsViewData($page, User $user = null) : array {
+        $ttl = now()->addHour();
+
+        $filtersCacheKey = "product_filters";
+        $filters = Cache::tags(['filters'])->remember($filtersCacheKey, $ttl, function () {
+            return Filter::distinct()->pluck('filter_name');
+        });
+
+        $productsCacheKey = "products.page.{$page}";
+        $products = Cache::tags(['products'])->remember($productsCacheKey, $ttl, function () {
+            return Product::paginate(8);
+        });
+
+        $view_data = [
+            'products' => $products,
+            'filters' => $filters,
+        ];
+        if($user != null) {
+            $view_data['user'] = $user;
+        }
+
+        return $view_data;
     }
 }

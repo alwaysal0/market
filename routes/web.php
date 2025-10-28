@@ -6,6 +6,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Http\Request;
+
 use League\CommonMark\Output\RenderedContent;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
