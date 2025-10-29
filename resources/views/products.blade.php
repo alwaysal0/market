@@ -4,7 +4,6 @@
 @section('content')
 @vite('resources/css/products.css')
 @vite('resources/css/modules/profile/product-card.css')
-{{--{{ $products->links() }}--}}
 <p id="products-title">Products</p>
 <div id="products-main-cont-wrap">
     <div id="products-filter-cont">

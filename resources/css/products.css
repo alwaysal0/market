@@ -25,6 +25,7 @@
 #products-main-cont-wrap {
     display: flex;
     width: 100%;
+    position: relative;
 }
 
 #products-filter-cont {
@@ -85,8 +86,8 @@
 }
 
 #products-pagination-wrapper {
-    width: 1000px;
-    height: 100px;
-    display: flex;
-    background: red;
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*left: 50%;*/
+    /*transform: translateX(-50%);*/
 }

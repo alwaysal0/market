@@ -4,6 +4,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
+use App\Models\Product;
+
 use App\Http\Middleware\isUserConfirmed;
 use App\Http\Middleware\isUserAdmin;
 
@@ -13,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+
     ->withMiddleware(function (Middleware $middleware): void {
         //
         $middleware->group('confirmed', [
