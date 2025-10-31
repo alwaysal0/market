@@ -80,7 +80,6 @@ class RenderController extends Controller
         $user = $request->user();
         $view_data = $this->productService->getProductsViewData($page, $user);
 
-
         return view('products', $view_data);
     }
 
