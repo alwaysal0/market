@@ -89,7 +89,7 @@ class ProductService {
         $filters = Filter::where('product_id', $product->id)->get();
         $same_products = collect();
         $user = Auth::user();
-        
+
         if($filters) {
             $same_products = $this->sameProducts($product->id);
         }

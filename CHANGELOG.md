@@ -166,3 +166,11 @@
 - Pagination was introduced on the `ProductsPage`;
 - All pages are cached using **Redis Caching**;
 - A custom **Paginator module** was created for page navigation.
+
+## 31.10.25
+## v0.4.8
+### Created:
+- Created a **Custom Caching Model Binding** for the `Product` model;
+- Optimized product data storage;
+### Fixed:
+- Minor coding style improvements;
