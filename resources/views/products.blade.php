@@ -4,7 +4,6 @@
 @section('content')
 @vite('resources/css/products.css')
 @vite('resources/css/modules/profile/product-card.css')
-{{--{{ $products->links() }}--}}
 <p id="products-title">Products</p>
 <div id="products-main-cont-wrap">
     <div id="products-filter-cont">
@@ -31,21 +30,5 @@
 <div id="products-pagination-wrapper">
     {{ $products->links() }}
 </div>
-
-<script>
-    function toTitleCase(str) {
-        return str.replace(
-            /\w\S*/g,
-            text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
-        );
-    }
-    document.addEventListener('DOMContentLoaded', function () {
-        let filters = document.getElementsByClassName('products-filter-cont-filters');
-        let filtersArray = Array.from(filters);
-        filtersArray.forEach(filter => {
-            filter.textContent = toTitleCase(filter.textContent);
-        });
-    });
-</script>
 
 @endsection

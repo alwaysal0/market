@@ -159,3 +159,26 @@
 - Product data is now being cached.
 - The `ProductController.php` was updated — caching logic was added.
 - The `RenderController.php` was updated — the logic of the showProducts function was simplified.
+
+## 29.10.25
+## v0.4.7
+### Created:
+- Pagination was introduced on the `ProductsPage`;
+- All pages are cached using **Redis Caching**;
+- A custom **Paginator module** was created for page navigation.
+
+## 31.10.25
+## v0.4.8
+### Created:
+- Created a **Custom Caching Model Binding** for the `Product` model;
+- Optimized product data storage;
+### Fixed:
+- Minor coding style improvements;
+
+## 04.11.25
+## v0.4.9
+### Created:
+- New `footer.blade.php`, `footer.css`;
+### Fixed:
+- Minor coding style improvements;
+- Restyled `MainPage`, `ProductsPage`, `SupportPage`.

@@ -10,8 +10,11 @@
     @vite('resources/css/app.css')
 </head>
 @include('modules/header')
-<body>
-    @include('modules.alerts')
-    @yield('content')
+<body class="flex-wrapper">
+    <main class="content-wrapper">
+        @include('modules.alerts')
+        @yield('content')
+    </main>
+    @include('modules/footer')
 </body>
 </html>
