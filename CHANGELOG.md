@@ -174,3 +174,11 @@
 - Optimized product data storage;
 ### Fixed:
 - Minor coding style improvements;
+
+## 04.11.25
+## v0.4.9
+### Created:
+- New `footer.blade.php`, `footer.css`;
+### Fixed:
+- Minor coding style improvements;
+- Restyled `MainPage`, `ProductsPage`, `SupportPage`.
