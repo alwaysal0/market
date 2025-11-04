@@ -31,20 +31,4 @@
     {{ $products->links() }}
 </div>
 
-<script>
-    function toTitleCase(str) {
-        return str.replace(
-            /\w\S*/g,
-            text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
-        );
-    }
-    document.addEventListener('DOMContentLoaded', function () {
-        let filters = document.getElementsByClassName('products-filter-cont-filters');
-        let filtersArray = Array.from(filters);
-        filtersArray.forEach(filter => {
-            filter.textContent = toTitleCase(filter.textContent);
-        });
-    });
-</script>
-
 @endsection
