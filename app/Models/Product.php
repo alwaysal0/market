@@ -32,7 +32,6 @@ class Product extends Model
                 throw new ModelNotFoundException();
             }
             return $product->getAttributes();
-//            return Product::where($field, $value)->first()->getAttributes();
         });
 
         return $this->newInstance($attributes, true);
