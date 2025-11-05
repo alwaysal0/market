@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use App\Models\Product;
 use App\Models\Filter;
 
-class FilterProducts {
+class FilterProductsService {
     public function filter (Request $request) : Collection
     {
         $current_user = Auth::user();

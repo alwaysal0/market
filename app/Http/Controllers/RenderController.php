@@ -12,7 +12,7 @@ use App\Models\Filter;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
 
-use App\Services\FilterProducts;
+use App\Services\FilterProductsService;
 use App\Services\ProductService;
 
 class RenderController extends Controller
@@ -21,7 +21,7 @@ class RenderController extends Controller
     private $filterProducts;
     private $productService;
     private $user;
-    public function __construct(FilterProducts $filterProducts, ProductService $productService) {
+    public function __construct(FilterProductsService $filterProducts, ProductService $productService) {
         $this->filterProducts = $filterProducts;
         $this->productService = $productService;
         $this->user = Auth::user();

@@ -9,6 +9,8 @@
     position: relative;
     display: block;
     padding-bottom: 12px;
+
+    max-width: 1280px;
 }
 
 #products-title::after {
@@ -25,66 +27,88 @@
 
 #products-main-cont-wrap {
     display: flex;
+    max-width: 1280px;
+    margin: 0 auto;
     width: 100%;
     position: relative;
+    padding: 0 15px;
 }
 
 #products-filter-cont {
     width: max-content;
     padding: 20px 15px;
-    background: #fafafa;
+    background: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     height: max-content;
     margin-left: 10px;
 
-    ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    li{
-        padding: 0;
-    }
-
-    a {
-        display: block;
-        padding: 10px 10px;
-        border-radius: 8px;
-        text-decoration: none;
-        color: #5e5e5e;
-        font-weight: 550;
-        transition: all 0.25s ease-in-out;
-        text-transform: uppercase;
-    }
-
-    a:hover {
-        background: #f0f0f0;
-        color: #303030;
-        transform: translateX(4px);
-    }
-
-    a.active {
-        background: #303030;
-        color: #fff;
-    }
+    border: 1px solid #e0e0e0;
 }
 
 #products-filter-cont-title {
     font-size: 18px;
+    margin: 0 0 15px 0;
+    color: #333;
+    font-weight: 600;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#products-filter-cont ul {
+    list-style: none;
+    padding: 0;
     margin: 0;
+}
+
+#products-filter-cont li {
+    padding: 0;
+    margin-bottom: 4px;
+}
+
+#products-filter-cont a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    transition: all 180ms ease;
+    text-transform: none;
+    font-size: 15px;
+
+    text-transform: capitalize;
+}
+
+#products-filter-cont a:hover {
+    background: #f0f4ff;
+    color: #2563eb;
+    transform: none;
+    text-decoration: none;
+}
+
+#products-filter-cont a.active {
+    background: #2563eb;
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+}
+
+#products-filter-cont a.active:hover {
+    background: #1d4ed8;
+    color: #fff;
 }
 
 
 #products-main-cont {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 20%);
-    row-gap: 20px;
-    column-gap: 20px;
-    justify-content: center;
+
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
 
     width: 100%;
+    margin-left: 30px;
+    justify-content: flex-start;
 }
 
 #products-pagination-wrapper {

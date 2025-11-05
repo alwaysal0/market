@@ -182,3 +182,8 @@
 ### Fixed:
 - Minor coding style improvements;
 - Restyled `MainPage`, `ProductsPage`, `SupportPage`.
+
+## 05.11.25
+## v0.4.10
+### Created:
+- Caching **filtered** `ProductsPage`;
