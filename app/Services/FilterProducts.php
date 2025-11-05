@@ -1,13 +1,17 @@
 <?php
 namespace App\Services;
 
+use App\Models\User;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 use App\Models\Product;
 use App\Models\Filter;
 
 class FilterProducts {
-    public function filter ($request) {
+    public function filter (Request $request) : Collection
+    {
         $current_user = Auth::user();
         $query_product = Product::where('user_id', $current_user->id);
         $query_filter = Filter::where('user_id', $current_user->id);
@@ -24,10 +28,29 @@ class FilterProducts {
         return $products;
     }
 
-    public function mainFilterProducts ($filterName) {
+    public function mainFilterProducts (int $page, User $user, $filterName) : array
+    {
         $products_id = Filter::where('filter_name', $filterName)->pluck('product_id');
-        $products = Product::whereIn('id', $products_id)->get();
+        $ttl = now()->addHour();
 
-        return $products;
-    }   
+        $filtersCacheKey = "filtered:filter-{$filterName}:product_filters";
+        $filters = Cache::tags(['filters'])->remember($filtersCacheKey, $ttl, function () {
+            return Filter::distinct()->pluck('filter_name');
+        });
+
+        $productsCacheKey = "filtered:filter-{$filterName}:products.page.{$page}";
+        $products = Cache::tags(['products'])->remember($productsCacheKey, $ttl, function () use ($products_id) {
+            return Product::whereIn('id', $products_id)->paginate(8);
+        });
+
+        $view_data = [
+            'products' => $products,
+            'filters' => $filters,
+        ];
+        if(Auth::check()) {
+            $view_data['user'] = $user;
+        }
+
+        return $view_data;
+    }
 }

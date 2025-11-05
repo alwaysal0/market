@@ -83,22 +83,12 @@ class RenderController extends Controller
         return view('products', $view_data);
     }
 
-    public function showProductsFilter($currentFilter) {
-        $filters = Filter::distinct()->pluck('filter_name');
-        $products = $this->filterProducts->mainFilterProducts($currentFilter);
+    public function showProductsFilter(Request $request, $currentFilter) {
+        $user = $request->user();
+        $page = $request->get('page', 1);
+        $view_data = $this->filterProducts->mainFilterProducts($page, $user, $currentFilter);
 
-        if(Auth::check()) {
-            return view('products')->with([
-                'products' => $products,
-                'filters' => $filters,
-                'user' => Auth::user(),
-            ]);
-        }
-
-        return view('products')->with([
-            'products' => $products,
-            'filters' => $filters,
-        ]);
+        return view('products')->with($view_data);
     }
 
     public function showProduct(Product $product) {
