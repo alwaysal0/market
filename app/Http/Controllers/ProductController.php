@@ -26,9 +26,8 @@ class ProductController extends Controller
         return redirect()->route('profile.edit-profile')->with('success', 'Your product was successfully listed.');
     }
 
-    public function delete(Request $request, int $id) {
+    public function delete(Request $request, Product $product) {
         $user = $request->user();
-        $product = Product::findOrFail($id);
 
         if ($product->user_id !==$user->id) {
             return back()->with('error', 'You are not allowed to delete this product.');
