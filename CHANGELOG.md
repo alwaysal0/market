@@ -192,3 +192,4 @@
 ## v0.4.11
 ### Fixed:
 - Restyled `ProfilePage`.
+- **Model Binding** for Edit&Delete actions in `your-products`;
