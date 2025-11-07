@@ -187,3 +187,8 @@
 ## v0.4.10
 ### Created:
 - Caching **filtered** `ProductsPage`;
+
+## 07.11.25
+## v0.4.11
+### Fixed:
+- Restyled `ProfilePage`.

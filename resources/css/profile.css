@@ -1,127 +1,121 @@
+body {
+    background-color: #f8f9fa;
+    color: #4A4A4A;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
 #profile-main-cont {
     display: flex;
-    height: 100vh;
+    max-width: 1280px;
+    margin: 40px auto;
+    width: 100%;
+    position: relative;
+    padding: 0 15px;
+    align-items: flex-start;
+    gap: 30px;
 }
 
 #profile-left-cont {
-    padding-top: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 10%;
-    border-right: 1px solid black;
-    margin-left: 5px;
-    a, button {
-        font-size: 16px;
-        color: grey;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 5px;
-        border-radius: 7px;
-        text-decoration: none;
-        transition: ease-in-out .1s;
-    }
-    a:hover {
-        background: #f0f0f0;
-        color: #303030;
-    }
-    button:hover {
-        background: #f0f0f0;
-        color: #303030;
-    }
+    width: 240px;
+    padding: 20px 15px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    height: max-content;
+    border: 1px solid #e0e0e0;
+}
+
+#profile-left-cont a,
+#profile-left-cont form button {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    transition: all 180ms ease;
+    font-size: 16px;
+    text-transform: capitalize;
+    margin-bottom: 6px;
+
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+}
+
+#profile-left-cont form {
+    margin: 0;
+    padding: 0;
+}
+#profile-left-cont form button {
+    margin-bottom: 0;
+}
+
+#profile-left-cont a:hover {
+    background: #f0f4ff;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+#profile-left-cont a.active-btn {
+    background: #2563eb;
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+}
+
+#profile-left-cont a.active-btn:hover {
+    background: #1d4ed8;
+    color: #fff;
+}
+
+#profile-left-cont form button {
+    color: #d9534f;
+}
+
+#profile-left-cont form button:hover {
+    background: #fdf2f2;
+    color: #c82333;
 }
 
 #profile-right-cont {
-    position: relative;
-    padding-left: 50px;
-    display: flex;
-    width: 90%;
-    flex-direction: column;
-    gap: 5px;
-
-    input[type='text'] {
-        font-size: 16px;
-        min-width: 15%;
-        padding: 5px 10px 5px 10px;
-        border: 1.5px solid rgb(157, 157, 157);
-        border-radius: 5px;
-        transition: ease-in-out .2s;
-    }
-    input[type='text']:focus,
-    input[type='text']:hover {
-        border-color: black;
-        outline: none;
-    }
-
-    button:hover {
-        background-color: #d1d5db;
-    }
-
-    button:active {
-        background-color: #9ca3af;
-    }
-
-    label {
-        color: rgb(68, 68, 68);
-    }
-}
-
-.profile-right-cont-confirmed-status {
-    margin: 0;
-    span {
-        font-weight: 600;
-    }
-}
-
-.profile-right-cont-change-data-buttons {
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    background-color: #e5e7eb;
-    color: #374151;
-    padding: 5px 12px;
-    height: 100%;
-    transition: background-color 0.2s ease-in-out;
-    cursor: pointer;
+    width: 100%;
+    padding: 25px 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
 }
 
 #profile-right-cont-title {
-    font-size: 24px;
-    color: #303030;
-}
-
-.active-btn {
-    color: black !important;
-    background: #f0f0f0;
-    color: #303030;
-}
-
-.disabled-btn,
-.disabled-btn:hover,
-.disabled-btn:active,
-.disabled-btn:focus {
-    cursor: default !important;
-    filter: opacity(.5);
-    background-color: #e5e7eb !important; /* уберёт изменения при hover */
-    box-shadow: none !important;          /* уберёт active/focus */
-}
-
-#profile-right-cont-products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 25%);
-    row-gap: 20px;
+    font-size: 22px;
+    margin: 0 0 20px 0;
+    color: #333;
+    font-weight: 600;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 #profile-right-cont-add-product-button {
-    font-size: 16px;
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 180ms ease;
+    font-size: 15px;
+    background: #2563eb;
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
     border: none;
-    border-radius: 5px;
-    background-color: #e5e7eb;
-    color: #374151;
-    padding: 5px 12px;
-    transition: background-color 0.2s ease-in-out;
     cursor: pointer;
-    width: max-content;
+    margin-bottom: 25px;
 }
 
+#profile-right-cont-add-product-button:hover {
+    background: #1d4ed8;
+    color: #fff;
+}
