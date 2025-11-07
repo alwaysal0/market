@@ -12,7 +12,7 @@ use App\Models\Filter;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
 
-use App\Services\FilterProducts;
+use App\Services\FilterProductsService;
 use App\Services\ProductService;
 
 class RenderController extends Controller
@@ -21,7 +21,7 @@ class RenderController extends Controller
     private $filterProducts;
     private $productService;
     private $user;
-    public function __construct(FilterProducts $filterProducts, ProductService $productService) {
+    public function __construct(FilterProductsService $filterProducts, ProductService $productService) {
         $this->filterProducts = $filterProducts;
         $this->productService = $productService;
         $this->user = Auth::user();
@@ -83,22 +83,12 @@ class RenderController extends Controller
         return view('products', $view_data);
     }
 
-    public function showProductsFilter($currentFilter) {
-        $filters = Filter::distinct()->pluck('filter_name');
-        $products = $this->filterProducts->mainFilterProducts($currentFilter);
+    public function showProductsFilter(Request $request, $currentFilter) {
+        $user = $request->user();
+        $page = $request->get('page', 1);
+        $view_data = $this->filterProducts->mainFilterProducts($page, $user, $currentFilter);
 
-        if(Auth::check()) {
-            return view('products')->with([
-                'products' => $products,
-                'filters' => $filters,
-                'user' => Auth::user(),
-            ]);
-        }
-
-        return view('products')->with([
-            'products' => $products,
-            'filters' => $filters,
-        ]);
+        return view('products')->with($view_data);
     }
 
     public function showProduct(Product $product) {

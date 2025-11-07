@@ -106,7 +106,7 @@ class ProductService {
         ];
     }
 
-    public function getProductsViewData($page, User $user = null) : array {
+    public function getProductsViewData(int $page, User $user = null) : array {
         $ttl = now()->addHour();
 
         $filtersCacheKey = "product_filters";

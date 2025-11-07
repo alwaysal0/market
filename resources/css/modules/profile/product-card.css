@@ -11,7 +11,10 @@
     justify-content: flex-start;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     cursor: pointer;
-    text-decoration: none;
+
+    a {
+        text-decoration: none;
+    }
 }
 
 .product-card:hover {
@@ -88,19 +91,30 @@
     background-color: #d59393 !important;
 }
 
-.product-card__delete {
+.product-card__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: max-content;
+    height: max-content;
     position: absolute;
-    right: 5px;
+
+    z-index: 9000;
     top: 5px;
+    right: 5px;
 }
 
-.product-card__delete button {
-    background-color: #ce5656;
+.product-card__delete button,
+.product-card__edit {
     border: none;
     border-radius: 5px;
     transition: ease-in-out .2s;
     padding: 2.5px;
     cursor: pointer;
+}
+
+.product-card__delete button {
+    background-color: #ce5656;
 }
 
 .product-card__delete button:hover {
@@ -112,5 +126,13 @@
 }
 
 .product-card__edit {
+    background-color: #f97316;
+}
 
+.product-card__edit:hover {
+    background-color: #ea580c !important;
+}
+
+.product-card__edit:active {
+    background-color: #c2410c !important;
 }

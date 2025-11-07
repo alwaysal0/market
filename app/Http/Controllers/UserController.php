@@ -16,15 +16,15 @@ use App\Models\EmailVerification;
 use App\Models\UserConfirmation;
 
 use App\Services\EmailService;
-use App\Services\FilterProducts;
+use App\Services\FilterProductsService;
 use App\Services\UserService;
 
 class UserController extends Controller
 {
     public function __construct(
-        private UserService $userService,
-        private FilterProducts $filterProducts,
-        private EmailService $emailService
+        private UserService           $userService,
+        private FilterProductsService $filterProducts,
+        private EmailService          $emailService
     ){
     }
 
