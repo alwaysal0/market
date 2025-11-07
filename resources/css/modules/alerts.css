@@ -6,6 +6,7 @@
     right: 5vw;
     border-radius: 10px;
     transition: ease-in-out .2s;
+    z-index: 9999;
     p {
         margin: 0;
         padding: 15px 10px;

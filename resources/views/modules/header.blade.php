@@ -5,7 +5,8 @@
         <p>Market</p>
     </div>
     <div id="header-tools-cont">
-        <a href="/support">Goods</a>
+        <a href="/main">Main</a>
+        <a href="/products">Products</a>
         <a href="/support">Support</a>
 
         @if (!empty($user))

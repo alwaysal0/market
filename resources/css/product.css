@@ -1,0 +1,186 @@
+/* === Общие настройки === */
+#product-back {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    margin: 15px;
+    font-size: 16px;
+    color: #2563eb;
+}
+
+#product-title {
+    margin: 10px 20px;
+    font-size: 26px;
+}
+
+/* === Контейнер продукта === */
+#product-cont {
+    display: flex;
+    height: 80vh;
+    gap: 20px;
+}
+
+#product-cont img {
+    width: 650px;
+    height: 600px;
+    margin-left: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px 0 rgb(154, 154, 154);
+}
+
+/* === Форма продукта === */
+#product-cont-form {
+    width: 40vw;
+}
+
+#product-cont-form button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: ease-in-out 0.1s;
+}
+
+#product-cont-form button:hover {
+    background: #0056b3;
+}
+
+#product-cont-form button:active {
+    background-color: #004084;
+}
+
+/* === Информация о продукте === */
+.product-info span {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#product-price {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#product-price span {
+    font-size: 18px;
+    font-weight: 600;
+    color: red;
+}
+
+/* === Теги и фильтры === */
+#product-filters-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#product-filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.product-tags {
+    margin: 0;
+    padding: 10px;
+    font-weight: 550;
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.technique {
+    background-color: #ff9999 !important;
+}
+
+.rofl {
+    background-color: #99ccff !important;
+}
+
+.clothes {
+    background-color: #ff99cc !important;
+}
+
+/* === Инпуты и поля === */
+.product-input__cont-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.product-input__cont {
+    position: relative;
+}
+
+#select-country,
+.product-input__cont input {
+    width: 100%;
+    padding: 10px 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.product-input__cont textarea {
+    width: 100%;
+    min-height: 100px;
+    max-height: 200px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    resize: vertical;
+    padding: 10px 8px;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid #ccc;
+    transition: ease-in-out .2s;
+    border-radius: 5px;
+}
+
+.product-input__cont label {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    padding: 0 4px;
+    color: rgb(102, 102, 102);
+    background: white;
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+
+.product-input__cont input:focus + label,
+.product-input__cont input:not(:placeholder-shown) + label,
+.product-input__cont textarea:focus + label,
+.product-input__cont textarea:not(:placeholder-shown) + label {
+    top: -4px;
+    font-size: 12px;
+    color: #333;
+}
+
+.product-input__cont input:hover,
+.product-input__cont input:focus,
+.product-input__cont textarea:hover,
+.product-input__cont textarea:focus {
+    border-color: black;
+    outline: none;
+}
+
+/* === Примечание === */
+#product-remark {
+    text-align: center;
+    color: #5e5e5e;
+    font-size: 14px;
+}
+
+/* === Admin styles === */
+/* Добавь свои админ-стили ниже при необходимости */

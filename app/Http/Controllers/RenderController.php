@@ -6,11 +6,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Product;
+use App\Models\Filter;
+
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Carbon;
+
+use App\Services\FilterProductsService;
+use App\Services\ProductService;
 
 class RenderController extends Controller
+
 {
+    private $filterProducts;
+    private $productService;
+    private $user;
+    public function __construct(FilterProductsService $filterProducts, ProductService $productService) {
+        $this->filterProducts = $filterProducts;
+        $this->productService = $productService;
+        $this->user = Auth::user();
+    }
+
     public function showRegister() {
-        if (Auth::user()) {
+        if (Auth::check()) {
             return redirect('/main');
         } else {
             return view('auth.register');
@@ -24,37 +42,67 @@ class RenderController extends Controller
             return view('auth.login');
         }
     }
-    
+
+    public function showUserConfirmation($token) {
+        return view('user.user-confirmation')->with([
+            'user' => $this->user,
+            'token' => $token,
+        ]);
+    }
+
     public function showMain() {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
-        $user = Auth::user();
-        return view('main')->with('user', $user);
+        $products = Product::orderBy('created_at', 'desc')->limit(10)->get();
+        return view('main')->with([
+                'user' => $this->user,
+                'products' => $products,
+            ]
+        );
     }
 
     public function showProfile() {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
-
-        return view('profile');
+        return view('profile')->with([
+            'current_page' => 'edit-profile',
+            'user' => $this->user,
+        ]);
     }
 
-    public function showSendCode() {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
-
-        return view('auth.change-password')->with('change_password_access', false);
+    public function showYourProducts() {
+        $products = Product::where('user_id', $this->user->id)->get();
+            return view('profile')->with([
+                'current_page'=> 'your-products',
+                'user' => $this->user,
+                'products' => $products,
+        ]);
     }
 
-    public function showChangePass() {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
+    public function showProducts(Request $request) {
+        $page = $request->get('page', 1);
+        $user = $request->user();
+        $view_data = $this->productService->getProductsViewData($page, $user);
 
-        return view('auth.change-password')->with('change_password_access', true);
+        return view('products', $view_data);
+    }
+
+    public function showProductsFilter(Request $request, $currentFilter) {
+        $user = $request->user();
+        $page = $request->get('page', 1);
+        $view_data = $this->filterProducts->mainFilterProducts($page, $user, $currentFilter);
+
+        return view('products')->with($view_data);
+    }
+
+    public function showProduct(Product $product) {
+        return view('product')->with($this->productService->getProductViewData($product));
+    }
+
+    public function showEditProduct(Product $product) {
+        return view('product')->with($this->productService->getProductViewData($product));
+    }
+
+    public function showSupportPage() {
+        return view('support')->with([
+            'user' => $this->user,
+        ]);
     }
 
 }

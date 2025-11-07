@@ -3,26 +3,62 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RenderController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\MainController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\GoodController;
-use App\Http\Controllers\EmailController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+
+use League\CommonMark\Output\RenderedContent;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
-Route::get('/', [RenderController::class, 'showRegister'])->name('register');
-Route::get('/register', [RenderController::class, 'showRegister'])->name('register');
-Route::post('/register-auth', [AuthController::class, 'register']);
+// Admin Routes
+Route::prefix('admin')->middleware(['web', 'auth', 'admin'])->group(base_path('routes/admin.php'));
 
-Route::get('/login', [RenderController::class, 'showLogin'])->name('login');
-Route::post('/login-auth', [AuthController::class, 'login']);
+// Auth Routes
+Route::group(['middleware' => ['web']], function() {
+    Route::get('/register', [RenderController::class, 'showRegister'])->name('register');
+    Route::post('/register-auth', [AuthController::class, 'register'])->name('register.auth');
+    Route::get('/login', [RenderController::class, 'showLogin'])->name('login');
+    Route::post('/login-auth', [AuthController::class, 'login'])->name('login.auth');
+});
 
+// Public Routes
+Route::group(['middleware' => ['web']], function(){
+    Route::get('/', [RenderController::class, 'showRegister'])->name('register');
+    Route::get('/main', [RenderController::class, 'showMain'])->name('MainPage');
+    Route::get('/products', [RenderController::class , 'showProducts'])->name('products');
+    Route::get('/products/filter/{currentFilter}', [RenderController::class, 'showProductsFilter']);
+    Route::get('/support', [RenderController::class, 'showSupportPage'])->name('support');
+    Route::get('/product/{product}', [RenderController::class, 'showProduct'])->name('product');
+});
 
-Route::get('/main', [RenderController::class, 'showMain'])->name('MainPage');
+// Authorized Routes
+Route::group(['middleware' => ['web', 'auth']],function() {
+    Route::prefix('profile')->group(function() {
+        Route::get('/edit-profile', [RenderController::class, 'showProfile'])->name('profile.edit-profile');
+        Route::post('/logout', [UserController::class, 'logout'])->name('profile.logout');
 
-Route::get('/profile/{currentPage}', [ProfileController::class, 'showProfile'])->middleware('auth');
+        // Edit Profile Routes
+        Route::prefix('edit-profile')->group(function() {
+            Route::prefix('password')->group(function() {
+                Route::post('email', [UserController::class, 'sendPasswordCode'])->name('password.email');
+                Route::post('code', [UserController::class, 'checkPasswordCode'])->name('password.code');
+                Route::post('update', [UserController::class, 'updatePassword'])->name('password.update');
+            });
+            Route::post('email', [UserController::class, 'updateEmail'])->name('email.update');
+            Route::post('username', [UserController::class, 'updateUsername'])->name('username.update');
+        });
 
-Route::post('/profile/edit-profile/change-password/{action}', [EmailController::class, 'checkAction'])->middleware('auth');
-Route::post('/profile/edit-profile/{action}', [ProfileController::class, 'editProfile'])->middleware('auth');
+        Route::prefix('your-products')->group(function() {
+            Route::get('/', [RenderController::class, 'showYourProducts'])->name('profile.your-products');
+            Route::post('filter', [UserController::class, 'filterYourProducts'])->name('profile.your-products.filter');
+            Route::post('add-product', [ProductController::class, 'upload'])->name('profile.your-products.add-product');
+            Route::get('show-product/{product}', [RenderController::class, 'showEditProduct'])->name('profile.your-products.show');
+            Route::delete('delete/product/{product}', [ProductController::class, 'delete'])->name('profile.your-products.delete');
+        });
+        Route::post('/support', [UserController::class, 'sendReport'])->name('support.send');
+        Route::post('/write-review/{id}', [UserController::class, 'sendReview'])->name('review');
+    });
 
-
-
+    Route::post('/user-confirmation', [UserController::class, 'sendUserConfirmation']);
+    Route::get('/user-confirmation/{token}', [RenderController::class, 'showUserConfirmation'])->name('userConfirmation');
+    Route::post('/user-confirmation/{token}', [UserController::class, 'confirmUser'])->name('userConfirmation');
+});

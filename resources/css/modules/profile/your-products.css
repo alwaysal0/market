@@ -1,0 +1,77 @@
+#profile-right-cont-filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#profile-right-cont-filters label {
+    font-size: 15px;
+    font-weight: 500;
+    color: #555;
+    margin: 0;
+}
+
+#profile-right-cont-select-filter {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #333;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M7.5%2010l5-5%201.5%201.5L10.5%2010l3.5%203.5-1.5%201.5-5-5z%22%20fill%3D%22%236b7280%22%20transform%3D%22rotate(270%2010%2010)%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px 16px;
+    padding-right: 32px;
+}
+
+#profile-right-cont-select-filter:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+#profile-right-cont-filters button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 180ms ease;
+    font-size: 15px;
+    background: #2563eb;
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+    border: none;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+#profile-right-cont-filters button:hover {
+    background: #1d4ed8;
+    color: #fff;
+}
+
+#profile-your-products {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+
+    width: 100%;
+    max-height: 60vh;
+    scrollbar-width: none;
+    overflow-y: scroll;
+    margin-left: 30px;
+    justify-content: flex-start;
+}

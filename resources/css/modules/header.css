@@ -9,11 +9,29 @@ header {
     p {
         margin: 0;
     }
+    a {
+        font-weight: 500;
+        font-size: 18px;
+        color: #2563eb;
+        text-decoration: none;
+        padding: 6px 8px;
+        border-radius: 6px;
+        transition: color 180ms ease, background-color 180ms ease;
+    }
+    a:hover {
+        color: #1d4ed8;
+        background-color: rgba(37,99,235,0.08);
+    }
 }
 
 #header-title-cont {
-    font-size: 24px;
-    margin-left: 5px;
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: 2px;
+
+    color: #4A4A4A;
+    display: block;
+    margin: 5px;
 }
 
 #header-tools-cont {

@@ -1,0 +1,119 @@
+#products-title {
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: 2px;
+
+    text-align: center;
+    color: #4A4A4A;
+    margin: 40px auto;
+    position: relative;
+    display: block;
+    padding-bottom: 12px;
+
+    max-width: 1280px;
+}
+
+#products-title::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+
+    width: 35px;
+    height: 1px;
+    background-color: #AAAAAA;
+}
+
+#products-main-cont-wrap {
+    display: flex;
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    padding: 0 15px;
+}
+
+#products-filter-cont {
+    width: max-content;
+    padding: 20px 15px;
+    background: #ffffff;
+    border-radius: 12px;
+
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    height: max-content;
+    margin-left: 10px;
+
+    border: 1px solid #e0e0e0;
+}
+
+#products-filter-cont-title {
+    font-size: 18px;
+    margin: 0 0 15px 0;
+    color: #333;
+    font-weight: 600;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#products-filter-cont ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#products-filter-cont li {
+    padding: 0;
+    margin-bottom: 4px;
+}
+
+#products-filter-cont a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    transition: all 180ms ease;
+    text-transform: none;
+    font-size: 15px;
+
+    text-transform: capitalize;
+}
+
+#products-filter-cont a:hover {
+    background: #f0f4ff;
+    color: #2563eb;
+    transform: none;
+    text-decoration: none;
+}
+
+#products-filter-cont a.active {
+    background: #2563eb;
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+}
+
+#products-filter-cont a.active:hover {
+    background: #1d4ed8;
+    color: #fff;
+}
+
+
+#products-main-cont {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+
+    width: 100%;
+    margin-left: 30px;
+    justify-content: flex-start;
+}
+
+#products-pagination-wrapper {
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*left: 50%;*/
+    /*transform: translateX(-50%);*/
+}

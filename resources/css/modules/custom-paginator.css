@@ -1,0 +1,13 @@
+.paginator-cont {
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    margin: 20px 0;
+}
+.paginator-navigation {
+    color: #2563eb;
+    padding: 0px 16px;
+}
+.paginator-navigation-dis {
+    color: #8b8b8b;
+}

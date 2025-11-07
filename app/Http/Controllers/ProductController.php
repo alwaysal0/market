@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\updateUser\UploadProductRequest;
+use App\Models\Product;
+use App\Services\ProductService;
+use Illuminate\Http\Request;
+
+class ProductController extends Controller
+{
+    public function __construct(
+        private ProductService $productService,
+    ){
+    }
+
+    public function upload(UploadProductRequest $request) {
+        $validated_data = $request->validated();
+        $user = $request->user();
+        try {
+            $this->productService->upload($validated_data, $user);
+        } catch (\Exception $exception) {
+            return redirect()->route('profile.edit-profile')->with('error', $exception->getMessage());
+        }
+
+        return redirect()->route('profile.edit-profile')->with('success', 'Your product was successfully listed.');
+    }
+
+    public function delete(Request $request, Product $product) {
+        $user = $request->user();
+
+        if ($product->user_id !==$user->id) {
+            return back()->with('error', 'You are not allowed to delete this product.');
+        }
+
+        $product->delete();
+        return back()->with('success', 'The product was successfully deleted.');
+    }
+}

@@ -1,0 +1,26 @@
+#expired-page-cont {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+    gap: 20px;
+    svg {
+        width: 150px;
+        height: 150px;
+    }
+}
+#expired-page-title {
+    font-size: 24px;
+    text-align: center;
+    color: #303030;
+    margin: 0;
+    padding: 0;
+}
+
+#expired-page-description {
+    font-size: 18px;
+    text-align: center;
+    color: #5e5e5e;
+    margin: 0;
+    padding: 0;
+}

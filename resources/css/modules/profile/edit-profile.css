@@ -1,0 +1,90 @@
+.profile-right-cont-confirmed-status {
+    padding: 12px 18px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+
+.profile-right-cont-confirmed-status.confirmed {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.profile-right-cont-confirmed-status.not-confirmed {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.profile-right-cont-change-data-buttons {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 180ms ease;
+    font-size: 15px;
+    background: #2563eb;
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: inherit;
+}
+
+.profile-right-cont-change-data-buttons:hover {
+    background: #1d4ed8;
+    color: #fff;
+}
+
+#profile-right-cont label {
+    display: block;
+    font-weight: 500;
+    color: #444;
+    margin: 25px 0 8px 0;
+    font-size: 15px;
+}
+
+#profile-right-cont-username,
+#profile-right-cont-email {
+    width: 40%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+    font-family: inherit;
+    color: #333;
+}
+
+#profile-right-cont-username:focus,
+#profile-right-cont-email:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.profile-right-cont-change-data-buttons.disabled-btn {
+    background: #e0e0e0;
+    color: #999;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.profile-right-cont-change-data-buttons.disabled-btn:hover {
+    background: #e0e0e0;
+    color: #999;
+}
+
+form {
+    display: flex;
+    gap: 12px;
+}
+
+.profile-change-password {
+    margin: 15px 0 0 0;
+}

@@ -9,8 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     @vite('resources/css/app.css')
 </head>
-<body>
-    @include('modules.alerts')
-    @yield('content')
+@include('modules/header')
+<body class="flex-wrapper">
+    <main class="content-wrapper">
+        @include('modules.alerts')
+        @yield('content')
+    </main>
+    @include('modules/footer')
 </body>
 </html>

@@ -1,0 +1,45 @@
+#confirmation-main-cont {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+#confirmation-main-cont-title {
+    font-size: 24px;
+    text-align: center;
+    color: #303030;
+    padding: 0;
+    margin: 0;
+}
+#confirmation-main-cont-description {
+    font-size: 18px;
+    text-align: center;
+    color: #5e5e5e;
+    padding: 0;
+    margin: 0;
+
+    span {
+        color: #363636;
+        font-weight: 600;
+    }
+}
+
+#confirmation-main-cont-hotlink {
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px 5px 10px;
+    border: 1.5px solid grey;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    color: #303030;
+    transition: ease-in-out .2s;
+}
+
+#confirmation-main-cont-hotlink:hover {
+    background-color: rgb(230, 230, 230);
+    }
+#confirmation-main-cont-hotlink:active {
+    background-color: rgb(220, 220, 220);
+}

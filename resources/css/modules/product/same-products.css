@@ -1,0 +1,25 @@
+#same-product-title {
+    font-size: 24px;
+    margin: 0 10px;
+}
+
+#same-products {
+    display: flex;
+    height: max-content;
+    width: 100vw;
+    overflow-x: scroll;
+    text-overflow: ellipsis;
+    padding: 10px;
+    gap: 20px;
+}
+
+.same-products__more-text {
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-decoration: none;
+    color: #2563eb;
+    font-size: 20px;
+}
