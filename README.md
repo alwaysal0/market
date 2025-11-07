@@ -119,3 +119,6 @@ Run the application's feature and unit tests.
 
 ```sh
 php artisan test
+```
+
+[**CHANGELOG**](CHANGELOG.md)
