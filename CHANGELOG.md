@@ -193,3 +193,9 @@
 ### Fixed:
 - Restyled `ProfilePage`.
 - **Model Binding** for Edit&Delete actions in `your-products`;
+
+## 08.11.25
+## v0.4.12
+### Created:
+- `UserFactory`, `ProductFactory`;
+- Configured integration with `ReviewFactory`: it now creates a new product for a new user along with one new review.
