@@ -14,10 +14,12 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $password = $this->faker->password(8, 15, true, true, '!@#$%^&*');
+
         return [
-            'username' => $this->faker->userName(),
+            'username' => $this->faker->unique()->userName(),
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => $this->faker->password(),
+            'password' => bcrypt($password),
         ];
     }
 }

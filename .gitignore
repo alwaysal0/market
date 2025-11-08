@@ -1,0 +1,41 @@
+# 1. Самое важное: Секреты и окружение
+# Никогда не коммитьте .env файлы!
+/.env
+
+# 2. Зависимости (устанавливаются через Composer и NPM)
+/vendor/
+/node_modules/
+
+# 3. Файлы Laravel (логи, кеш, сессии)
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/framework/cache/data/*
+/storage/logs/*.log
+/storage/app/public/*
+/bootstrap/cache/*.php
+
+# 4. Сборка фронтенда (Vite / Mix)
+/public/build/
+/public/hot
+/public/storage
+
+# 5. Локальные файлы разработки (IDE, OS)
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.local
+*.swp
+
+# 6. Файлы окружения (Homestead, Valet, Sail)
+Homestead.yaml
+Homestead.json
+.valet/
+.sail/
+
+# 7. Тестирование
+.phpunit.result.cache
+coverage/
+
+./_ide_helper.php
+./'_ide_helper_models.php
