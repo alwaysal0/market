@@ -199,3 +199,8 @@
 ### Created:
 - `UserFactory`, `ProductFactory`;
 - Configured integration with `ReviewFactory`: it now creates a new product for a new user along with one new review.
+
+## 11.11.25
+## v0.4.13
+### Created:
+- New **Events**(`UserRegistered`, `UserLoggedIn`) and **Listeners**(`LogUserRegistration`, `LogUserLoggedIn`) have been created to log user registration and login activities.

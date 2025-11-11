@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserLoggedIn;
+use App\Events\UserRegistered;
+
+use App\Listeners\LogUserLoggedIn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -24,13 +28,7 @@ class AuthController extends Controller
             'password' => $password,
         ]);
 
-        activity('auth')
-            ->causedBy($new_user)
-            ->withProperties([
-                'username' => $new_user->username,
-                'email' => $new_user->email,
-            ])
-        ->log('New user has been registered');
+        event(new UserRegistered($new_user));
 
         return redirect('/login')->with('success', 'Registartion successful!');
     }
@@ -51,13 +49,8 @@ class AuthController extends Controller
             ]);
         }
 
-        activity('auth')
-            ->causedBy($user)
-            ->withProperties([
-                'username' => $user->username,
-                'email' => $user->email,
-            ])
-        ->log('The user has loggined');
+        event(new UserLoggedIn($user));
+
         return redirect('/main')->with('success', "Welcome $user->username!");
     }
 }
