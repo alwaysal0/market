@@ -1,25 +1,22 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\User;
 
-use App\Events\UserRegistered;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\User\UserLoggedIn;
 
-class LogUserRegistration
+class LogUserLoggedIn
 {
     /**
      * Create the event listener.
      */
-    public function __construct()
-    {
+    public function __construct() {
         //
     }
 
     /**
      * Handle the event.
      */
-    public function handle(UserRegistered $event): void
+    public function handle(UserLoggedIn $event): void
     {
         $user = $event->user;
         activity('auth')
@@ -28,6 +25,6 @@ class LogUserRegistration
                 'username' => $user->username,
                 'email' => $user->email,
             ])
-        ->log('New user has been registered');
+        ->log('The user has loggined');
     }
 }

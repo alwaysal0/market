@@ -1,28 +1,27 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\User;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 use App\Models\User;
 
-class UserRegistered
+class UserSentReport
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
+    public User $user;
+    public string $content;
     /**
      * Create a new event instance.
      */
-    public function __construct(User $user)
+    public function __construct(User $user, string $content)
     {
         $this->user = $user;
+        $this->content = $content;
     }
 
     /**

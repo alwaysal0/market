@@ -204,3 +204,16 @@
 ## v0.4.13
 ### Created:
 - New **Events**(`UserRegistered`, `UserLoggedIn`) and **Listeners**(`LogUserRegistration`, `LogUserLoggedIn`) have been created to log user registration and login activities.
+
+## 12.11.25
+## v0.4.14
+### Created:
+- New **Events** and **Listeners** have been created to log user activity:
+  - `UserChangedEmail` and `LogUserChangedEmail`;
+  - `UserChangedPassword` and `LogUserChangedPassword`;
+  - `UserChangedUsername` and `LogUserChangedUsername`;
+  - `UserError` and `LogUserError`;
+  - `UserSentReport` and `LogUserSendingReport`;
+  - `UserSentReview` and `LogUserSendingReview`;
+- New **Events** and **Listeners** have been created to log product activity:
+  - `ProductCreated` and `LogProductCreated`;

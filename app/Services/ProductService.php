@@ -2,12 +2,15 @@
 namespace App\Services;
 
 use Cloudinary\Api\Exception\ApiError;
+
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Cloudinary\Cloudinary;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
+
+use App\Events\ProductCreated;
 
 use App\Models\Filter;
 use App\Models\Product;
@@ -59,18 +62,7 @@ class ProductService {
             }
         }
 
-        activity('product')
-            ->causedBy($user)
-            ->performedOn($current_product)
-            ->withProperties([
-                'username' => $user->username,
-                'email' => $user->email,
-                'product_name' => $current_product->name,
-                'product_description' => $current_product->description,
-                'product_price' => $current_product->price,
-                'product_img_url' => $current_product->image_url,
-            ])
-        ->log('The user has successfully listed new product.');
+        event(new ProductCreated($current_product, $user));
     }
 
     public function sameProducts(int $id) : Collection {
