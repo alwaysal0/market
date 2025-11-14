@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\UserLoggedIn;
-use App\Events\UserRegistered;
-
-use App\Listeners\LogUserLoggedIn;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-
-use App\Http\Requests\authUser\RegisterUserRequest;
+use App\Events\User\UserLoggedIn;
+use App\Events\User\UserRegistered;
 use App\Http\Requests\authUser\LoginUserRequest;
-
+use App\Http\Requests\authUser\RegisterUserRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {

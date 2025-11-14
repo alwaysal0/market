@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\User;
 
-use App\Events\UserLoggedIn;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\User\UserSentReview;
 
-class LogUserLoggedIn
+class LogUserSendingReview
 {
     /**
      * Create the event listener.
@@ -19,15 +17,16 @@ class LogUserLoggedIn
     /**
      * Handle the event.
      */
-    public function handle(UserLoggedIn $event): void
+    public function handle(UserSentReview $event): void
     {
         $user = $event->user;
-        activity('auth')
+        $message = $event->message;
+        activity('user')
             ->causedBy($user)
             ->withProperties([
                 'username' => $user->username,
-                'email' => $user->email,
+                'message' => $message,
             ])
-        ->log('The user has loggined');
+        ->log('Sent the review.');
     }
 }
