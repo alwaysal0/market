@@ -228,3 +228,8 @@
 ## v0.4.15
 ### Created:
 - New **Listener** for `ProductCreated` event that clears old page cache when a new product is added. This fixes a bug where product data wasn’t updating correctly.
+
+## 14.11.25
+## v0.4.16
+### Fixed:
+- Restyled `add-product` module;

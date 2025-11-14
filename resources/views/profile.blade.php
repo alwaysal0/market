@@ -6,6 +6,7 @@
 @vite('resources/js/profile.js')
 @vite('resources/css/modules/profile/product-card.css')
 
+@include('modules.add-product')
 <div id="profile-main-cont">
     <div id="profile-left-cont">
         <a href="{{ route('profile.edit-profile') }}" class="{{ $current_page === 'edit-profile' ? 'active-btn' : '' }}">Edit Profile</a>
@@ -15,7 +16,6 @@
             <button type="submit">Logout</button>
         </form>
     </div>
-    @include('modules.add-product')
     <div id="profile-right-cont">
         @if($current_page === 'edit-profile')
             @include('modules.profile.edit-profile')
