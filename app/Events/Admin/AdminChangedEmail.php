@@ -1,31 +1,31 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\Admin;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-use App\Models\Product;
 use App\Models\User;
 
-class ProductCreated
+class AdminChangedEmail
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public Product $product;
-    public User $user;
+    public User $admin;
+    public User $user_to_change;
+    public string $old_email;
+    public string $new_email;
     /**
      * Create a new event instance.
      */
-    public function __construct(Product $product, User $user)
+    public function __construct(User $admin, User $user_to_change, string $old_email, string $new_email)
     {
-        $this->product = $product;
-        $this->user = $user;
+        $this->admin = $admin;
+        $this->user_to_change = $user_to_change;
+        $this->old_email = $old_email;
+        $this->new_email = $new_email;
     }
 
     /**

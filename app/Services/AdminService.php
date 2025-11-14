@@ -1,6 +1,11 @@
 <?php
 namespace App\Services;
 
+use App\Events\Admin\AdminChangedEmail;
+use App\Events\Admin\AdminChangedPassword;
+use App\Events\Admin\AdminChangedProduct;
+use App\Events\Admin\AdminChangedUsername;
+use App\Events\Admin\AdminDeletedProduct;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
@@ -18,14 +23,7 @@ class AdminService {
             'confirmed' => false,
         ]);
 
-        activity('admin')
-            ->causedBy($admin)
-            ->performedOn($user_to_change)
-            ->withProperties([
-                'old_email' => $old_email,
-                'new_email' => $new_email,
-            ])
-        ->log("Admin has changed user's email.");
+        event(new AdminChangedEmail($admin, $user_to_change, $old_email, $new_email));
     }
 
     public function changeUsername (array $validated_data, User $admin, User $user_to_change) : void
@@ -37,14 +35,7 @@ class AdminService {
             'username' => $new_username,
         ]);
 
-        activity('admin')
-            ->causedBy($admin)
-            ->performedOn($user_to_change)
-            ->withProperties([
-                'old_username' => $old_username,
-                'new_username' => $new_username,
-            ])
-        ->log("Admin has changed user's username.");
+        event(new AdminChangedUsername($admin, $user_to_change, $old_username, $new_username));
     }
 
     public function changePassword (array $validated_data, User $admin, User $user_to_change) : void
@@ -53,10 +44,7 @@ class AdminService {
             'password' => Hash::make($validated_data['password']),
         ]);
 
-        activity('admin')
-            ->causedBy($admin)
-            ->performedOn($user_to_change)
-        ->log("Admin has changed user's password.");
+        event(new AdminChangedPassword($admin, $user_to_change));
     }
 
     public function updateProduct(array $validated_data, User $admin, Product $product) : void
@@ -68,24 +56,14 @@ class AdminService {
             'description' => $validated_data['description'],
         ]);
 
-        activity('admin')
-            ->causedBy($admin)
-            ->performedOn($product)
-            ->withProperties([
-                'actual_name' => $product->name,
-                'actual_description' => $product->description,
-                'actual_price' => $product->price,
-            ])
-        ->log("Admin has changed product's data.");
+        event(new AdminChangedProduct($admin, $product));
     }
 
     public function deleteProduct($user, $product) : void
     {
+        $product_data = [$product->id, $product->name];
         $product->delete();
 
-        activity('admin')
-            ->causedBy($this->user)
-            ->perfomedOn($product)
-        ->log("Admin has deleted product.");
+        event(new AdminDeletedProduct($user, $product_data));
     }
 }

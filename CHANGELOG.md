@@ -217,3 +217,14 @@
   - `UserSentReview` and `LogUserSendingReview`;
 - New **Events** and **Listeners** have been created to log product activity:
   - `ProductCreated` and `LogProductCreated`;
+- New **Events** and **Listeners** have been created to log product activity:
+  - `AdminChangedEmail` and `LogAdminChangingEmail`;
+  - `AdminChangedPassword` and `LogAdminChangingPassword`;
+  - `AdminChangedUsername` and `LogAdminChangingUsername`;
+  - `AdminChangedProduct` and `LogAdminChangingProduct`;
+  - `AdminDeletedProduct` and `LogAdminDeletingProduct`;
+
+## 14.11.25
+## v0.4.15
+### Created:
+- New **Listener** for `ProductCreated` event that clears old page cache when a new product is added. This fixes a bug where product data wasn’t updating correctly.

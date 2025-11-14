@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Product;
 
-use App\Events\ProductCreated;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\Product\ProductCreated;
 
 class LogProductCreation
 {
