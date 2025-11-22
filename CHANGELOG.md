@@ -233,3 +233,9 @@
 ## v0.4.16
 ### Fixed:
 - Restyled `add-product` module;
+
+## 22.11.25
+## v0.5.0
+### Created:
+Added a fully functional database seeder that saves user login credentials locally to the `storage/users/users_data.json` file.
+
