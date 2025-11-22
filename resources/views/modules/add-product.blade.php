@@ -23,16 +23,18 @@
                 <input type="number" name="price" id="profile-add-good-cont-form-price" placeholder=" ">
                 <label for="profile-add-good-cont-form-price">Price $</label>
             </div>
-            <p>Filters:</p>
-            <div id="selected-filters-container"></div>
-            <input type="hidden" name="filters" id="hidden-filters-input">
             <div class="profile-add-good-cont-input">
-                <select id="profile-add-good-cont-form-filters">
-                    <option value="choose" selected disabled>Choose a filter</option>
-                    <option value="rofl">Rofl</option>
-                    <option value="technique">Technique</option>
-                    <option value="clothes">Clothes</option>
-                </select>
+                <p>Filters:</p>
+                <div id="selected-filters-container"></div>
+                <input type="hidden" name="filters" id="hidden-filters-input">
+                <div class="profile-add-good-cont-input">
+                    <select id="profile-add-good-cont-form-filters">
+                        <option value="choose" selected disabled>Choose a filter</option>
+                        <option value="rofl">Rofl</option>
+                        <option value="technique">Technique</option>
+                        <option value="clothes">Clothes</option>
+                    </select>
+                </div>
             </div>
             <button type="submit">Add</button>
         </form>
@@ -42,7 +44,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const closeBtn = document.getElementById('profile-add-good-cont-close');
         const addGoodCont = document.getElementById('profile-add-good-cont-overlay');
-    
+
         closeBtn.addEventListener('click', function() {
                 addGoodCont.style.display = 'none';
         });

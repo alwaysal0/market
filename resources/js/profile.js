@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', ()=> {
     const addProductButton = document.getElementById('profile-right-cont-add-product-button');
-    const addProductWindow = document.getElementById('profile-add-good-cont-overlay'); 
+    const addProductWindow = document.getElementById('profile-add-good-cont-overlay');
     addProductButton.addEventListener('click', function() {
-        addProductWindow.style.display = 'block';
+        addProductWindow.style.display = 'flex';
     });
 });

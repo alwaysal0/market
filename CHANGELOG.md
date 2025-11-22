@@ -228,3 +228,14 @@
 ## v0.4.15
 ### Created:
 - New **Listener** for `ProductCreated` event that clears old page cache when a new product is added. This fixes a bug where product data wasn’t updating correctly.
+
+## 14.11.25
+## v0.4.16
+### Fixed:
+- Restyled `add-product` module;
+
+## 22.11.25
+## v0.5.0
+### Created:
+Added a fully functional database seeder that saves user login credentials locally to the `storage/users/users_data.json` file.
+
