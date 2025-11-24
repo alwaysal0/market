@@ -32,6 +32,10 @@
             <button type="submit">Update</button>
         </form>
     @endif
+    <form method="GET" action="{{ route("admin.showReports", ['status' => 'opened']) }}">
+        @csrf
+        <button type="submit">Reports</button>
+    </form>
 </div>
 
 <div id="admin-view">

@@ -6,6 +6,7 @@ use App\Http\Requests\actionsAdmin\AdminSearchUserRequest;
 use App\Http\Requests\actionsAdmin\AdminUpdateUserRequest;
 use App\Http\Requests\actionsUser\EditProductRequest;
 use App\Models\Product;
+use App\Models\Report;
 use App\Models\User;
 use App\Services\AdminService;
 use App\Services\ProductService;
@@ -95,5 +96,15 @@ class AdminController extends Controller
         $this->adminService->deleteProduct($user, $product);
 
         return redirect()->back()->with('success', 'You have successfully deleted product data.');
+    }
+
+    public function showReports(Request $request, String $status) {
+        if ($status != 'closed' && $status != 'opened') {
+            return redirect()->back()->with('error', 'Invalid status.');
+        }
+
+        $user = $request->user();
+        Report::where("");
+        return view('admin.reports');
     }
 }
