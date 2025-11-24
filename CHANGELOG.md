@@ -237,5 +237,11 @@
 ## 22.11.25
 ## v0.5.0
 ### Created:
-Added a fully functional database seeder that saves user login credentials locally to the `storage/users/users_data.json` file.
+- Added a fully functional database seeder that saves user login credentials locally to the `storage/users/users_data.json` file.
 
+## 24.11.25
+## v0.5.1
+### Created:
+- A new **migration** and a **model** for `Response` were added;
+### Fixed:
+- `Report` model was fixed;
