@@ -102,9 +102,21 @@ class AdminController extends Controller
         if ($status != 'closed' && $status != 'opened') {
             return redirect()->back()->with('error', 'Invalid status.');
         }
-
+        $reports = null;
+        if ($status == "opened") {
+            $reports = Report::where("status", 1)->orderBy("created_at", "desc")->get();
+        } else if ($status == "closed") {
+            $reports = Report::where("status", 0)->orderBy("created_at", "desc")->get();
+        }
         $user = $request->user();
-        Report::where("");
-        return view('admin.reports');
+
+        return view('admin.reports')->with([
+            'user' => $user,
+            'reports' => $reports,
+        ]);
+    }
+
+    public function showReport(Request $request, Report $report) {
+        dd($report);
     }
 }

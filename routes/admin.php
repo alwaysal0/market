@@ -15,6 +15,7 @@ Route::group(['prefix' => '/product'], function () {
     Route::delete('delete/{product}', [AdminController::class, 'deleteProduct'])->name('admin.deleteProduct');
 });
 
-Route::group(['prefix' => '/report'], function () {
+Route::group(['prefix' => '/reports'], function () {
     Route::get('/{status}', [AdminController::class, 'showReports'])->name('admin.showReports');
+    Route::get('/show/{report}', [AdminController::class, 'showReport'])->name('admin.showReport');
 });

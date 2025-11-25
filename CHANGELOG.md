@@ -243,5 +243,6 @@
 ## v0.5.1
 ### Created:
 - A new **migration** and a **model** for `Response` were added;
+- Created new Route and View for `Reports` page;
 ### Fixed:
 - `Report` model was fixed;

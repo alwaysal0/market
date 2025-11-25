@@ -1,3 +1,33 @@
-body {
-    background-color: red;
+#admin-report__box {
+    position: relative;
+    width: 100%;
+    max-height: 100vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+
+    margin: 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-report__card {
+    display: flex;
+    width: 90%;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.admin-report__card-box {
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    max-height: 15vh;
+
+    overflow: hidden;
+}
+.admin-report__card-box-name {
+    color: #707070;
 }
