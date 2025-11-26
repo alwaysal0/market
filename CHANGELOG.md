@@ -246,3 +246,11 @@
 - Created new Route and View for `Reports` page;
 ### Fixed:
 - `Report` model was fixed;
+
+## 26.11.25
+## v0.5.2
+### Created:
+- A separate page has been created for viewing an open or closed report.
+- Added the ability to reply to a report.
+- An event `AdminRepliedReport` and listener `LogAdminReplyingReport` were created to automatically log actions.
+- New methods and a validator `AdminReplyReportRequest` for creating a response were implemented.
