@@ -6,6 +6,9 @@ use App\Events\Admin\AdminChangedPassword;
 use App\Events\Admin\AdminChangedProduct;
 use App\Events\Admin\AdminChangedUsername;
 use App\Events\Admin\AdminDeletedProduct;
+use App\Events\Admin\AdminRepliedReport;
+use App\Models\Report;
+use App\Models\Response;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
@@ -65,5 +68,20 @@ class AdminService {
         $product->delete();
 
         event(new AdminDeletedProduct($user, $product_data));
+    }
+
+    public function replyReport(User $user, Report $report, Array $validatedData) : void
+    {
+        $response = Response::create([
+            "user_id" => $report->user_id,
+            "report_id" => $report->id,
+            "content" => $validatedData['response'],
+        ]);
+
+        $report->update([
+            'status' => 0,
+        ]);
+
+        event(new AdminRepliedReport($report->user_id, $user, $report->id, $response->id));
     }
 }
