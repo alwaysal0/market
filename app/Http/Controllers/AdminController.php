@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\actionsAdmin\AdminReportReplyRequest;
 use App\Http\Requests\actionsAdmin\AdminSearchUserRequest;
 use App\Http\Requests\actionsAdmin\AdminUpdateUserRequest;
 use App\Http\Requests\actionsUser\EditProductRequest;
@@ -117,6 +118,20 @@ class AdminController extends Controller
     }
 
     public function showReport(Request $request, Report $report) {
-        dd($report);
+        $user = $request->user();
+
+        return view('admin.report')->with([
+            'user' => $user,
+            'report' => $report,
+        ]);
+    }
+
+    public function replyReport(AdminReportReplyRequest $request, Report $report) {
+        $user = $request->user();
+        $validated_data = $request->validated();
+
+        $this->adminService->replyReport($user, $report, $validated_data);
+
+        return back()->with('success', 'You have successfully replied to report.');
     }
 }
