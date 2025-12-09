@@ -54,6 +54,12 @@ Route::group(['middleware' => ['web', 'auth']],function() {
             Route::get('show-product/{product}', [RenderController::class, 'showEditProduct'])->name('profile.your-products.show');
             Route::delete('delete/product/{product}', [ProductController::class, 'delete'])->name('profile.your-products.delete');
         });
+
+        Route::prefix('your-reports')->group(function() {
+            Route::get('/', [RenderController::class, 'showYourReports'])->name('profile.your-reports');
+            Route::get('/{report}', [RenderController::class, 'showReport'])->name('profile.your-reports.report');
+        });
+
         Route::post('/support', [UserController::class, 'sendReport'])->name('support.send');
         Route::post('/write-review/{id}', [UserController::class, 'sendReview'])->name('review');
     });

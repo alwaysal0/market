@@ -68,10 +68,10 @@ class RenderController extends Controller
 
     public function showYourProducts() {
         $products = Product::where('user_id', $this->user->id)->get();
-            return view('profile')->with([
-                'current_page'=> 'your-products',
-                'user' => $this->user,
-                'products' => $products,
+        return view('profile')->with([
+            'current_page'=> 'your-products',
+            'user' => $this->user,
+            'products' => $products,
         ]);
     }
 
@@ -103,6 +103,18 @@ class RenderController extends Controller
         return view('support')->with([
             'user' => $this->user,
         ]);
+    }
+
+    public function showYourReports() {
+        $reports = $this->user;
+        return view('profile')->with([
+            'current_page' => 'your-reports',
+            'user' => $this->user,
+        ]);
+    }
+
+    public function showReport(Report $report) {
+        dd($report);
     }
 
 }
