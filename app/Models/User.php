@@ -27,4 +27,8 @@ class User extends Authenticatable
     public function isAdmin() {
         return $this->admin()->exists();
     }
+
+    public function reports() {
+        return $this->hasMany(Report::class, 'user_id', 'id')->latest();
+    }
 }

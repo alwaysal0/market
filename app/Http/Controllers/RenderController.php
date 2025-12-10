@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -105,15 +106,17 @@ class RenderController extends Controller
         ]);
     }
 
-    public function showYourReports() {
-        $reports = $this->user;
+    public function showYourReports(Request $request) {
+        $user = $request->user();
+        $reports = $user->reports;
         return view('profile')->with([
             'current_page' => 'your-reports',
-            'user' => $this->user,
+            'user' => $user,
+            'reports' => $reports,
         ]);
     }
 
-    public function showReport(Report $report) {
+    public function showReport(Request $request, Report $report) {
         dd($report);
     }
 
