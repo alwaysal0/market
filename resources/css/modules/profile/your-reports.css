@@ -1,38 +1,15 @@
-#admin-report__title {
-    font-size: 26px;
-    font-weight: 400;
-    letter-spacing: 2px;
-
-    text-align: center;
-    color: #4A4A4A;
-    margin: 20px auto;
-    position: relative;
-    display: block;
-    padding-bottom: 12px;
-
-    max-width: 1280px;
-}
-
-#admin-report__box {
-    position: relative;
-    width: 100%;
-    max-height: 80vh;
-    overflow-y: scroll;
-    scrollbar-width: none;
-
-    padding: 50px 0 50px 0;
+#your-reports__cont {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 10px;
 }
 
-.admin-report__card {
+.your-reports__card {
     position: relative;
     display: grid;
-    grid-template-columns: 10% 50% 10% auto;
+    grid-template-columns: 60% 15% 20% auto;
     gap: 15px;
-    width: 90%;
+    width: 95%;
     font-size: 16px;
     padding: 15px 20px;
     border-radius: 12px;
@@ -43,7 +20,7 @@
     background-color: #fff;
 }
 
-.admin-report__card:hover {
+.your-reports__card:hover {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
     transform: translateY(-2px);
 }
@@ -52,6 +29,7 @@
     display: flex;
     flex-direction: column;
     max-width: 60%;
+    max-height: 5vh;
     gap: 2px;
 
     overflow: hidden;
@@ -65,7 +43,7 @@
     margin-bottom: 2px;
 }
 
-.admin-report__card-value {
+.your-reports__card-value {
     font-weight: 500;
     color: #333;
     line-height: 1.3;

@@ -11,6 +11,7 @@
     <div id="profile-left-cont">
         <a href="{{ route('profile.edit-profile') }}" class="{{ $current_page === 'edit-profile' ? 'active-btn' : '' }}">Edit Profile</a>
         <a href="{{ route('profile.your-products') }}" class="{{ $current_page === 'your-products' ? 'active-btn' : '' }}">Your Products</a>
+        <a href="{{ route('profile.your-reports') }}" class="{{ $current_page === 'your-reports' ? 'active-btn' : '' }}">Your Reports</a>
         <form method="POST" action="{{ route('profile.logout') }}">
             @csrf
             <button type="submit">Logout</button>
@@ -29,6 +30,8 @@
                     @include('modules.profile.display-no-products')
                 @endif
             @endif
+        @elseif ($current_page === 'your-reports')
+            @include('modules.profile.your-reports')
         @endif
     </div>
 </div>

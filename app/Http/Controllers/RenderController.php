@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use App\Models\Product;
-use App\Models\Filter;
-
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Carbon;
-
+use App\Models\Report;
+use App\Models\Response;
 use App\Services\FilterProductsService;
 use App\Services\ProductService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RenderController extends Controller
 
@@ -68,10 +63,10 @@ class RenderController extends Controller
 
     public function showYourProducts() {
         $products = Product::where('user_id', $this->user->id)->get();
-            return view('profile')->with([
-                'current_page'=> 'your-products',
-                'user' => $this->user,
-                'products' => $products,
+        return view('profile')->with([
+            'current_page'=> 'your-products',
+            'user' => $this->user,
+            'products' => $products,
         ]);
     }
 
@@ -102,6 +97,27 @@ class RenderController extends Controller
     public function showSupportPage() {
         return view('support')->with([
             'user' => $this->user,
+        ]);
+    }
+
+    public function showYourReports(Request $request) {
+        $user = $request->user();
+        $reports = $user->reports;
+        return view('profile')->with([
+            'current_page' => 'your-reports',
+            'user' => $user,
+            'reports' => $reports,
+        ]);
+    }
+
+    public function showReport(Request $request, Report $report) {
+        $user = $request->user();
+        $response = $report->response;
+
+        return view('modules.report')->with([
+            'user' => $user,
+            'report' => $report,
+            'response' => $response,
         ]);
     }
 
