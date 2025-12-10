@@ -254,3 +254,11 @@
 - Added the ability to reply to a report.
 - An event `AdminRepliedReport` and listener `LogAdminReplyingReport` were created to automatically log actions.
 - New methods and a validator `AdminReplyReportRequest` for creating a response were implemented.
+
+## 10.12.25
+## v0.5.3
+### Created:
+- A new page `your-reports` has been created to view your personal reports, available in the user `profilePage`.
+- A new page `your-report` has been created to view a specific personal report, also available in the user `profilePage`.
+- Corresponding methods have been added to `RenderController` for the new pages.
+- New methods have been added to the model for searching attached Reports or Responses.
