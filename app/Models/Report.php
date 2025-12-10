@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Report extends Model
 {
@@ -31,5 +32,10 @@ class Report extends Model
     public function scopeOpened(Builder $query): Builder
     {
         return $query->where('status', '1');
+    }
+
+    public function response() : HasOne
+    {
+        return $this->hasOne(Response::class, 'report_id', 'id');
     }
 }

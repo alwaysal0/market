@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Report;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use App\Models\Product;
-use App\Models\Filter;
-
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Carbon;
-
+use App\Models\Report;
+use App\Models\Response;
 use App\Services\FilterProductsService;
 use App\Services\ProductService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RenderController extends Controller
 
@@ -117,7 +111,14 @@ class RenderController extends Controller
     }
 
     public function showReport(Request $request, Report $report) {
-        dd($report);
+        $user = $request->user();
+        $response = $report->response;
+
+        return view('modules.report')->with([
+            'user' => $user,
+            'report' => $report,
+            'response' => $response,
+        ]);
     }
 
 }
