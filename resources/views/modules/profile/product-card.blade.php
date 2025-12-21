@@ -7,11 +7,12 @@
     <p class="product-card__description"><span>Description:</span> {{ $product->description }}</p>
     <div class="product-card__price-buy">
         <p><span>Price:</span>{{ $product->price }}$</p>
-        <form method="POST" action="#">
+        <form method="POST" action="{{ route('cart.add', ['product' => $product]) }}">
+            @csrf
             @if(request()->is('profile/your-products'))
-                <button type="submit" class="disabled-buy" disabled>Buy</button>
+                <button type="submit" class="disabled-buy" disabled>To Cart</button>
             @else
-                <button type="submit">Buy</button>
+                <button type="submit">To Cart</button>
             @endif
         </form>
     </div>

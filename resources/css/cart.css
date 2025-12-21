@@ -1,0 +1,22 @@
+.col-image { width: 10% }
+.col-name {}
+.col-price {}
+.col-quantity {}
+
+#cart-table {
+    width: 100%;
+    max-width: 90%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: red;
+}
+
+#cart-table td, #cart-table th {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc; /* Пример разделителя */
+}
+#cart-table img {
+    width: 50px;
+    height: 50px;
+}

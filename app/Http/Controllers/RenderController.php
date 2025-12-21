@@ -121,4 +121,10 @@ class RenderController extends Controller
         ]);
     }
 
+    public function showCart(Request $request) {
+        $user = $request->user();
+        return view('cart')->with([
+            'user' => $user,
+        ]);
+    }
 }

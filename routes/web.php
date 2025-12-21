@@ -1,13 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RenderController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
-
-use League\CommonMark\Output\RenderedContent;
-use Symfony\Component\HttpKernel\Profiler\Profile;
+use App\Http\Controllers\RenderController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 
 // Admin Routes
 Route::prefix('admin')->middleware(['web', 'auth', 'admin'])->group(base_path('routes/admin.php'));
@@ -58,6 +56,12 @@ Route::group(['middleware' => ['web', 'auth']],function() {
         Route::prefix('your-reports')->group(function() {
             Route::get('/', [RenderController::class, 'showYourReports'])->name('profile.your-reports');
             Route::get('/{report}', [RenderController::class, 'showReport'])->name('profile.your-reports.report');
+        });
+
+        Route::prefix('cart')->group(function() {
+            Route::get('/', [RenderController::class, 'showCart'])->name('cart');
+            Route::post('/add{product}', [CartController::class, 'add'])->name('cart.add');
+            Route::post('/remove{product}', [CartController::class, 'remove'])->name('cart.remove');
         });
 
         Route::post('/support', [UserController::class, 'sendReport'])->name('support.send');
