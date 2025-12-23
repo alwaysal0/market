@@ -33,6 +33,7 @@
     grid-template-columns: 10% 50% 10% auto;
     gap: 15px;
     width: 90%;
+    max-height: 40px;
     font-size: 16px;
     padding: 15px 20px;
     border-radius: 12px;

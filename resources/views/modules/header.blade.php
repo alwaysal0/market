@@ -8,6 +8,7 @@
         <a href="/main">Main</a>
         <a href="/products">Products</a>
         <a href="/support">Support</a>
+        <a href="{{ route('cart') }}">Cart</a>
 
         @if (!empty($user))
             <a href="/profile/edit-profile">Profile</a>
