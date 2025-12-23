@@ -60,8 +60,9 @@ Route::group(['middleware' => ['web', 'auth']],function() {
 
         Route::prefix('cart')->group(function() {
             Route::get('/', [RenderController::class, 'showCart'])->name('cart');
-            Route::post('/add{product}', [CartController::class, 'add'])->name('cart.add');
-            Route::post('/remove{product}', [CartController::class, 'remove'])->name('cart.remove');
+            Route::post('/add/{product}', [CartController::class, 'add'])->name('cart.add');
+            Route::get('/increase/{id_product}', [CartController::class, 'increase'])->name('cart.increase');
+            Route::get('/decrease/{id_product}', [CartController::class, 'decrease'])->name('cart.decrease');
         });
 
         Route::post('/support', [UserController::class, 'sendReport'])->name('support.send');
