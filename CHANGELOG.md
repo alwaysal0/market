@@ -262,3 +262,10 @@
 - A new page `your-report` has been created to view a specific personal report, also available in the user `profilePage`.
 - Corresponding methods have been added to `RenderController` for the new pages.
 - New methods have been added to the model for searching attached Reports or Responses.
+
+## 23.12.25
+## v0.5.4
+### Created:
+- A session-based cart has been implemented along with the necessary routes.
+- A new controller `CartContoller` which handles cart actions.
+- A new page `CartPage` has been created to view your cart and the corresponding CSS file.
