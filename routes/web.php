@@ -41,21 +41,32 @@ Route::group(['middleware' => ['web', 'auth']],function() {
                 Route::post('code', [UserController::class, 'checkPasswordCode'])->name('password.code');
                 Route::post('update', [UserController::class, 'updatePassword'])->name('password.update');
             });
-            Route::post('email', [UserController::class, 'updateEmail'])->name('email.update');
             Route::post('username', [UserController::class, 'updateUsername'])->name('username.update');
+            Route::post('email', [UserController::class, 'updateUsername'])->name('email.update');
+
+
         });
 
-        Route::prefix('your-products')->group(function() {
-            Route::get('/', [RenderController::class, 'showYourProducts'])->name('profile.your-products');
-            Route::post('filter', [UserController::class, 'filterYourProducts'])->name('profile.your-products.filter');
-            Route::post('add-product', [ProductController::class, 'upload'])->name('profile.your-products.add-product');
-            Route::get('show-product/{product}', [RenderController::class, 'showEditProduct'])->name('profile.your-products.show');
-            Route::delete('delete/product/{product}', [ProductController::class, 'delete'])->name('profile.your-products.delete');
+        // =============================================
+        Route::prefix('your-products')->name('profile.your-products')->group(function() {
+            Route::get('/', [RenderController::class, 'showYourProducts']);
+            Route::post('/', [ProductController::class, 'upload'])->name('.add-product');
+
+            Route::get('/{product}', [RenderController::class, 'showEditProduct'])->name('.show');
+            Route::delete('/{product}', [ProductController::class, 'delete'])->name('.delete');
         });
+        // =============================================
 
         Route::prefix('your-reports')->group(function() {
             Route::get('/', [RenderController::class, 'showYourReports'])->name('profile.your-reports');
             Route::get('/{report}', [RenderController::class, 'showReport'])->name('profile.your-reports.report');
+        });
+    });
+
+        Route::prefix('cart')->name('cart')->group(function() {
+            Route::get('/', [RenderController::class, 'showCart']);
+            Route::post('/{product}', [CartController::class, 'add'])->name('.add');
+            Route::patch('/', [CartController::class, 'update'])->name('.update');
         });
 
         Route::prefix('cart')->group(function() {
@@ -67,7 +78,6 @@ Route::group(['middleware' => ['web', 'auth']],function() {
 
         Route::post('/support', [UserController::class, 'sendReport'])->name('support.send');
         Route::post('/write-review/{id}', [UserController::class, 'sendReview'])->name('review');
-    });
 
     Route::post('/user-confirmation', [UserController::class, 'sendUserConfirmation']);
     Route::get('/user-confirmation/{token}', [RenderController::class, 'showUserConfirmation'])->name('userConfirmation');

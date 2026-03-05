@@ -25,12 +25,13 @@
                         <div class="quantity-control">
                             <span class="qty-display">{{ $product['quantity'] }}</span>
                             <div class="qty-buttons">
-                                <a href="{{ route('cart.increase', ['id_product' => $product['id_product']]) }}" class="btn-qty increase">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#303030"><path d="m280-400 200-200 200 200H280Z"/></svg>
-                                </a>
-                                <a href="{{ route('cart.decrease', ['id_product' => $product['id_product']]) }}" class="btn-qty decrease">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#303030"><path d="M480-360 280-560h400L480-360Z"/></svg>
-                                </a>
+                                <form method="POST" action="{{ route('cart.update') }}">
+                                    @method('PATCH')
+                                    @csrf
+                                    <input type="hidden" value=""><input>
+                                    <svg class="qty-btn inc-btn" data-id="{{ $id }}" data-action="increase" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#303030"><path d="m280-400 200-200 200 200H280Z"/></svg>
+                                    <svg class="qty-btn dec-btn" data-id="{{ $id }}" data-action="decrease" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#303030"><path d="M480-360 280-560h400L480-360Z"/></svg>
+                                </form>
                             </div>
                         </div>
                     </td>
@@ -52,17 +53,68 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const FINAL_FIELD = document.getElementById('final-price');
-        let products = document.querySelectorAll('.cart-product-card');
-        let final_cost = 0;
-        products.forEach(product => {
-            let current_price = parseInt(product.querySelector('.col-price').innerText);
-            let current_quantity = parseInt(product.querySelector('.qty-display').innerText);
-            final_cost += current_price * current_quantity;
-        })
+        const updateQuantity = async (id, action, displayElement) => {
+            console.log(id);
+            try {
+                const response = await fetch("{{ route('cart.update') }}", {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ id: id, action: action })
+                })
+                const data = await response.json();
+                console.log(data);
+                if (data.success) {
+                    // Обновляем число в интерфейсе из ответа сервера
+                    if (data.newQuantity == null) {
+                        const row = displayElement.closest('.cart-product-card');
+                        row.remove();
+                        recalculateTotal();
+                        checkIfEmptyCart();
+                    } else {
+                        displayElement.innerText = data.newQuantity;
+                        recalculateTotal();
+                    }
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+            }
+        };
 
-        FINAL_FIELD.innerHTML = final_cost;
-    })
+        document.querySelectorAll('.qty-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                console.log(button);
+                const id = this.dataset.id;
+                const action = this.dataset.action;
+                const displayElement = this.closest('.quantity-control').querySelector('.qty-display');
+
+                updateQuantity(id, action, displayElement);
+            });
+        });
+
+        function recalculateTotal() {
+            let total = 0;
+            document.querySelectorAll('.cart-product-card').forEach(row => {
+                const price = parseFloat(row.querySelector('.col-price').innerText);
+                const qty = parseInt(row.querySelector('.qty-display').innerText);
+                total += price * qty;
+            });
+            document.getElementById('final-price').innerText = total;
+        }
+
+        function checkIfEmptyCart() {
+            const remainingProducts = document.querySelectorAll('.cart-product-card');
+            if (remainingProducts.length === 0) {
+                // Заменяем таблицу на сообщение о пустой корзине
+                document.getElementById('cart-cont').innerHTML = `
+                <p id="cart-empty__title">Empty Cart</p>
+                <p id="cart-empty__description">Add new products to your cart and they will appear here.</p>
+                `;
+            }
+        }
+    });
 </script>
 
 @endsection

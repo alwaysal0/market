@@ -1,6 +1,6 @@
 @vite('resources/css/modules/profile/your-products.css')
 
-<form method="POST" action="{{ route('profile.your-products.filter') }}" id="profile-right-cont-filters">
+<form method="GET" action="{{ route('profile.your-products') }}" id="profile-right-cont-filters">
     @csrf
     <label for="profile-right-cont-select-filter">Filter:</label>
     <select name="select_filter" id="profile-right-cont-select-filter">
