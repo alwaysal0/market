@@ -1,4 +1,4 @@
-@vite('resources/css/modules/alerts.css')
+@vite('resources/css/components/alerts.css')
 @vite('resources/js/fadeAlerts.js')
 
 @if(session('success'))
