@@ -69,6 +69,13 @@ Route::group(['middleware' => ['web', 'auth']],function() {
             Route::patch('/', [CartController::class, 'update'])->name('.update');
         });
 
+        Route::prefix('cart')->group(function() {
+            Route::get('/', [RenderController::class, 'showCart'])->name('cart');
+            Route::post('/add/{product}', [CartController::class, 'add'])->name('cart.add');
+            Route::get('/increase/{id_product}', [CartController::class, 'increase'])->name('cart.increase');
+            Route::get('/decrease/{id_product}', [CartController::class, 'decrease'])->name('cart.decrease');
+        });
+
         Route::post('/support', [UserController::class, 'sendReport'])->name('support.send');
         Route::post('/write-review/{id}', [UserController::class, 'sendReview'])->name('review');
 
