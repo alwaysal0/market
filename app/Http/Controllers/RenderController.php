@@ -73,7 +73,11 @@ class RenderController extends Controller
     public function showProducts(Request $request) {
         $page = $request->get('page', 1);
         $user = $request->user();
-        $view_data = $this->productService->getProductsViewData($page, $user);
+        if (isset($request['filter'])) {
+            $view_data = $this->filterProducts->mainFilterProducts($page, $user, $request['filter']);
+        } else {
+            $view_data = $this->productService->getProductsViewData($page, $user);
+        }
 
         return view('products', $view_data);
     }
