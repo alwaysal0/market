@@ -23,7 +23,7 @@ Route::group(['middleware' => ['web']], function(){
     Route::get('/', [RenderController::class, 'showRegister'])->name('register');
     Route::get('/main', [RenderController::class, 'showMain'])->name('MainPage');
     Route::get('/products', [RenderController::class , 'showProducts'])->name('products');
-    Route::get('/products/filter/{currentFilter}', [RenderController::class, 'showProductsFilter']);
+//    Route::get('/products/{currentFilter}', [RenderController::class, 'showProductsFilter'])->name('products');
     Route::get('/support', [RenderController::class, 'showSupportPage'])->name('support');
     Route::get('/product/{product}', [RenderController::class, 'showProduct'])->name('product');
 });
@@ -63,23 +63,18 @@ Route::group(['middleware' => ['web', 'auth']],function() {
         });
     });
 
-        Route::prefix('cart')->name('cart')->group(function() {
-            Route::get('/', [RenderController::class, 'showCart']);
-            Route::post('/{product}', [CartController::class, 'add'])->name('.add');
-            Route::patch('/', [CartController::class, 'update'])->name('.update');
-        });
+    Route::prefix('cart')->name('cart')->group(function() {
+        Route::get('/', [RenderController::class, 'showCart']);
+        Route::post('/{product}', [CartController::class, 'add'])->name('.add');
+        Route::patch('/', [CartController::class, 'update'])->name('.update');
+    });
 
-        Route::prefix('cart')->group(function() {
-            Route::get('/', [RenderController::class, 'showCart'])->name('cart');
-            Route::post('/add/{product}', [CartController::class, 'add'])->name('cart.add');
-            Route::get('/increase/{id_product}', [CartController::class, 'increase'])->name('cart.increase');
-            Route::get('/decrease/{id_product}', [CartController::class, 'decrease'])->name('cart.decrease');
-        });
+    Route::post('/support', [UserController::class, 'sendReport'])->name('support.send');
+    Route::post('/write-review/{id}', [UserController::class, 'sendReview'])->name('review');
 
-        Route::post('/support', [UserController::class, 'sendReport'])->name('support.send');
-        Route::post('/write-review/{id}', [UserController::class, 'sendReview'])->name('review');
-
-    Route::post('/user-confirmation', [UserController::class, 'sendUserConfirmation']);
-    Route::get('/user-confirmation/{token}', [RenderController::class, 'showUserConfirmation'])->name('userConfirmation');
-    Route::post('/user-confirmation/{token}', [UserController::class, 'confirmUser'])->name('userConfirmation');
+    Route::prefix('/user-confirmation')->group(function() {
+        Route::post('/', [UserController::class, 'sendUserConfirmation']);
+        Route::get('/{token}', [RenderController::class, 'showUserConfirmation'])->name('userConfirmation');
+        Route::post('/{token}', [UserController::class, 'confirmUser'])->name('userConfirmation');
+    });
 });

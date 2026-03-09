@@ -14,7 +14,7 @@
             </li>
             @foreach ($filters as $filter)
                 <li>
-                    <a class="products-filter-cont-filters" href="{{ url('/products/filter/' . $filter) }}">{{ $filter }}</a>
+                    <a class="products-filter-cont-filters" href="{{ route('products', ['filter' => $filter]) }}">{{ $filter }}</a>
                 </li>
             @endforeach
         </ul>
